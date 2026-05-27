@@ -1,0 +1,6 @@
+.claude/skills
+node_modules/
+_site/
+.env
+.DS_Store
+dist/

@@ -1,0 +1,49 @@
+---
+layout: layout.njk
+title: Leaderboard — WC2026 Predictor
+permalink: /index.html
+---
+<h1 class="text-2xl font-bold mb-1">Leaderboard</h1>
+<p class="text-sm text-slate-600 mb-6">{{ leaderboard.length }} players · updated {{ site.lastUpdated }}</p>
+
+{% if leaderboard.length == 0 %}
+  <p class="text-slate-500">No predictions ingested yet.</p>
+{% else %}
+<div class="overflow-x-auto bg-white rounded shadow-sm border border-slate-200">
+<table class="min-w-full text-sm">
+  <thead class="bg-slate-100 text-slate-700">
+    <tr>
+      <th class="text-left p-3 font-semibold">#</th>
+      <th class="text-left p-3 font-semibold">Player</th>
+      <th class="text-right p-3 font-semibold">Total</th>
+      <th class="text-right p-3 font-semibold">Group</th>
+      <th class="text-right p-3 font-semibold">R32</th>
+      <th class="text-right p-3 font-semibold">R16</th>
+      <th class="text-right p-3 font-semibold">QF</th>
+      <th class="text-right p-3 font-semibold">SF</th>
+      <th class="text-right p-3 font-semibold">Final</th>
+      <th class="text-right p-3 font-semibold">Win</th>
+      <th class="text-right p-3 font-semibold">TB</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for entry in leaderboard %}
+    <tr class="border-t border-slate-100">
+      <td class="p-3 text-slate-500">{{ entry.rank }}</td>
+      <td class="p-3 font-medium">{{ entry.handle }}</td>
+      <td class="p-3 text-right font-bold">{{ entry.totalPoints }}</td>
+      <td class="p-3 text-right">{{ entry.pointsByStage.group }}</td>
+      <td class="p-3 text-right">{{ entry.pointsByStage.r32 }}</td>
+      <td class="p-3 text-right">{{ entry.pointsByStage.r16 }}</td>
+      <td class="p-3 text-right">{{ entry.pointsByStage.qf }}</td>
+      <td class="p-3 text-right">{{ entry.pointsByStage.sf }}</td>
+      <td class="p-3 text-right">{{ entry.pointsByStage.final }}</td>
+      <td class="p-3 text-right">{{ entry.pointsByStage.winner }}</td>
+      <td class="p-3 text-right text-slate-500">{{ entry.tiebreaker if entry.tiebreaker != null else '—' }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<p class="text-xs text-slate-500 mt-3">TB = tie-breaker prediction (total goals across all 104 matches, including extra time).</p>
+{% endif %}

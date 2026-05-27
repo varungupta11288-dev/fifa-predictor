@@ -1,0 +1,51 @@
+---
+layout: layout.njk
+title: Rules — WC2026 Predictor
+permalink: /rules/index.html
+---
+<h1 class="text-2xl font-bold mb-4">Game rules</h1>
+
+<div class="prose max-w-none">
+<h2 class="text-lg font-semibold mt-6 mb-2">Tournament structure</h2>
+<p>The FIFA World Cup 2026 has 48 teams in 12 groups of 4. The group stage produces 72 matches.
+32 teams advance to the knockout phase: the 12 group winners, 12 runners-up, and the 8 best
+third-placed teams. The bracket runs Round of 32 → Round of 16 → Quarter-Finals → Semi-Finals →
+Final, plus a 3rd-place play-off. Tournament window: 11 Jun — 19 Jul 2026.</p>
+
+<h2 class="text-lg font-semibold mt-6 mb-2">Scoring</h2>
+<table class="min-w-full text-sm bg-white rounded border border-slate-200">
+  <thead class="bg-slate-100"><tr>
+    <th class="text-left p-2">Outcome</th>
+    <th class="text-right p-2">Points</th>
+    <th class="text-left p-2">Awarded per</th>
+  </tr></thead>
+  <tbody>
+    <tr class="border-t"><td class="p-2">Group match: correct result (W/L/D), wrong score</td><td class="text-right p-2">3</td><td class="p-2">match</td></tr>
+    <tr class="border-t"><td class="p-2">Group match: exact score</td><td class="text-right p-2">5</td><td class="p-2">match (replaces the 3, not additive)</td></tr>
+    <tr class="border-t"><td class="p-2">Round of 32 — team correctly placed</td><td class="text-right p-2">5</td><td class="p-2">team</td></tr>
+    <tr class="border-t"><td class="p-2">Round of 16 — team correctly placed</td><td class="text-right p-2">10</td><td class="p-2">team</td></tr>
+    <tr class="border-t"><td class="p-2">Quarter-Finals — team correctly placed</td><td class="text-right p-2">15</td><td class="p-2">team</td></tr>
+    <tr class="border-t"><td class="p-2">Semi-Finals — team correctly placed</td><td class="text-right p-2">20</td><td class="p-2">team</td></tr>
+    <tr class="border-t"><td class="p-2">Final — team correctly placed</td><td class="text-right p-2">25</td><td class="p-2">team</td></tr>
+    <tr class="border-t"><td class="p-2">Winner — correct champion</td><td class="text-right p-2">30</td><td class="p-2">one team</td></tr>
+  </tbody>
+</table>
+<p class="text-xs text-slate-500 mt-2">Maximum theoretical score: 960 points.</p>
+
+<h2 class="text-lg font-semibold mt-6 mb-2">Worked examples</h2>
+<p>Brazil 2-1 Morocco actual:</p>
+<ul class="list-disc list-inside">
+  <li>You predicted 3-1 Brazil → <strong>3 pts</strong> (correct outcome, wrong score)</li>
+  <li>You predicted 2-1 Brazil → <strong>5 pts</strong> (exact score)</li>
+  <li>You predicted 1-1 draw → <strong>0 pts</strong> (wrong outcome)</li>
+</ul>
+
+<h2 class="text-lg font-semibold mt-6 mb-2">Knockout scoring is per-team-in-round</h2>
+<p>A team predicted to reach the Quarter-Finals scores its 15 points if it gets there <em>via any bracket
+path</em>. The opponent or specific R32 match does not matter — only whether the team appears in that
+round.</p>
+
+<h2 class="text-lg font-semibold mt-6 mb-2">Tie-breaker</h2>
+<p>Predicted total goals across all 104 matches, <em>including extra time, excluding penalty shootouts</em>.
+Closest to actual wins. Exact tie splits any prize equally.</p>
+</div>

@@ -1,0 +1,24 @@
+{
+  "name": "wc2026-predictor",
+  "version": "1.0.0",
+  "description": "FIFA World Cup 2026 prediction game — leaderboard + per-player pages, static site",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "parse-template": "node scripts/parse-template.js",
+    "ingest": "node scripts/ingest.js",
+    "generate-samples": "node scripts/generate-samples.js",
+    "build:css": "npx tailwindcss -i ./src/styles/input.css -o ./_site/assets/css/tailwind.css --minify",
+    "build:site": "npx @11ty/eleventy",
+    "build:digest": "node scripts/build-digest.js",
+    "build": "npm run build:css && npm run build:site && npm run build:digest",
+    "test": "node --test scripts/*.test.js"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.5",
+    "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

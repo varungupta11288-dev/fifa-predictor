@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% if page.url and (page.url | string | safe).startsWith('/me/') %}
+    <meta name="robots" content="noindex, nofollow">
+  {% endif %}
+  <title>{{ title or site.title }}</title>
+  <link rel="stylesheet" href="{{ site.baseUrl }}/assets/css/tailwind.css">
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+  <header class="bg-slate-900 text-white">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="{{ site.baseUrl }}/" class="font-bold text-lg tracking-tight">WC2026 Predictor</a>
+      <nav class="space-x-4 text-sm">
+        <a href="{{ site.baseUrl }}/" class="hover:underline">Leaderboard</a>
+        <a href="{{ site.baseUrl }}/results/" class="hover:underline">Results</a>
+        <a href="{{ site.baseUrl }}/rules/" class="hover:underline">Rules</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto px-4 py-8">
+    {{ content | safe }}
+  </main>
+  <footer class="max-w-5xl mx-auto px-4 py-6 text-xs text-slate-500 border-t mt-12">
+    Tournament window {{ site.tournament.start }} → {{ site.tournament.end }}.
+    Site last built {{ site.lastUpdated }}.
+  </footer>
+</body>
+</html>

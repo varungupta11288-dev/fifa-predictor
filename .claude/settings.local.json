@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm run build)",
+      "PowerShell(npx tailwindcss -i ./src/styles/input.css -o ./_site/assets/css/tailwind.css --minify 2>&1)",
+      "PowerShell(npm run build 2>&1)",
+      "PowerShell(npm install --save-dev \"@11ty/eleventy@^3\" \"tailwindcss@^3\" \"@tailwindcss/cli\")",
+      "PowerShell(npm install \"xlsx@^0.18\")",
+      "PowerShell(node --test scripts/ingest.test.js 2>&1)",
+      "PowerShell(node scripts/generate-samples.js)",
+      "PowerShell(npm run ingest 2>&1)",
+      "PowerShell(npm test 2>&1)",
+      "PowerShell(npm uninstall @tailwindcss/cli)",
+      "PowerShell(npm run build:css 2>&1)",
+      "PowerShell($pred = Get-Content \"data/predictions/2b2078cda85a5286516dd5833dcd2422.json\" -Raw | ConvertFrom-Json; \"Player: $\\($pred.name\\) \\($\\($pred.handle\\)\\)\"; \"G-A-1 \\(MEX-ZAF, actual 2-1\\): predicted $\\($pred.groupScores.'G-A-1'.home\\)-$\\($pred.groupScores.'G-A-1'.away\\)\"; \"G-B-1 \\(CAN-BIH, actual 1-1\\): predicted $\\($pred.groupScores.'G-B-1'.home\\)-$\\($pred.groupScores.'G-B-1'.away\\)\"; \"G-C-1 \\(BRA-MAR, actual 3-0\\): predicted $\\($pred.groupScores.'G-C-1'.home\\)-$\\($pred.groupScores.'G-C-1'.away\\)\")",
+      "PowerShell($file = \"_site/me/2b2078cda85a5286516dd5833dcd2422/index.html\"; \\(Get-Content $file -Raw\\) -split \"`n\" | Where-Object { $_ -match \"G-A-1|G-B-1|G-C-1|Knockout|emerald|✓\" } | Select-Object -First 30)",
+      "PowerShell($file = \"_site/me/3e70baff274a05a692473e91594a34e0/index.html\"; \\(Get-Content $file -Raw\\) -split \"`n\" | Where-Object { $_ -match \"G-A-1|G-B-1|G-C-1\" } | Select-Object -First 6)",
+      "PowerShell($pred = Get-Content \"data/predictions/3e70baff274a05a692473e91594a34e0.json\" -Raw | ConvertFrom-Json; \"Bea G-A-1 \\(actual MEX 2-1\\): $\\($pred.groupScores.'G-A-1'.home\\)-$\\($pred.groupScores.'G-A-1'.away\\)\"; \"Bea G-B-1 \\(actual CAN 1-1\\): $\\($pred.groupScores.'G-B-1'.home\\)-$\\($pred.groupScores.'G-B-1'.away\\)\"; \"Bea G-C-1 \\(actual BRA 3-0\\): $\\($pred.groupScores.'G-C-1'.home\\)-$\\($pred.groupScores.'G-C-1'.away\\)\")",
+      "PowerShell(\"---\")",
+      "PowerShell(Move-Item _site-static/robots.txt _site-static/_robots.txt -Force)",
+      "PowerShell(New-Item -ItemType Directory -Force -Path _site-static/assets)",
+      "PowerShell(Move-Item _site-static/_robots.txt _site-static/robots.txt -Force)",
+      "PowerShell(git checkout -b main 2>$null)",
+      "PowerShell(git add .gitignore .eleventy.js README.md CLAUDE.md package.json package-lock.json tailwind.config.js .github asset data docs scripts src tasks _site-static .claude/settings.local.json)"
+    ]
+  }
+}

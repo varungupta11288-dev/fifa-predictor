@@ -1,0 +1,74 @@
+---
+layout: layout.njk
+pagination:
+  data: playerViews
+  size: 1
+  alias: player
+permalink: "/me/{{ player.token }}/index.html"
+eleventyComputed:
+  title: "Predictions — {{ player.handle }}"
+---
+<a href="{{ site.baseUrl }}/" class="text-sm text-slate-600 hover:underline">← Leaderboard</a>
+<h1 class="text-2xl font-bold mt-2 mb-1">{{ player.name }}</h1>
+<p class="text-sm text-slate-600 mb-6">
+  handle <code>{{ player.handle }}</code> · submitted {{ player.submittedAt }}<br>
+  Tie-breaker total goals predicted: <strong>{{ player.tiebreaker }}</strong> ·
+  Winner pick: <strong>{{ player.winner or '—' }}</strong>
+  {% if player.winnerHit %}<span class="text-emerald-700">✓ +{{ player.winnerPoints }}</span>{% endif %}
+</p>
+
+{% if player.warnings and player.warnings.length > 0 %}
+<details class="bg-amber-50 border border-amber-200 rounded p-3 text-sm mb-6">
+  <summary class="font-medium cursor-pointer">{{ player.warnings.length }} ingestion warning(s)</summary>
+  <ul class="list-disc list-inside mt-2 text-amber-900">
+    {% for w in player.warnings %}<li>{{ w }}</li>{% endfor %}
+  </ul>
+</details>
+{% endif %}
+
+<h2 class="text-lg font-semibold mt-8 mb-3">Group stage predictions</h2>
+<div class="overflow-x-auto bg-white rounded shadow-sm border border-slate-200">
+<table class="min-w-full text-sm">
+  <thead class="bg-slate-100">
+    <tr>
+      <th class="text-left p-2 font-semibold">Match</th>
+      <th class="text-left p-2 font-semibold">Fixture</th>
+      <th class="text-right p-2 font-semibold">Predicted</th>
+      <th class="text-right p-2 font-semibold">Actual</th>
+      <th class="text-right p-2 font-semibold">Pts</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in player.groupRows %}
+    <tr class="border-t border-slate-100{% if row.outcomeClass == 'exact' %} bg-emerald-50{% elif row.outcomeClass == 'result' %} bg-sky-50{% elif row.outcomeClass == 'wrong' %} bg-rose-50{% endif %}">
+      <td class="p-2 text-slate-500">{{ row.matchId }}</td>
+      <td class="p-2">{{ row.home }} v {{ row.away }}</td>
+      <td class="p-2 text-right">{% if row.predicted %}{{ row.predicted.home }}–{{ row.predicted.away }}{% else %}<span class="text-slate-400">—</span>{% endif %}</td>
+      <td class="p-2 text-right">{% if row.actual %}{{ row.actual.homeScore }}–{{ row.actual.awayScore }}{% else %}<span class="text-slate-400">—</span>{% endif %}</td>
+      <td class="p-2 text-right font-medium">{% if row.points != null %}{{ row.points }}{% else %}<span class="text-slate-400">—</span>{% endif %}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<h2 class="text-lg font-semibold mt-8 mb-3">Knockout picks</h2>
+<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+{% for section in player.knockoutSections %}
+  <div class="bg-white rounded shadow-sm border border-slate-200 p-3">
+    <h3 class="font-semibold mb-2">{{ section.label }} <span class="text-xs text-slate-500">({{ section.pointsPer }} pt/team)</span></h3>
+    {% if section.picks.length == 0 %}
+      <p class="text-xs text-slate-400">No picks recorded.</p>
+    {% else %}
+      <ul class="text-sm space-y-1">
+        {% for p in section.picks %}
+          <li class="flex justify-between {% if p.hit %}text-emerald-700{% endif %}">
+            <span>{{ p.team }}</span>
+            {% if p.hit %}<span>✓ +{{ p.pointsIfHit }}</span>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endfor %}
+</div>
