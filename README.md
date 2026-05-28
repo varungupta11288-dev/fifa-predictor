@@ -22,7 +22,18 @@ npm run links              # print share-links for every ingested prediction
 npm test                   # tests, ~2s
 npm run build              # CSS → site → digest, output to _site/
 npm run deploy             # test → ingest → build → push _site/ to gh-pages branch
+npm run admin              # local admin UI on http://127.0.0.1:5174 (upload + deploy + push)
 ```
+
+### Admin console
+
+`npm run admin` launches a tiny loopback-only Node server with a one-page UI:
+
+- Drag-and-drop `.xlsx` files straight into `data/submissions/`
+- Click to run `npm run deploy` or `npm run links` with live streaming output
+- Stage modified tracked files, type a commit message, push to `origin/main` from the browser
+
+Auth is a per-boot token embedded in the served HTML (logged at startup as part of the URL). Bound to `127.0.0.1` only — never exposed beyond your machine.
 
 ## Privacy and the deploy model
 

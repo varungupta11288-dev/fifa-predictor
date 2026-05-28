@@ -15,7 +15,8 @@
     "build:digest": "node scripts/build-digest.js",
     "build": "npm run clean && npm run build:css && npm run build:site && npm run build:digest",
     "test": "node --test scripts/*.test.js",
-    "deploy": "npm test && npm run ingest && node scripts/deploy-gh-pages.js"
+    "deploy": "npm test && npm run ingest && node scripts/deploy-gh-pages.js",
+    "admin": "node scripts/admin-server.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.5",
