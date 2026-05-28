@@ -20,6 +20,22 @@ function run(cmd, opts = {}) {
   return execSync(cmd, { stdio: 'inherit', cwd: ROOT, ...opts });
 }
 
+// Derive the base URL path from the origin remote URL so every link and
+// asset gets prefixed with /<repo-name>/. Without this, GitHub Pages 404s
+// the CSS and per-player URLs on project sites. User/org pages
+// (<owner>.github.io) get baseUrl='' instead.
+function deriveBaseUrl() {
+  try {
+    const url = execSync('git config --get remote.origin.url', { encoding: 'utf8', cwd: ROOT }).trim();
+    const m = url.match(/[\/:]([^/:]+)\/([^/]+?)(\.git)?\/?$/);
+    if (!m) return '';
+    const [, owner, repo] = m;
+    return repo.toLowerCase() === `${owner.toLowerCase()}.github.io` ? '' : '/' + repo;
+  } catch {
+    return '';
+  }
+}
+
 function runQuiet(cmd, opts = {}) {
   return spawnSync(cmd, { shell: true, cwd: ROOT, ...opts });
 }
@@ -38,8 +54,16 @@ function copyDir(src, dst) {
 }
 
 function main() {
+  // Set SITE_BASE_URL before triggering the build, otherwise every link and
+  // every asset reference in the rendered HTML loses its /<repo>/ prefix and
+  // 404s on GitHub Pages.
+  const baseUrl = process.env.SITE_BASE_URL || deriveBaseUrl();
+  process.env.SITE_BASE_URL = baseUrl;
+  console.log(`[deploy] Building with SITE_BASE_URL="${baseUrl}"`);
+  run('npm run build');
+
   if (!fs.existsSync(SITE)) {
-    console.error('Error: _site/ not found. Run `npm run build` (or `npm run deploy`) first.');
+    console.error('Error: _site/ not found after build.');
     process.exit(1);
   }
 
