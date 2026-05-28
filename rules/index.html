@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Rules — WC2026 Predictor</title>
+  <meta name="theme-color" content="#0b6b3a">
+  <link rel="stylesheet" href="/assets/css/tailwind.css">
+</head>
+<body class="turf-bg text-slate-900 antialiased min-h-screen flex flex-col">
+  <header class="pitch-bg text-white relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 py-5 flex items-center justify-between relative z-10">
+      <a href="/" class="flex items-center gap-3 group">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/10 ring-1 ring-white/20 group-hover:bg-white/15 transition">
+          
+          <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 3l2.5 4-1 4.5-4-0.5-2-3.5z M12 21l-2.5-4 1-4.5 4 0.5 2 3.5z M3 12l4-2 4 1.5-1 4-3.5 2z M21 12l-4 2-4-1.5 1-4 3.5-2z"/>
+          </svg>
+        </span>
+        <span class="display text-xl md:text-2xl tracking-wider">WC2026 Predictor</span>
+      </a>
+      <nav class="space-x-1 text-xs md:text-sm uppercase tracking-wider font-semibold">
+        <a href="/"        class="px-3 py-1.5 rounded hover:bg-white/10 transition">Leaderboard</a>
+        <a href="/results/" class="px-3 py-1.5 rounded hover:bg-white/10 transition">Results</a>
+        <a href="/rules/"   class="px-3 py-1.5 rounded hover:bg-white/10 transition">Rules</a>
+      </nav>
+    </div>
+    
+    <div class="absolute inset-0 opacity-40 animate-pitchPan"
+         style="background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 38px, rgba(0,0,0,0.06) 38px, rgba(0,0,0,0.06) 76px);"></div>
+  </header>
+
+  
+  <div class="flag-stripe animate-flagSweep"></div>
+
+  
+  <div class="bg-slate-900 text-slate-100">
+    <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between text-xs">
+      <span class="flex items-center gap-2">
+        
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulseDot"></span>
+          <span class="uppercase tracking-wider text-emerald-300 font-semibold">T-14 days to kickoff</span>
+        
+      </span>
+      <span class="text-slate-400 hidden sm:inline">2026-06-11 → 2026-07-19</span>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 py-8 w-full flex-1">
+    <h1 class="text-2xl font-bold mb-4">Game rules</h1>
+
+<div class="prose max-w-none">
+<h2 class="text-lg font-semibold mt-6 mb-2">Tournament structure</h2>
+<p>The FIFA World Cup 2026 has 48 teams in 12 groups of 4. The group stage produces 72 matches.
+32 teams advance to the knockout phase: the 12 group winners, 12 runners-up, and the 8 best
+third-placed teams. The bracket runs Round of 32 → Round of 16 → Quarter-Finals → Semi-Finals →
+Final, plus a 3rd-place play-off. Tournament window: 11 Jun — 19 Jul 2026.</p>
+
+<h2 class="text-lg font-semibold mt-6 mb-2">Scoring</h2>
+<table class="min-w-full text-sm bg-white rounded border border-slate-200">
+  <thead class="bg-slate-100"><tr>
+    <th class="text-left p-2">Outcome</th>
+    <th class="text-right p-2">Points</th>
+    <th class="text-left p-2">Awarded per</th>
+  </tr></thead>
+  <tbody>
+    <tr class="border-t"><td class="p-2">Group match: correct result (W/L/D), wrong score</td><td class="text-right p-2">3</td><td class="p-2">match</td></tr>
+    <tr class="border-t"><td class="p-2">Group match: exact score</td><td class="text-right p-2">5</td><td class="p-2">match (replaces the 3, not additive)</td></tr>
+    <tr class="border-t"><td class="p-2">Round of 32 — team correctly placed</td><td class="text-right p-2">5</td><td class="p-2">team</td></tr>
+    <tr class="border-t"><td class="p-2">Round of 16 — team correctly placed</td><td class="text-right p-2">10</td><td class="p-2">team</td></tr>
+    <tr class="border-t"><td class="p-2">Quarter-Finals — team correctly placed</td><td class="text-right p-2">15</td><td class="p-2">team</td></tr>
+    <tr class="border-t"><td class="p-2">Semi-Finals — team correctly placed</td><td class="text-right p-2">20</td><td class="p-2">team</td></tr>
+    <tr class="border-t"><td class="p-2">Final — team correctly placed</td><td class="text-right p-2">25</td><td class="p-2">team</td></tr>
+    <tr class="border-t"><td class="p-2">Winner — correct champion</td><td class="text-right p-2">30</td><td class="p-2">one team</td></tr>
+  </tbody>
+</table>
+<p class="text-xs text-slate-500 mt-2">Maximum theoretical score: 960 points.</p>
+
+<h2 class="text-lg font-semibold mt-6 mb-2">Worked examples</h2>
+<p>Brazil 2-1 Morocco actual:</p>
+<ul class="list-disc list-inside">
+  <li>You predicted 3-1 Brazil → <strong>3 pts</strong> (correct outcome, wrong score)</li>
+  <li>You predicted 2-1 Brazil → <strong>5 pts</strong> (exact score)</li>
+  <li>You predicted 1-1 draw → <strong>0 pts</strong> (wrong outcome)</li>
+</ul>
+
+<h2 class="text-lg font-semibold mt-6 mb-2">Knockout scoring is per-team-in-round</h2>
+<p>A team predicted to reach the Quarter-Finals scores its 15 points if it gets there <em>via any bracket
+path</em>. The opponent or specific R32 match does not matter — only whether the team appears in that
+round.</p>
+
+<h2 class="text-lg font-semibold mt-6 mb-2">Tie-breaker</h2>
+<p>Predicted total goals across all 104 matches, <em>including extra time, excluding penalty shootouts</em>.
+Closest to actual wins. Exact tie splits any prize equally.</p>
+</div>
+
+  </main>
+
+  <footer class="bg-slate-900 text-slate-300 mt-12">
+    <div class="flag-stripe"></div>
+    <div class="max-w-6xl mx-auto px-4 py-5 flex flex-col sm:flex-row gap-2 justify-between items-center text-xs">
+      <div class="flex items-center gap-2">
+        <span class="display text-sm tracking-widest text-white">WC2026 PREDICTOR</span>
+        <span class="text-slate-500">·</span>
+        <span>2026-06-11 → 2026-07-19</span>
+      </div>
+      <div class="text-slate-500">Built 2026-05-28 10:22Z · static site, no client JS</div>
+    </div>
+  </footer>
+</body>
+</html>
