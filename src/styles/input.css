@@ -364,10 +364,6 @@
       drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
     animation: trophyGlow 2.6s ease-in-out infinite alternate;
   }
-  .countdown-trophy--right {
-    /* Mirror so any directional highlight points inward, toward the digits. */
-    transform: scaleX(-1);
-  }
   @media (max-width: 640px) {
     /* Hide trophies on narrow screens so the four digit tiles get full width. */
     .countdown-trophy { display: none; }
