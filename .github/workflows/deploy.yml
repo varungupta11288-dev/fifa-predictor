@@ -33,7 +33,14 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: npm run build
+        env:
+          # Prefix every link/asset URL with the repo subpath so the deployed
+          # site works at https://<user>.github.io/<repo>/. Falls back to '' for
+          # custom-domain or root deployments.
+          SITE_BASE_URL: ${{ steps.pages.outputs.base_path }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
