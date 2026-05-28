@@ -4,3 +4,15 @@ _site/
 .env
 .DS_Store
 dist/
+
+# Player data — never commit (real or synthetic)
+data/submissions/
+data/predictions/
+data/roster*.csv
+data/roster*.xlsx
+
+# Worktree used by scripts/deploy-gh-pages.js
+.gh-pages-tmp/
+
+# Excel lock files (open file = ~$Player1_Alex.xlsx etc.)
+~$*.xlsx

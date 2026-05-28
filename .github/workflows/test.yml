@@ -1,0 +1,32 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # Opt in to the Node 24 runtime for JS actions; the Node 20 runtime is
+  # force-removed on 2026-06-02.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
+      # Build sanity check. Predictions/submissions are gitignored, so CI
+      # builds against an empty leaderboard — that's expected. We only want
+      # to catch template/script regressions here. Real deploys happen locally
+      # via `npm run deploy` (see scripts/deploy-gh-pages.js).
+      - run: npm run build

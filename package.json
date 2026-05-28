@@ -7,12 +7,14 @@
   "scripts": {
     "parse-template": "node scripts/parse-template.js",
     "ingest": "node scripts/ingest.js",
+    "links": "node scripts/list-links.js",
     "generate-samples": "node scripts/generate-samples.js",
     "build:css": "npx tailwindcss -i ./src/styles/input.css -o ./_site/assets/css/tailwind.css --minify",
     "build:site": "npx @11ty/eleventy",
     "build:digest": "node scripts/build-digest.js",
     "build": "npm run build:css && npm run build:site && npm run build:digest",
-    "test": "node --test scripts/*.test.js"
+    "test": "node --test scripts/*.test.js",
+    "deploy": "npm test && npm run ingest && npm run build && node scripts/deploy-gh-pages.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.5",

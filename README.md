@@ -18,9 +18,25 @@ npm install                # one-off
 npm run parse-template     # rebuild fixtures from asset/*.xlsx (rarely needed)
 npm run generate-samples   # write 5 sample submissions into data/submissions/
 npm run ingest             # read data/submissions/*.xlsx → data/predictions/*.json
-npm test                   # 23 tests, ~2s
+npm run links              # print share-links for every ingested prediction
+npm test                   # tests, ~2s
 npm run build              # CSS → site → digest, output to _site/
+npm run deploy             # test → ingest → build → push _site/ to gh-pages branch
 ```
+
+## Privacy and the deploy model
+
+Player submissions and ingested predictions are gitignored — they never enter the public repo. Only the **rendered HTML** of the site (with `email` and `sourceFile` stripped at the data layer) is published.
+
+This means **CI can't build a full site** (it has no data). The workflow at [.github/workflows/test.yml](.github/workflows/test.yml) only runs tests + a sanity build against an empty leaderboard. Real deploys are done **locally**:
+
+```bash
+npm run deploy
+```
+
+That chains test → ingest → build → push `_site/` to the `gh-pages` branch via a git worktree. GitHub Pages must be configured to serve from `gh-pages` / `(root)` (Settings → Pages → Source → "Deploy from a branch").
+
+Run `npm run deploy` after every batch of new submissions or new match results.
 
 ## Demo data
 
@@ -30,7 +46,7 @@ Hand-authored matchday-1 results are at `data/results/2026-06-11.json` (3 matche
 
 ## Adding results during the tournament
 
-Drop a new file `data/results/YYYY-MM-DD.json` with the day's completed matches, commit, push. The Action will rebuild and redeploy on its next run (or trigger manually via `workflow_dispatch`).
+Drop a new file `data/results/YYYY-MM-DD.json` with the day's completed matches, then run `npm run deploy`. (Results files _are_ committed to the public repo — match outcomes are public information; only player picks and emails are not.)
 
 For schema, see the example in `data/results/2026-06-11.json` and the [`Result JSON`](tasks/mvp-plan.md#31-schemas) section of the plan.
 

@@ -6,12 +6,17 @@ const { outcome, teamsReachingStage, actualWinner, KO_STAGES, WINNER_POINTS } = 
 
 const ROOT = path.join(__dirname, '..', '..');
 
+// email + sourceFile must never reach the rendered HTML.
+function stripSensitive({ email, sourceFile, ...rest }) {
+  return rest;
+}
+
 function loadJsonDir(dir) {
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir)
     .filter(f => f.endsWith('.json'))
     .sort()
-    .map(f => JSON.parse(fs.readFileSync(path.join(dir, f))));
+    .map(f => stripSensitive(JSON.parse(fs.readFileSync(path.join(dir, f)))));
 }
 
 module.exports = () => {

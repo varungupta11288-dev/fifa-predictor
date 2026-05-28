@@ -33,3 +33,15 @@ Patterns from corrections during the build. Read before starting work in this re
 **Why:** OneDrive holds short-lived locks on files it's syncing. Symptom: `git pull --rebase` said "Successfully rebased" but `Remove-Item _site-static/assets/` returned "Permission denied" mid-stash, and the rebase-merge dir lingered.
 
 **How to apply:** After any failed git verb in this repo, run `git status` to see actual state before assuming the operation failed. If `.git/rebase-merge` (or similar) is the only leftover, `Remove-Item -Recurse -Force` it and continue. Don't `git rebase --abort` based on the error alone — check first.
+
+## Player data is gitignored; deploys happen locally from a `gh-pages` worktree
+
+**Rule:** `data/submissions/`, `data/predictions/`, and `data/roster*.csv` are gitignored. The deployed leaderboard is produced by `npm run deploy` on the operator's machine and pushed to the `gh-pages` branch — CI never has player data.
+
+**Why:** Real player submissions contain email addresses and personal picks. Committing them to a public repo would expose them forever in git history even if later deleted. The MVP architecture (CI builds from main and deploys to Pages) was incompatible with that posture.
+
+**How to apply:**
+- Never `git add data/submissions/*` or `data/predictions/*` — the gitignore catches accidents, but resist suggesting them in scripts or docs.
+- `src/_data/predictions.js` and `src/_data/playerViews.js` strip `email` and `sourceFile` before exposing prediction objects to templates. Keep that invariant if you add new data loaders.
+- The deploy script lives at [scripts/deploy-gh-pages.js](../scripts/deploy-gh-pages.js) and uses `git worktree` (not in-place branch switching) — the OneDrive lock issues above made the in-place pattern flaky.
+- GitHub Pages must be configured to **Deploy from a branch → `gh-pages` / (root)**. If a future operator changes it back to "GitHub Actions", the live site will go stale because CI builds with no predictions data.
