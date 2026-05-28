@@ -159,6 +159,231 @@
     transform: translateY(-1px);
     box-shadow: 0 6px 14px -8px rgba(15, 23, 42, 0.15);
   }
+
+  /* ─── Countdown modal ────────────────────────────────────────────────── */
+
+  .countdown-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    animation: cmFade 0.35s ease-out;
+  }
+  .countdown-modal[data-closed="true"] {
+    display: none;
+  }
+
+  .countdown-modal__panel {
+    position: relative;
+    width: min(94%, 760px);
+    height: min(72vh, 520px);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    color: #ffffff;
+    background-color: #064e2a;
+    background-image:
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 55%),
+      repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.05) 0px,
+        rgba(255,255,255,0.05) 64px,
+        rgba(0,0,0,0.1) 64px,
+        rgba(0,0,0,0.1) 128px
+      );
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(252, 211, 77, 0.18),
+      inset 0 0 60px rgba(0,0,0,0.35);
+    animation: cmPop 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* Centre circle outline + center mark, like a pitch from above. */
+  .countdown-modal__panel::before {
+    content: '';
+    position: absolute;
+    width: 56vmin;
+    height: 56vmin;
+    max-width: 460px;
+    max-height: 460px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255,255,255,0.10);
+    border-radius: 9999px;
+    pointer-events: none;
+  }
+  .countdown-modal__panel::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+    background: rgba(255,255,255,0.18);
+    pointer-events: none;
+  }
+
+  .countdown-modal__close {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    z-index: 10;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.35);
+    color: #ffffff;
+    font-size: 1.5rem;
+    line-height: 1;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: transform 160ms ease, background-color 160ms ease;
+  }
+  .countdown-modal__close:hover {
+    background: rgba(0,0,0,0.55);
+    transform: rotate(90deg);
+  }
+
+  .countdown-modal__content {
+    position: relative;
+    z-index: 5;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .countdown-modal__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 1.5rem;
+  }
+
+  .countdown-modal__sub {
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .countdown-modal__cta {
+    margin-top: 1.75rem;
+    padding: 0.6rem 1.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    border-radius: 9999px;
+    color: #1f1700;
+    background: linear-gradient(180deg, #fde68a 0%, #fcd34d 60%, #d97706 100%);
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    box-shadow: 0 8px 20px -8px rgba(252, 211, 77, 0.55);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+  }
+  .countdown-modal__cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -8px rgba(252, 211, 77, 0.75);
+  }
+
+  /* Golden-text digit tiles. */
+  .countdown-numbers {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    max-width: 100%;
+  }
+  .countdown-numbers > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 4.5rem;
+    padding: 1rem 0.5rem;
+    background: linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.12) 100%);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(252, 211, 77, 0.28);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 12px -6px rgba(0,0,0,0.5);
+  }
+  .countdown-num {
+    display: block;
+    font-weight: 900;
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    background: linear-gradient(180deg, #fff8d6 0%, #fcd34d 38%, #b08323 96%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(252, 211, 77, 0.25));
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown-label {
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* Dribbling football — three nested layers so each axis animates cleanly. */
+  .dribble-track {
+    position: absolute;
+    bottom: 8%;
+    left: 0;
+    width: 56px;
+    height: 56px;
+    pointer-events: none;
+    animation: dribbleAcross 9s linear infinite;
+  }
+  .dribble-bounce {
+    width: 100%;
+    height: 100%;
+    animation: dribbleBounce 0.55s ease-in-out infinite alternate;
+  }
+  .dribble-ball {
+    width: 100%;
+    height: 100%;
+    animation: dribbleSpin 0.55s linear infinite;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.35));
+  }
+}
+
+@keyframes cmFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes cmPop {
+  from { transform: scale(0.94); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+@keyframes dribbleAcross {
+  0%   { transform: translateX(-72px); }
+  100% { transform: translateX(calc(100% + 720px)); }
+}
+@keyframes dribbleBounce {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-22px); }
+}
+@keyframes dribbleSpin {
+  to { transform: rotate(360deg); }
 }
 
 /* ---------- Motion guards ---------- */
@@ -170,11 +395,21 @@
   .animate-pulseDot,
   .animate-barFill,
   .animate-flagSweep,
-  .lb-row {
+  .lb-row,
+  .countdown-modal,
+  .countdown-modal__panel,
+  .dribble-track,
+  .dribble-bounce,
+  .dribble-ball {
     animation: none !important;
     transition: none !important;
   }
   .bar > i {
     transform: scaleX(1) !important;
+  }
+  /* Park the football mid-pitch when motion is reduced. */
+  .dribble-track {
+    left: 50%;
+    transform: translateX(-50%);
   }
 }

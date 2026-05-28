@@ -6,6 +6,39 @@ permalink: /index.html
 {% set leader = leaderboard[0] %}
 {% set maxScore = 960 %}
 
+{# ─── Countdown modal (pre-kickoff only) ──────────────────────────────── #}
+{% if not site.tournamentLive and not site.tournamentFinished %}
+<div id="wc-countdown" class="countdown-modal" role="dialog" aria-modal="true" aria-labelledby="countdown-title">
+  <div class="countdown-modal__panel">
+    <button type="button" class="countdown-modal__close" data-close aria-label="Close countdown">×</button>
+
+    {# Dribbling football — three nested layers so travel/bounce/spin compose cleanly #}
+    <div class="dribble-track" aria-hidden="true">
+      <div class="dribble-bounce">
+        <svg class="dribble-ball" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="29" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
+          <polygon points="32,18 41.5,24.8 37.8,35.6 26.2,35.6 22.5,24.8" fill="#0f172a"/>
+          <path d="M32 18 L32 6 M41.5 24.8 L53 18 M37.8 35.6 L47 42 M26.2 35.6 L17 42 M22.5 24.8 L11 18" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M32 6 L23 3 M32 6 L41 3 M53 18 L57 12 M47 42 L56 46 M17 42 L8 46 M11 18 L7 12" stroke="#0f172a" stroke-width="1.5" fill="none" opacity="0.6"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="countdown-modal__content">
+      <p id="countdown-title" class="countdown-modal__eyebrow">FIFA World Cup 2026 kicks off in</p>
+      <div class="countdown-numbers">
+        <div><span class="countdown-num" data-d>--</span><span class="countdown-label">Days</span></div>
+        <div><span class="countdown-num" data-h>--</span><span class="countdown-label">Hours</span></div>
+        <div><span class="countdown-num" data-m>--</span><span class="countdown-label">Min</span></div>
+        <div><span class="countdown-num" data-s>--</span><span class="countdown-label">Sec</span></div>
+      </div>
+      <p class="countdown-modal__sub">USA · Canada · Mexico · 11 Jun 2026</p>
+      <button type="button" class="countdown-modal__cta" data-close>View leaderboard →</button>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 <section class="mb-8">
   <p class="text-xs uppercase tracking-[0.25em] text-pitch-700 font-semibold mb-1">Standings</p>
   <h1 class="display text-3xl md:text-4xl text-slate-900">Leaderboard</h1>
@@ -144,4 +177,46 @@ permalink: /index.html
   </p>
 </section>
 
+{% endif %}
+
+{# ─── Countdown JS (only when the modal is rendered) ──────────────────── #}
+{% if not site.tournamentLive and not site.tournamentFinished %}
+<script>
+(function () {
+  // First match: Mexico vs South Africa, Mexico City, 11 Jun 2026 16:00 UTC.
+  var KICKOFF = new Date('2026-06-11T16:00:00Z').getTime();
+  var modal = document.getElementById('wc-countdown');
+  if (!modal) return;
+  var d = modal.querySelector('[data-d]');
+  var h = modal.querySelector('[data-h]');
+  var m = modal.querySelector('[data-m]');
+  var s = modal.querySelector('[data-s]');
+  var timer;
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var ms = KICKOFF - Date.now();
+    if (ms <= 0) {
+      d.textContent = '00'; h.textContent = '00'; m.textContent = '00'; s.textContent = '00';
+      clearInterval(timer);
+      return;
+    }
+    d.textContent = pad(Math.floor(ms / 86400000));
+    h.textContent = pad(Math.floor(ms / 3600000) % 24);
+    m.textContent = pad(Math.floor(ms / 60000) % 60);
+    s.textContent = pad(Math.floor(ms / 1000) % 60);
+  }
+  tick();
+  timer = setInterval(tick, 1000);
+
+  function close() {
+    modal.setAttribute('data-closed', 'true');
+    clearInterval(timer);
+  }
+  modal.querySelectorAll('[data-close]').forEach(function (el) {
+    el.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+  });
+  modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+</script>
 {% endif %}
