@@ -10,27 +10,23 @@ permalink: /index.html
 {% if not site.tournamentLive and not site.tournamentFinished %}
 <div id="wc-countdown" class="countdown-modal" role="dialog" aria-modal="true" aria-labelledby="countdown-title">
   <div class="countdown-modal__panel">
-    <button type="button" class="countdown-modal__close" data-close aria-label="Close countdown">×</button>
-
-    {# Dribbling football — three nested layers so travel/bounce/spin compose cleanly #}
-    <div class="dribble-track" aria-hidden="true">
-      <div class="dribble-bounce">
-        <svg class="dribble-ball" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="32" cy="32" r="29" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
-          <polygon points="32,18 41.5,24.8 37.8,35.6 26.2,35.6 22.5,24.8" fill="#0f172a"/>
-          <path d="M32 18 L32 6 M41.5 24.8 L53 18 M37.8 35.6 L47 42 M26.2 35.6 L17 42 M22.5 24.8 L11 18" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <path d="M32 6 L23 3 M32 6 L41 3 M53 18 L57 12 M47 42 L56 46 M17 42 L8 46 M11 18 L7 12" stroke="#0f172a" stroke-width="1.5" fill="none" opacity="0.6"/>
-        </svg>
-      </div>
-    </div>
+    <button type="button" class="countdown-modal__close" data-close aria-label="Close countdown">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6 L18 18 M18 6 L6 18"/>
+      </svg>
+    </button>
 
     <div class="countdown-modal__content">
       <p id="countdown-title" class="countdown-modal__eyebrow">FIFA World Cup 2026 kicks off in</p>
-      <div class="countdown-numbers">
-        <div><span class="countdown-num" data-d>--</span><span class="countdown-label">Days</span></div>
-        <div><span class="countdown-num" data-h>--</span><span class="countdown-label">Hours</span></div>
-        <div><span class="countdown-num" data-m>--</span><span class="countdown-label">Min</span></div>
-        <div><span class="countdown-num" data-s>--</span><span class="countdown-label">Sec</span></div>
+      <div class="countdown-display">
+        <img class="countdown-trophy countdown-trophy--left" src="{{ site.baseUrl }}/assets/trophy.png" alt="" aria-hidden="true">
+        <div class="countdown-numbers">
+          <div><span class="countdown-num" data-d>--</span><span class="countdown-label">Days</span></div>
+          <div><span class="countdown-num" data-h>--</span><span class="countdown-label">Hours</span></div>
+          <div><span class="countdown-num" data-m>--</span><span class="countdown-label">Min</span></div>
+          <div><span class="countdown-num" data-s>--</span><span class="countdown-label">Sec</span></div>
+        </div>
+        <img class="countdown-trophy countdown-trophy--right" src="{{ site.baseUrl }}/assets/trophy.png" alt="" aria-hidden="true">
       </div>
       <p class="countdown-modal__sub">USA · Canada · Mexico · 11 Jun 2026</p>
       <button type="button" class="countdown-modal__cta" data-close>View leaderboard →</button>
