@@ -16,6 +16,12 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+env:
+  # Opt in to the Node 24 runtime for JS actions; the Node 20 runtime is
+  # force-removed on 2026-06-02. Without this, scheduled runs would silently
+  # start failing then.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 jobs:
   build:
     runs-on: ubuntu-latest
