@@ -10,6 +10,7 @@ data/submissions/
 data/predictions/
 data/roster*.csv
 data/roster*.xlsx
+data/links/
 
 # Worktree used by scripts/deploy-gh-pages.js
 .gh-pages-tmp/
