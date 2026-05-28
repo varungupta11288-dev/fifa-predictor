@@ -91,6 +91,8 @@ const SAMPLES = [
   {
     file: 'Player1_Alex.xlsx',
     name: 'Alex Bennett',
+    email: 'alex.bennett@example.com',
+    handle: 'alex_b',
     seed: 11,
     knockouts: {
       round32: ['Mexico','South Korea','Czechia','South Africa','Canada','Qatar','Switzerland','Bosnia & Herz.','Brazil','Haiti','Scotland','Morocco','United States','Australia','Turkiye','Paraguay','Germany','Ivory Coast','Ecuador','Curacao','Netherlands','Sweden','Tunisia','Japan','Belgium','Iran','New Zealand','Egypt','Spain','Saudi Arabia','Uruguay','Cape Verde'],
@@ -105,6 +107,8 @@ const SAMPLES = [
   {
     file: 'Player2_Bea.xlsx',
     name: 'Bea Okafor',
+    email: 'bea.okafor@example.com',
+    handle: 'bea_o',
     seed: 22,
     knockouts: {
       round32: ['Mexico','South Korea','Czechia','South Africa','Canada','Qatar','Switzerland','Bosnia & Herz.','Brazil','Haiti','Scotland','Morocco','United States','Australia','Turkiye','Paraguay','Germany','Ivory Coast','Ecuador','Curacao','Netherlands','Sweden','Tunisia','Japan','Belgium','Iran','New Zealand','Egypt','Spain','Saudi Arabia','Uruguay','Cape Verde'],
@@ -119,6 +123,8 @@ const SAMPLES = [
   {
     file: 'Player3_Carl.xlsx',
     name: 'Carl Sanchez',
+    email: 'carl.sanchez@example.com',
+    // No handle on purpose — exercises the derived-from-name fallback in ingest.
     seed: 33,
     knockouts: {
       round32: ['Mexico','South Korea','Czechia','South Africa','Canada','Qatar','Switzerland','Bosnia & Herz.','Brasil','Haiti','Scotland','Morocco','United States','Australia','Turkiye','Paraguay','Germany','Ivory Coast','Ecuador','Curacao','Netherlands','Sweden','Tunisia','Japan','Belgium','Iran','New Zealand','Egypt','Spain','Saudi Arabia','Uruguay','Cape Verde'],
@@ -133,6 +139,8 @@ const SAMPLES = [
   {
     file: 'Player4_Dani.xlsx',
     name: 'Dani Park',
+    email: 'dani.park@example.com',
+    handle: 'dani_p',
     seed: 44,
     knockouts: {
       round32: ['Mexico','South Korea','Czechia','South Africa','Canada','Qatar','Switzerland','Bosnia & Herz.','Brazil','Haiti','Scotland','Morocco','United States','Australia','Turkiye','Paraguay','France','Iraq','Norway','Senegal','Argentina','Austria','Jordan','Algeria','Portugal','Uzbekistan','DR Congo','Colombia','England','Ghana','Panama','Croatia'],
@@ -147,6 +155,8 @@ const SAMPLES = [
   {
     file: 'Player5_Eli.xlsx',
     name: 'Eli Johansson',
+    email: 'eli.johansson@example.com',
+    handle: 'eli_j',
     seed: 55,
     knockouts: {
       round32: ['Mexico','Czechia','South Africa','South Korea','Canada','Switzerland','Bosnia & Herz.','Qatar','Brazil','Morocco','Haiti','Scotland','United States','Paraguay','Australia','Turkiye','Germany','Ecuador','Curacao','Ivory Coast','Netherlands','Japan','Tunisia','Sweden','Belgium','Egypt','Iran','New Zealand','Spain','Uruguay','Saudi Arabia','Cape Verde'],
@@ -167,6 +177,8 @@ function generate() {
     const wb = XLSX.readFile(TEMPLATE_PATH);
     const ws = wb.Sheets[wb.SheetNames[0]];
     setCell(ws, 'U2', sample.name, 's');
+    setCell(ws, 'T3', sample.email, 's');
+    if (sample.handle) setCell(ws, 'W3', sample.handle, 's');
     fillGroupScores(ws, makeRng(sample.seed));
     fillKnockouts(ws, sample.knockouts);
     setCell(ws, 'X54', sample.winner, 's');

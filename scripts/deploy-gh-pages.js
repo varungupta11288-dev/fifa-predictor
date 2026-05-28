@@ -59,14 +59,13 @@ function main() {
     run(`git worktree add --detach "${WORKTREE}" HEAD`);
     // Inside the worktree: replace HEAD with a fresh orphan branch.
     execSync(`git checkout --orphan ${BRANCH}`, { stdio: 'inherit', cwd: WORKTREE });
-    execSync('git rm -rf .', { stdio: 'pipe', cwd: WORKTREE });
   }
 
-  // Clear the worktree (except .git) and re-populate from _site/.
-  for (const f of fs.readdirSync(WORKTREE)) {
-    if (f === '.git') continue;
-    fs.rmSync(path.join(WORKTREE, f), { recursive: true, force: true });
-  }
+  // Clear the worktree using git's own tools — more reliable on Windows+OneDrive
+  // than fs.rmSync, which can fail silently on transient file locks. `git rm -rf`
+  // drops everything tracked; `git clean -fdx` removes any untracked leftovers.
+  try { execSync('git rm -rf .', { stdio: 'pipe', cwd: WORKTREE }); } catch {}
+  try { execSync('git clean -fdx', { stdio: 'pipe', cwd: WORKTREE }); } catch {}
   copyDir(SITE, WORKTREE);
 
   // .nojekyll prevents GitHub Pages from running Jekyll over the output —

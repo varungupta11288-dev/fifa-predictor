@@ -45,3 +45,15 @@ Patterns from corrections during the build. Read before starting work in this re
 - `src/_data/predictions.js` and `src/_data/playerViews.js` strip `email` and `sourceFile` before exposing prediction objects to templates. Keep that invariant if you add new data loaders.
 - The deploy script lives at [scripts/deploy-gh-pages.js](../scripts/deploy-gh-pages.js) and uses `git worktree` (not in-place branch switching) — the OneDrive lock issues above made the in-place pattern flaky.
 - GitHub Pages must be configured to **Deploy from a branch → `gh-pages` / (root)**. If a future operator changes it back to "GitHub Actions", the live site will go stale because CI builds with no predictions data.
+
+## Email is the identity key; tokens are salted
+
+**Rule:** Player tokens for `/me/<token>/` URLs are `sha256(PREDICTOR_SECRET + email).slice(0,32)`. Email lives in cell `T3` of the entry sheet. Don't switch back to name-keyed tokens — name collisions (two Alex Rods) silently overwrite each other's predictions.
+
+**Why:** First pass keyed tokens on `name + filename`. Two real risks: two players named "Alex Rodriguez" → same token; and a corrected resubmission with a new filename → new token, old URL breaks. Email is unique and stable. The salt (in `.env`, gitignored) means anyone who knows a player's email can't compute their URL by guessing.
+
+**How to apply:**
+- Setup: copy `.env.example` to `.env`, generate a secret with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`. Never rotate the secret post-launch — it invalidates every existing per-player URL.
+- The sheet, not any external roster, is the source of truth: name (U2), email (T3), handle (W3). MS Forms can't be used as a join (attachment-questions are Accenture-internal-only).
+- Resubmissions with the same email overwrite cleanly. `ingest.js` keeps the newest mtime and warns about superseded files. Older .xlsx files in `data/submissions/` should be deleted once you're sure the latest is good — they don't hurt anything but they clutter audit.
+- Two players choosing the same handle is auto-disambiguated (`rocky_star_2`) AND logged with a `[WARN]` — email the second player to pick a different one.

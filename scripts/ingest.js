@@ -13,6 +13,26 @@ const { resolveTeam } = require('./normalize-team');
 
 const SUBMISSIONS_DIR = path.join(__dirname, '..', 'data', 'submissions');
 const PREDICTIONS_DIR = path.join(__dirname, '..', 'data', 'predictions');
+const ENV_PATH = path.join(__dirname, '..', '.env');
+
+// Tiny .env loader. Avoids a dotenv dependency. Only loads KEY=VAL lines;
+// existing process.env values win (so a shell export overrides .env).
+function loadEnv() {
+  if (!fs.existsSync(ENV_PATH)) return;
+  for (const line of fs.readFileSync(ENV_PATH, 'utf8').split(/\r?\n/)) {
+    const m = line.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*)$/);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].trim();
+  }
+}
+loadEnv();
+
+function getSecret() {
+  const s = process.env.PREDICTOR_SECRET;
+  if (!s || s === 'replace-with-32-bytes-of-random-hex') {
+    throw new Error('PREDICTOR_SECRET is not set. Copy .env.example to .env and fill in a real value.');
+  }
+  return s;
+}
 
 // Cell map, locked — Appendix A of tasks/mvp-plan.md
 const GROUP_BLOCKS = [
@@ -41,12 +61,17 @@ const KO_CELLS = {
 const WINNER_CELL = 'X54';
 const TIEBREAKER_CELL = 'X57';
 const NAME_CELL = 'U2';
+const EMAIL_CELL = 'T3';    // top-left of merged T3:U3 (input below name)
+const HANDLE_CELL = 'W3';   // top-left of merged W3:X3 (input right of email)
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Template-signature anchors — fail loudly if any of these have been edited.
 const TEMPLATE_SIGNATURE = {
   A4: 'GROUP A',
   G4: 'GROUP B',
   A5: 'Mexico',
+  S3: 'EMAIL',
+  V3: 'HANDLE',
   S6: 'ROUND OF 32  (5 pts per correct team)',
 };
 
@@ -61,8 +86,10 @@ function cellValue(ws, ref) {
   return c == null ? undefined : c.v;
 }
 
-function makeToken(name, sourceFile) {
-  return crypto.createHash('sha256').update(`${name}|${sourceFile}`).digest('hex').slice(0, 32);
+// Token is purely email-derived: same email → same token, every time.
+// The secret salt means an attacker can't compute a token from a leaked email alone.
+function makeToken(email, secret = getSecret()) {
+  return crypto.createHash('sha256').update(`${secret}|${email.toLowerCase()}`).digest('hex').slice(0, 32);
 }
 
 function makeHandle(name) {
@@ -84,7 +111,7 @@ function verifyTemplateSignature(ws, sourceFile) {
 }
 
 // Convert a worksheet → prediction object. Pure-ish: returns the object + warnings, no file I/O.
-function ingestWorkbook(wb, sourceFile, submittedAt = new Date()) {
+function ingestWorkbook(wb, sourceFile, submittedAt = new Date(), secret = getSecret()) {
   const ws = wb.Sheets[wb.SheetNames[0]];
   if (!ws) throw new Error(`${sourceFile}: workbook has no sheets`);
 
@@ -94,9 +121,32 @@ function ingestWorkbook(wb, sourceFile, submittedAt = new Date()) {
   const name = nameRaw == null ? '' : String(nameRaw).trim();
   if (!name) throw new Error(`${sourceFile}: ${NAME_CELL} (participant name) is empty`);
 
-  const token = makeToken(name, sourceFile);
-  const handle = makeHandle(name);
+  const emailRaw = cellValue(ws, EMAIL_CELL);
+  const email = emailRaw == null ? '' : String(emailRaw).trim().toLowerCase();
+  if (!email) throw new Error(`${sourceFile}: ${EMAIL_CELL} (email) is empty — required to generate a stable URL token`);
+
   const warnings = [];
+  if (!EMAIL_RE.test(email)) {
+    warnings.push(`Email at ${EMAIL_CELL} doesn't look valid: "${email}". Token will still be generated; verify with the player before sharing their link.`);
+  }
+
+  const handleRaw = cellValue(ws, HANDLE_CELL);
+  const handleFromSheet = handleRaw == null ? '' : String(handleRaw).trim();
+  let handle;
+  let handleSource;
+  if (handleFromSheet) {
+    handle = makeHandle(handleFromSheet);
+    handleSource = 'sheet';
+    if (handle !== handleFromSheet.toLowerCase()) {
+      warnings.push(`Handle "${handleFromSheet}" normalized to "${handle}" (lowercased, non-alphanumeric → _)`);
+    }
+  } else {
+    handle = makeHandle(name);
+    handleSource = 'derived';
+    warnings.push(`Handle cell ${HANDLE_CELL} is blank; derived "${handle}" from participant name`);
+  }
+
+  const token = makeToken(email, secret);
 
   // Group scores
   const groupScores = {};
@@ -203,7 +253,9 @@ function ingestWorkbook(wb, sourceFile, submittedAt = new Date()) {
   return {
     token,
     handle,
+    handleSource,
     name,
+    email,
     submittedAt: submittedAtIso,
     sourceFile,
     groupScores,
@@ -233,13 +285,20 @@ function ingestFile(filePath) {
 }
 
 function ensureUniqueHandle(prediction, takenHandles) {
-  let h = prediction.handle;
+  const original = prediction.handle;
+  let h = original;
   let i = 2;
   while (takenHandles.has(h)) {
-    h = `${prediction.handle}_${i++}`;
+    h = `${original}_${i++}`;
   }
   takenHandles.add(h);
   prediction.handle = h;
+  // Two player-chosen handles colliding is a real conflict worth flagging —
+  // email the affected player to pick something else. Derived handles can collide
+  // benignly (two Alex Bs) and we just disambiguate silently below.
+  if (h !== original && prediction.handleSource === 'sheet') {
+    prediction.warnings.push(`Handle "${original}" was already taken; auto-renamed to "${h}". Player likely needs to be told.`);
+  }
 }
 
 function formatLog(p) {
@@ -265,25 +324,62 @@ function main() {
     return;
   }
 
-  const takenHandles = new Set();
+  // Pass 1: ingest every file, then deduplicate by email — newest mtime wins.
+  // Files that fail signature/email validation are surfaced as errors and skipped.
+  const ingested = [];
   let errCount = 0;
   for (const file of files) {
     const full = path.join(SUBMISSIONS_DIR, file);
     try {
       const pred = ingestFile(full);
-      ensureUniqueHandle(pred, takenHandles);
-      const outPath = path.join(PREDICTIONS_DIR, `${pred.token}.json`);
-      fs.writeFileSync(outPath, JSON.stringify(pred, null, 2) + '\n');
-      console.log(formatLog(pred));
-      for (const w of pred.warnings) console.log(`       - ${w}`);
+      ingested.push({ pred, mtime: fs.statSync(full).mtime.getTime() });
     } catch (err) {
       errCount++;
       console.log(`[ERR]  ${file}: ${err.message}`);
     }
   }
-  console.log(`\n${files.length - errCount}/${files.length} files processed successfully.`);
+
+  // Deduplicate by email: keep the newest, log the rest as superseded.
+  const winnersByEmail = new Map();   // email → { pred, mtime }
+  const supersededByEmail = new Map(); // email → [sourceFile, ...]
+  for (const entry of ingested) {
+    const email = entry.pred.email;
+    const existing = winnersByEmail.get(email);
+    if (!existing) {
+      winnersByEmail.set(email, entry);
+    } else if (entry.mtime > existing.mtime) {
+      (supersededByEmail.get(email) || supersededByEmail.set(email, []).get(email)).push(existing.pred.sourceFile);
+      winnersByEmail.set(email, entry);
+    } else {
+      (supersededByEmail.get(email) || supersededByEmail.set(email, []).get(email)).push(entry.pred.sourceFile);
+    }
+  }
+  for (const [email, files] of supersededByEmail) {
+    const winner = winnersByEmail.get(email).pred.sourceFile;
+    const winnerEntry = winnersByEmail.get(email);
+    winnerEntry.pred.warnings.push(`Superseded earlier submissions for ${email}: ${files.join(', ')} (kept ${winner}, newest mtime)`);
+  }
+
+  // Pass 2: clear stale prediction JSONs (so old tokens don't linger if a player resubmits with a corrected email).
+  for (const f of fs.readdirSync(PREDICTIONS_DIR)) {
+    if (f.endsWith('.json')) fs.unlinkSync(path.join(PREDICTIONS_DIR, f));
+  }
+
+  // Pass 3: assign unique handles + write outputs.
+  const takenHandles = new Set();
+  const winners = [...winnersByEmail.values()].sort((a, b) => a.pred.sourceFile.localeCompare(b.pred.sourceFile));
+  for (const { pred } of winners) {
+    ensureUniqueHandle(pred, takenHandles);
+    const outPath = path.join(PREDICTIONS_DIR, `${pred.token}.json`);
+    fs.writeFileSync(outPath, JSON.stringify(pred, null, 2) + '\n');
+    console.log(formatLog(pred));
+    for (const w of pred.warnings) console.log(`       - ${w}`);
+  }
+
+  const okCount = winners.length;
+  console.log(`\n${okCount}/${files.length} files processed (${errCount} errors, ${ingested.length - winners.length} superseded by newer submissions).`);
   if (errCount) process.exit(1);
 }
 
 if (require.main === module) main();
-module.exports = { ingestWorkbook, ingestFile, makeToken, makeHandle, toScore };
+module.exports = { ingestWorkbook, ingestFile, makeToken, makeHandle, toScore, ensureUniqueHandle };

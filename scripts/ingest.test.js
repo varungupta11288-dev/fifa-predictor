@@ -5,9 +5,11 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const XLSX = require('xlsx');
 const path = require('path');
-const { ingestWorkbook, makeToken, makeHandle } = require('./ingest');
+const { ingestWorkbook, makeToken, makeHandle, ensureUniqueHandle } = require('./ingest');
 
 const TEMPLATE_PATH = path.join(__dirname, '..', 'asset', 'WC2026_Predictor_Entry_Sheet (v1).xlsx');
+const TEST_SECRET = 'test-secret-do-not-use-in-prod';
+const FIXED_DATE = new Date('2026-06-08T14:00:00Z');
 
 function loadTemplate() {
   return XLSX.readFile(TEMPLATE_PATH);
@@ -21,6 +23,16 @@ function setCell(wb, ref, value, type = 's') {
   decoded.e.r = Math.max(decoded.e.r, cell.r);
   decoded.e.c = Math.max(decoded.e.c, cell.c);
   ws['!ref'] = XLSX.utils.encode_range(decoded);
+}
+
+function setIdentity(wb, { name, email, handle } = {}) {
+  if (name !== undefined) setCell(wb, 'U2', name, 's');
+  if (email !== undefined) setCell(wb, 'T3', email, 's');
+  if (handle !== undefined) setCell(wb, 'W3', handle, 's');
+}
+
+function ingest(wb, file = 'test.xlsx', date = FIXED_DATE) {
+  return ingestWorkbook(wb, file, date, TEST_SECRET);
 }
 
 function fillAllGroupScores(wb, h = 1, a = 0) {
@@ -45,7 +57,6 @@ function fillAllGroupScores(wb, h = 1, a = 0) {
 }
 
 function fillKnockoutSequence(wb) {
-  // 32 R32 picks
   const r32 = ['Mexico','South Korea','Czechia','South Africa','Canada','Qatar','Switzerland','Bosnia & Herz.','Brazil','Haiti','Scotland','Morocco','United States','Australia','Turkiye','Paraguay','Germany','Ivory Coast','Ecuador','Curacao','Netherlands','Sweden','Tunisia','Japan','Belgium','Iran','New Zealand','Egypt','Spain','Saudi Arabia','Uruguay','Cape Verde'];
   const r32Refs = [...range('U',8,23), ...range('X',8,23)];
   r32.forEach((t, i) => setCell(wb, r32Refs[i], t, 's'));
@@ -74,19 +85,19 @@ function range(letter, start, end) {
   const out = []; for (let r = start; r <= end; r++) out.push(`${letter}${r}`); return out;
 }
 
-const FIXED_DATE = new Date('2026-06-08T14:00:00Z');
-
 // --- Tests ---
 
 test('round-trip: known-good fixture parses all 72 group scores + 32/16/8/4/2/1 KO', () => {
   const wb = loadTemplate();
-  setCell(wb, 'U2', 'Test Player', 's');
+  setIdentity(wb, { name: 'Test Player', email: 'test@example.com', handle: 'tester' });
   fillAllGroupScores(wb, 2, 1);
   fillKnockoutSequence(wb);
 
-  const p = ingestWorkbook(wb, 'test.xlsx', FIXED_DATE);
+  const p = ingest(wb);
   assert.equal(p.name, 'Test Player');
-  assert.equal(p.handle, 'test_player');
+  assert.equal(p.email, 'test@example.com');
+  assert.equal(p.handle, 'tester');
+  assert.equal(p.handleSource, 'sheet');
   assert.equal(Object.keys(p.groupScores).length, 72);
   assert.deepEqual(p.groupScores['G-A-1'], { home: 2, away: 1 });
   assert.equal(p.round32.length, 32);
@@ -100,23 +111,23 @@ test('round-trip: known-good fixture parses all 72 group scores + 32/16/8/4/2/1 
 
 test('idempotency: two ingests of same workbook → byte-identical JSON', () => {
   const wb = loadTemplate();
-  setCell(wb, 'U2', 'Idem Player', 's');
+  setIdentity(wb, { name: 'Idem Player', email: 'idem@example.com', handle: 'idem' });
   fillAllGroupScores(wb);
   fillKnockoutSequence(wb);
 
-  const p1 = ingestWorkbook(wb, 'idem.xlsx', FIXED_DATE);
-  const p2 = ingestWorkbook(wb, 'idem.xlsx', FIXED_DATE);
+  const p1 = ingest(wb, 'idem.xlsx');
+  const p2 = ingest(wb, 'idem.xlsx');
   assert.equal(JSON.stringify(p1), JSON.stringify(p2));
 });
 
 test('fuzzy match: "Brasil" resolves to BRA + warning', () => {
   const wb = loadTemplate();
-  setCell(wb, 'U2', 'Typo Tester', 's');
+  setIdentity(wb, { name: 'Typo Tester', email: 'typo@example.com', handle: 'typo' });
   fillAllGroupScores(wb);
   fillKnockoutSequence(wb);
-  setCell(wb, 'U8', 'Brasil', 's'); // override first R32 cell
+  setCell(wb, 'U8', 'Brasil', 's');
 
-  const p = ingestWorkbook(wb, 'typo.xlsx', FIXED_DATE);
+  const p = ingest(wb, 'typo.xlsx');
   assert.equal(p.round32[0], 'BRA');
   const aliasWarn = p.warnings.find(w => w.includes('Brasil'));
   assert.ok(aliasWarn, 'expected alias-match warning for "Brasil"');
@@ -124,55 +135,162 @@ test('fuzzy match: "Brasil" resolves to BRA + warning', () => {
 
 test('unresolvable: "Atlantis" produces warning + slot dropped', () => {
   const wb = loadTemplate();
-  setCell(wb, 'U2', 'Bad Tester', 's');
+  setIdentity(wb, { name: 'Bad Tester', email: 'bad@example.com', handle: 'bad' });
   fillAllGroupScores(wb);
   fillKnockoutSequence(wb);
   setCell(wb, 'U8', 'Atlantis', 's');
 
-  const p = ingestWorkbook(wb, 'bad.xlsx', FIXED_DATE);
+  const p = ingest(wb, 'bad.xlsx');
   const warn = p.warnings.find(w => w.includes('Unresolvable'));
   assert.ok(warn, 'expected unresolvable warning');
-  assert.equal(p.round32.length, 31); // one fewer pick since Atlantis couldn't resolve
+  assert.equal(p.round32.length, 31);
 });
 
 test('missing name: U2 empty → throws error with filename', () => {
   const wb = loadTemplate();
-  // Don't set U2 — template already has it empty.
-  assert.throws(() => ingestWorkbook(wb, 'noname.xlsx', FIXED_DATE), /noname\.xlsx/);
+  setIdentity(wb, { email: 'someone@example.com' });
+  assert.throws(() => ingest(wb, 'noname.xlsx'), /noname\.xlsx.*participant name/i);
+});
+
+test('missing email: T3 empty → throws error with filename', () => {
+  const wb = loadTemplate();
+  setIdentity(wb, { name: 'No Email' });
+  assert.throws(() => ingest(wb, 'noemail.xlsx'), /noemail\.xlsx.*email/i);
+});
+
+test('invalid email format: warning but proceeds', () => {
+  const wb = loadTemplate();
+  setIdentity(wb, { name: 'Typo Mail', email: 'not-an-email', handle: 'typo_mail' });
+  fillAllGroupScores(wb);
+  fillKnockoutSequence(wb);
+
+  const p = ingest(wb, 'typomail.xlsx');
+  assert.equal(p.email, 'not-an-email');
+  assert.ok(p.warnings.some(w => w.includes("doesn't look valid")));
+});
+
+test('email lowercased: MIXED@Case.com stored as mixed@case.com', () => {
+  const wb = loadTemplate();
+  setIdentity(wb, { name: 'Case Test', email: 'MIXED@Case.COM', handle: 'mc' });
+  fillAllGroupScores(wb);
+  fillKnockoutSequence(wb);
+
+  const p = ingest(wb, 'case.xlsx');
+  assert.equal(p.email, 'mixed@case.com');
+});
+
+test('handle from sheet wins over derived', () => {
+  const wb = loadTemplate();
+  setIdentity(wb, { name: 'Long Name Here', email: 'h@example.com', handle: 'rocky' });
+  fillAllGroupScores(wb);
+  fillKnockoutSequence(wb);
+
+  const p = ingest(wb, 'h.xlsx');
+  assert.equal(p.handle, 'rocky');
+  assert.equal(p.handleSource, 'sheet');
+});
+
+test('handle blank: derived from name with warning', () => {
+  const wb = loadTemplate();
+  setIdentity(wb, { name: 'Derived Name', email: 'd@example.com' });
+  fillAllGroupScores(wb);
+  fillKnockoutSequence(wb);
+
+  const p = ingest(wb, 'd.xlsx');
+  assert.equal(p.handle, 'derived_name');
+  assert.equal(p.handleSource, 'derived');
+  assert.ok(p.warnings.some(w => w.includes('blank') && w.includes('derived')));
+});
+
+test('handle normalized: "Rocky Star!" → "rocky_star" with warning', () => {
+  const wb = loadTemplate();
+  setIdentity(wb, { name: 'X', email: 'x@example.com', handle: 'Rocky Star!' });
+  fillAllGroupScores(wb);
+  fillKnockoutSequence(wb);
+
+  const p = ingest(wb, 'norm.xlsx');
+  assert.equal(p.handle, 'rocky_star');
+  assert.ok(p.warnings.some(w => w.includes('normalized')));
 });
 
 test('template signature mismatch: editing A5 → throws signature error', () => {
   const wb = loadTemplate();
-  setCell(wb, 'U2', 'Tamperer', 's');
+  setIdentity(wb, { name: 'Tamperer', email: 'tamper@example.com', handle: 't' });
   setCell(wb, 'A5', 'TamperedTeam', 's');
-  assert.throws(() => ingestWorkbook(wb, 'tampered.xlsx', FIXED_DATE), /Template signature mismatch/);
+  assert.throws(() => ingest(wb, 'tampered.xlsx'), /Template signature mismatch/);
+});
+
+test('signature checks email + handle label cells (S3, V3)', () => {
+  const wb = loadTemplate();
+  setIdentity(wb, { name: 'X', email: 'x@example.com', handle: 'x' });
+  setCell(wb, 'S3', 'NOT_EMAIL', 's');
+  assert.throws(() => ingest(wb, 'badlabel.xlsx'), /Template signature mismatch/);
 });
 
 test('inconsistent bracket: team in QF but not R16 → warning', () => {
   const wb = loadTemplate();
-  setCell(wb, 'U2', 'Inconsistent', 's');
+  setIdentity(wb, { name: 'Inconsistent', email: 'i@example.com', handle: 'i' });
   fillAllGroupScores(wb);
   fillKnockoutSequence(wb);
-  // Replace one QF pick with a team not in R16 (Argentina — not in our R16 list since we only took the first 16 R32s)
   setCell(wb, 'U38', 'Argentina', 's');
-  // And drop it from R32 too so bracket inconsistency triggers cleanly
-  setCell(wb, 'U8', 'Argentina', 's'); // put ARG in R32 so it's only QF-not-R16 that's inconsistent
+  setCell(wb, 'U8', 'Argentina', 's');
 
-  const p = ingestWorkbook(wb, 'incon.xlsx', FIXED_DATE);
+  const p = ingest(wb, 'incon.xlsx');
   const w = p.warnings.find(w => /Bracket inconsistency.*ARG/.test(w));
   assert.ok(w, `expected bracket inconsistency warning, got: ${JSON.stringify(p.warnings)}`);
 });
 
-test('token determinism: same name+filename → same token', () => {
-  const t1 = makeToken('Alex Bennett', 'Player1_Alex.xlsx');
-  const t2 = makeToken('Alex Bennett', 'Player1_Alex.xlsx');
+test('token determinism: same email → same token regardless of filename', () => {
+  const t1 = makeToken('alex@example.com', TEST_SECRET);
+  const t2 = makeToken('alex@example.com', TEST_SECRET);
   assert.equal(t1, t2);
   assert.equal(t1.length, 32);
   assert.match(t1, /^[a-f0-9]{32}$/);
+});
+
+test('token: email case-insensitive (Alex@Example.com == alex@example.com)', () => {
+  const t1 = makeToken('Alex@Example.com', TEST_SECRET);
+  const t2 = makeToken('alex@example.com', TEST_SECRET);
+  assert.equal(t1, t2);
+});
+
+test('token: same name different emails → different tokens (collision-free)', () => {
+  const t1 = makeToken('alex1@example.com', TEST_SECRET);
+  const t2 = makeToken('alex2@example.com', TEST_SECRET);
+  assert.notEqual(t1, t2);
+});
+
+test('token: changing the secret produces a different token (salt works)', () => {
+  const t1 = makeToken('alex@example.com', 'secret-a');
+  const t2 = makeToken('alex@example.com', 'secret-b');
+  assert.notEqual(t1, t2);
 });
 
 test('handle: spaces/diacritics/punct collapse to underscores', () => {
   assert.equal(makeHandle('Varun Gupta'), 'varun_gupta');
   assert.equal(makeHandle("O'Brien"), 'o_brien');
   assert.equal(makeHandle('José Müller'), 'jose_muller');
+});
+
+test('ensureUniqueHandle: collision between two sheet handles → warning on the loser', () => {
+  const taken = new Set();
+  const p1 = { handle: 'rocky_star', handleSource: 'sheet', warnings: [] };
+  const p2 = { handle: 'rocky_star', handleSource: 'sheet', warnings: [] };
+  ensureUniqueHandle(p1, taken);
+  ensureUniqueHandle(p2, taken);
+  assert.equal(p1.handle, 'rocky_star');
+  assert.equal(p2.handle, 'rocky_star_2');
+  assert.equal(p1.warnings.length, 0);
+  assert.ok(p2.warnings.some(w => w.includes('auto-renamed')));
+});
+
+test('ensureUniqueHandle: derived-handle collision → silent disambiguation, no warning', () => {
+  const taken = new Set();
+  const p1 = { handle: 'alex_b', handleSource: 'derived', warnings: [] };
+  const p2 = { handle: 'alex_b', handleSource: 'derived', warnings: [] };
+  ensureUniqueHandle(p1, taken);
+  ensureUniqueHandle(p2, taken);
+  assert.equal(p1.handle, 'alex_b');
+  assert.equal(p2.handle, 'alex_b_2');
+  assert.equal(p2.warnings.length, 0);
 });

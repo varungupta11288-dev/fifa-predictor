@@ -1,4 +1,4 @@
-// Print one share-link per ingested prediction.
+// Print Name | Handle | Email | Link for every ingested prediction.
 //
 //   npm run links                 # default: deployed site
 //   SITE_URL=http://localhost:8080 npm run links
@@ -27,16 +27,32 @@ function main() {
 
   const rows = files.map(f => {
     const p = JSON.parse(fs.readFileSync(path.join(PREDICTIONS_DIR, f), 'utf8'));
-    return { name: p.name, url: `${site}/me/${p.token}/` };
+    return {
+      name: p.name,
+      handle: p.handle,
+      email: p.email || '(missing)',
+      url: `${site}/me/${p.token}/`,
+    };
   }).sort((a, b) => a.name.localeCompare(b.name));
 
-  const nameWidth = Math.max('Player'.length, ...rows.map(r => r.name.length));
-  const urlWidth  = Math.max('Link'.length,   ...rows.map(r => r.url.length));
+  const widths = {
+    name:   Math.max('Player'.length, ...rows.map(r => r.name.length)),
+    handle: Math.max('Handle'.length, ...rows.map(r => r.handle.length)),
+    email:  Math.max('Email'.length,  ...rows.map(r => r.email.length)),
+    url:    Math.max('Link'.length,   ...rows.map(r => r.url.length)),
+  };
 
-  console.log(`| ${'Player'.padEnd(nameWidth)} | ${'Link'.padEnd(urlWidth)} |`);
-  console.log(`| ${'-'.repeat(nameWidth)} | ${'-'.repeat(urlWidth)} |`);
+  const headerCells = [
+    'Player'.padEnd(widths.name),
+    'Handle'.padEnd(widths.handle),
+    'Email'.padEnd(widths.email),
+    'Link'.padEnd(widths.url),
+  ];
+  const sepCells = Object.values(widths).map(w => '-'.repeat(w));
+  console.log(`| ${headerCells.join(' | ')} |`);
+  console.log(`| ${sepCells.join(' | ')} |`);
   for (const r of rows) {
-    console.log(`| ${r.name.padEnd(nameWidth)} | ${r.url.padEnd(urlWidth)} |`);
+    console.log(`| ${r.name.padEnd(widths.name)} | ${r.handle.padEnd(widths.handle)} | ${r.email.padEnd(widths.email)} | ${r.url.padEnd(widths.url)} |`);
   }
   console.log(`\n${rows.length} player(s). Leaderboard: ${site}/`);
 }
