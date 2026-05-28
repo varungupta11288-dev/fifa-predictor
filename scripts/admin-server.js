@@ -29,6 +29,7 @@ const HOST = '127.0.0.1';
 const PORT = 5174;
 const ORIGIN = `http://${HOST}:${PORT}`;
 const HTML_PATH = path.join(__dirname, 'admin.html');
+const FAVICON_PATH = path.join(ROOT, 'asset', 'Trophy.webp');
 
 const TOKEN = crypto.randomBytes(24).toString('hex');
 
@@ -215,6 +216,22 @@ async function handle(req, res) {
       'Cache-Control': 'no-store',
     });
     res.end(injected);
+    return;
+  }
+
+  if (req.method === 'GET' && url.pathname === '/favicon.webp') {
+    try {
+      const buf = await fsp.readFile(FAVICON_PATH);
+      res.writeHead(200, {
+        'Content-Type': 'image/webp',
+        'Content-Length': buf.length,
+        'Cache-Control': 'public, max-age=86400',
+      });
+      res.end(buf);
+    } catch (_) {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Not found');
+    }
     return;
   }
 

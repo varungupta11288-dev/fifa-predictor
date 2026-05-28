@@ -4,6 +4,7 @@ _site/
 .env
 .DS_Store
 dist/
+tasks/
 
 # Player data — never commit (real or synthetic)
 data/submissions/
