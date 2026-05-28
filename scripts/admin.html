@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WC2026 Admin</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root {
+    --bg: #0b0d12;
+    --panel: #141821;
+    --panel-2: #1b2030;
+    --border: #2a3142;
+    --text: #e7ecf3;
+    --muted: #8a93a6;
+    --accent: #ffd24a;
+    --accent-2: #f5b400;
+    --green: #4ade80;
+    --red: #f87171;
+    --blue: #60a5fa;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header {
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  header h1 span { color: var(--accent); }
+  .git-pill {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 4px 10px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  .git-pill.dirty { color: var(--accent); border-color: var(--accent-2); }
+  main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 24px 32px 64px;
+    display: grid;
+    gap: 20px;
+  }
+  section.card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+  }
+  .card h2 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .card .subhead {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+
+  /* Upload */
+  .dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    text-align: center;
+    color: var(--muted);
+    transition: all 120ms ease;
+    cursor: pointer;
+    min-height: 120px;
+  }
+  .dropzone:hover, .dropzone.drag {
+    border-color: var(--accent);
+    color: var(--text);
+    background: var(--panel-2);
+  }
+  .dropzone strong { color: var(--text); }
+  .dropzone small { display: block; margin-top: 6px; }
+  input[type=file] { display: none; }
+
+  .sub-list {
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 4px;
+  }
+  .sub-list li {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: var(--panel-2);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    align-items: center;
+  }
+  .sub-list .meta { color: var(--muted); font-size: 12px; }
+  .sub-list .remove {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .sub-list .remove:hover { color: var(--red); border-color: var(--red); }
+  .empty { color: var(--muted); font-size: 13px; font-style: italic; margin-top: 12px; }
+
+  /* Buttons */
+  .button-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  button.btn {
+    background: var(--accent);
+    color: #1a1408;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 100ms ease;
+  }
+  button.btn:hover { background: var(--accent-2); }
+  button.btn:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+  button.btn.ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  button.btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Log */
+  .log {
+    margin-top: 14px;
+    background: #05070b;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    max-height: 360px;
+    overflow-y: auto;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    color: #c9d1e1;
+    display: none;
+  }
+  .log.active { display: block; }
+  .log .err { color: var(--red); }
+  .log .ok { color: var(--green); }
+  .log .meta { color: var(--muted); }
+
+  /* Push panel */
+  .changed-files {
+    margin: 8px 0 14px;
+    padding: 10px 14px;
+    background: var(--panel-2);
+    border-radius: 6px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    max-height: 140px;
+    overflow-y: auto;
+  }
+  .changed-files div { padding: 2px 0; }
+  .changed-files .status { color: var(--accent); margin-right: 8px; }
+  input.text {
+    width: 100%;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    margin-bottom: 12px;
+  }
+  input.text:focus { outline: none; border-color: var(--accent); }
+
+  /* Toasts */
+  .toasts {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: grid;
+    gap: 8px;
+    z-index: 50;
+  }
+  .toast {
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    min-width: 220px;
+    max-width: 360px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .toast.ok { border-color: var(--green); }
+  .toast.err { border-color: var(--red); }
+
+  .spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--muted);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 6px;
+    vertical-align: -2px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>WC2026 <span>Admin</span></h1>
+  <div id="git-pill" class="git-pill">loading…</div>
+</header>
+
+<main>
+
+  <section class="card">
+    <h2>① Submissions</h2>
+    <div class="subhead">Drop .xlsx files to add them to <code>data/submissions/</code>.</div>
+
+    <label class="dropzone" id="drop">
+      <strong>Drag .xlsx files here</strong>
+      <small>or click to browse</small>
+      <input type="file" id="file-input" accept=".xlsx" multiple>
+    </label>
+
+    <ul class="sub-list" id="sub-list"></ul>
+    <div class="empty" id="sub-empty" hidden>No submissions yet.</div>
+  </section>
+
+  <section class="card">
+    <h2>② Build &amp; deploy</h2>
+    <div class="subhead">Runs <code>npm run deploy</code> (ingest → build → push gh-pages).</div>
+    <div class="button-row">
+      <button class="btn" id="btn-deploy">🚀 Deploy</button>
+      <button class="btn ghost" id="btn-links">🔗 Generate links</button>
+      <button class="btn ghost" id="btn-stop" hidden>✕ Stop</button>
+    </div>
+    <div class="log" id="log"></div>
+  </section>
+
+  <section class="card">
+    <h2>③ Push code changes to main</h2>
+    <div class="subhead"><code>git add -u</code> · commit · push origin main. <code>data/</code> stays gitignored.</div>
+    <div id="changed-wrap">
+      <div class="empty" id="changed-empty">Working tree is clean.</div>
+      <div class="changed-files" id="changed-files" hidden></div>
+    </div>
+    <input class="text" id="commit-msg" placeholder="Commit message" autocomplete="off">
+    <button class="btn" id="btn-push" disabled>git add · commit · push</button>
+  </section>
+
+</main>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+const TOKEN = "__ADMIN_TOKEN__";
+const $ = (id) => document.getElementById(id);
+
+// ---- toasts ----
+function toast(msg, kind = 'ok') {
+  const t = document.createElement('div');
+  t.className = `toast ${kind}`;
+  t.textContent = msg;
+  $('toasts').appendChild(t);
+  setTimeout(() => t.style.opacity = '0', 3500);
+  setTimeout(() => t.remove(), 4000);
+}
+
+// ---- api helpers ----
+async function api(path, opts = {}) {
+  const res = await fetch(path, {
+    ...opts,
+    headers: {
+      'X-Admin-Token': TOKEN,
+      ...(opts.body ? { 'Content-Type': 'application/json' } : {}),
+      ...(opts.headers || {}),
+    },
+  });
+  const text = await res.text();
+  let json = {};
+  try { json = text ? JSON.parse(text) : {}; } catch (_) {}
+  if (!res.ok) throw new Error(json.error || `HTTP ${res.status}`);
+  return json;
+}
+
+// ---- state refresh ----
+function fmtSize(n) {
+  if (n < 1024) return `${n} B`;
+  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
+  return `${(n / 1024 / 1024).toFixed(2)} MB`;
+}
+function fmtTime(iso) {
+  const d = new Date(iso);
+  return d.toLocaleString();
+}
+
+async function refresh() {
+  let data;
+  try { data = await api('/api/list'); }
+  catch (err) { toast(`Refresh failed: ${err.message}`, 'err'); return; }
+
+  // Submissions
+  const list = $('sub-list');
+  list.innerHTML = '';
+  if (data.submissions.length === 0) {
+    $('sub-empty').hidden = false;
+  } else {
+    $('sub-empty').hidden = true;
+    for (const s of data.submissions) {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <span>${s.name}</span>
+        <span class="meta">${fmtSize(s.size)}</span>
+        <span class="meta">${fmtTime(s.mtime)}</span>
+        <button class="remove" data-name="${s.name}">remove</button>
+      `;
+      list.appendChild(li);
+    }
+  }
+
+  // Git pill
+  const g = data.git;
+  const pill = $('git-pill');
+  const dirty = g.files.length > 0;
+  const aheadTxt = g.hasUpstream ? ` · ${g.ahead} ahead` : ' · no upstream';
+  pill.textContent = `${g.branch} · ${dirty ? `${g.files.length} changed` : 'clean'}${aheadTxt}`;
+  pill.classList.toggle('dirty', dirty);
+
+  // Changed files
+  const wrap = $('changed-files');
+  const empty = $('changed-empty');
+  if (dirty) {
+    wrap.hidden = false;
+    empty.hidden = true;
+    wrap.innerHTML = g.files.map(f =>
+      `<div><span class="status">${f.status}</span>${f.path}</div>`
+    ).join('');
+  } else {
+    wrap.hidden = true;
+    empty.hidden = false;
+    wrap.innerHTML = '';
+  }
+  $('btn-push').disabled = !dirty;
+}
+
+// ---- upload ----
+function readAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      const i = result.indexOf(',');
+      resolve(result.slice(i + 1));
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadFiles(files) {
+  const list = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.xlsx'));
+  if (list.length === 0) { toast('Only .xlsx files accepted', 'err'); return; }
+  for (const f of list) {
+    try {
+      const base64 = await readAsBase64(f);
+      await api('/api/upload', { method: 'POST', body: JSON.stringify({ name: f.name, base64 }) });
+      toast(`Uploaded ${f.name}`);
+    } catch (err) {
+      toast(`${f.name}: ${err.message}`, 'err');
+    }
+  }
+  refresh();
+}
+
+const drop = $('drop');
+const fileInput = $('file-input');
+drop.addEventListener('click', (e) => {
+  if (e.target.tagName !== 'INPUT') fileInput.click();
+});
+fileInput.addEventListener('change', () => uploadFiles(fileInput.files));
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, (e) => {
+  e.preventDefault();
+  drop.classList.add('drag');
+}));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, (e) => {
+  e.preventDefault();
+  drop.classList.remove('drag');
+}));
+drop.addEventListener('drop', (e) => uploadFiles(e.dataTransfer.files));
+
+document.addEventListener('click', async (e) => {
+  if (!e.target.classList.contains('remove')) return;
+  const name = e.target.dataset.name;
+  if (!confirm(`Remove ${name}?`)) return;
+  try {
+    await api('/api/remove', { method: 'POST', body: JSON.stringify({ name }) });
+    toast(`Removed ${name}`);
+    refresh();
+  } catch (err) { toast(err.message, 'err'); }
+});
+
+// ---- streaming commands (SSE) ----
+const logEl = $('log');
+let currentSrc = null;
+
+function logLine(text, cls = '') {
+  const span = document.createElement('span');
+  if (cls) span.className = cls;
+  span.textContent = text;
+  logEl.appendChild(span);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function startStream(name, urlPath) {
+  if (currentSrc) { toast('A command is already running', 'err'); return; }
+  logEl.classList.add('active');
+  logEl.innerHTML = '';
+  logLine(`▶ ${name}\n`, 'meta');
+
+  $('btn-deploy').disabled = true;
+  $('btn-links').disabled = true;
+  $('btn-stop').hidden = false;
+
+  const src = new EventSource(`${urlPath}?token=${encodeURIComponent(TOKEN)}`);
+  currentSrc = src;
+
+  src.addEventListener('stdout', (e) => logLine(e.data.replace(/\\n/g, '\n')));
+  src.addEventListener('stderr', (e) => logLine(e.data.replace(/\\n/g, '\n'), 'err'));
+  src.addEventListener('end', (e) => {
+    let code = -1;
+    try { code = JSON.parse(e.data).code; } catch (_) {}
+    logLine(`\n${code === 0 ? '✓' : '✗'} exit ${code}\n`, code === 0 ? 'ok' : 'err');
+    toast(code === 0 ? `${name} succeeded` : `${name} failed (exit ${code})`, code === 0 ? 'ok' : 'err');
+    src.close();
+    currentSrc = null;
+    $('btn-deploy').disabled = false;
+    $('btn-links').disabled = false;
+    $('btn-stop').hidden = true;
+    refresh();
+  });
+  src.addEventListener('error', () => {
+    if (currentSrc !== src) return;
+    logLine('\n[stream error]\n', 'err');
+    src.close();
+    currentSrc = null;
+    $('btn-deploy').disabled = false;
+    $('btn-links').disabled = false;
+    $('btn-stop').hidden = true;
+  });
+}
+
+// EventSource is GET-only — endpoints accept GET for SSE.
+// Note: there's no in-flight kill API; "Stop" just closes the SSE.
+// The child process keeps running on the server until it finishes.
+$('btn-deploy').addEventListener('click', () => startStream('npm run deploy', '/api/deploy'));
+$('btn-links').addEventListener('click', () => startStream('npm run links', '/api/links'));
+$('btn-stop').addEventListener('click', () => {
+  if (currentSrc) {
+    currentSrc.close();
+    currentSrc = null;
+    logLine('\n[client disconnected]\n', 'meta');
+    $('btn-deploy').disabled = false;
+    $('btn-links').disabled = false;
+    $('btn-stop').hidden = true;
+  }
+});
+
+// ---- git push ----
+$('btn-push').addEventListener('click', async () => {
+  const msg = $('commit-msg').value.trim();
+  if (!msg) { toast('Commit message required', 'err'); return; }
+  $('btn-push').disabled = true;
+  $('btn-push').innerHTML = '<span class="spinner"></span>pushing…';
+  try {
+    const result = await api('/api/git-push', { method: 'POST', body: JSON.stringify({ message: msg }) });
+    if (result.note) toast(result.note);
+    else toast('Pushed to origin');
+    $('commit-msg').value = '';
+    logEl.classList.add('active');
+    logEl.innerHTML = '';
+    logLine('▶ git push\n', 'meta');
+    for (const s of (result.steps || [])) {
+      logLine(`$ ${s.step}\n`, 'meta');
+      if (s.stdout) logLine(s.stdout);
+      if (s.stderr) logLine(s.stderr, s.code === 0 ? '' : 'err');
+    }
+    logLine('✓ done\n', 'ok');
+  } catch (err) {
+    toast(err.message, 'err');
+  } finally {
+    $('btn-push').innerHTML = 'git add · commit · push';
+    refresh();
+  }
+});
+
+// ---- initial paint + periodic refresh ----
+refresh();
+setInterval(refresh, 8000);
+</script>
+</body>
+</html>

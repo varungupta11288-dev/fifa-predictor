@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(\"---\")",
+      "PowerShell(gh run list --limit 3 2>&1)",
+      "PowerShell(git add tasks/lessons.md)",
+      "PowerShell(git commit -m \"docs: capture lessons from MVP build session\")",
+      "PowerShell(git push 2>&1)",
+      "PowerShell(npm ci 2>&1)",
+      "PowerShell(git add .github/workflows/deploy.yml)",
+      "PowerShell($f = \"_site/index.html\"; \"Size: $\\(\\(Get-Item $f\\).Length\\) bytes\"; \"Tailwind CSS: $\\(\\(Get-Item _site/assets/css/tailwind.css\\).Length\\) bytes\"; \"---\"; Select-String -Path $f -Pattern \"podium-card|animate-goldGlow|animate-barFill|animate-flagSweep|gold-shimmer|chip|countdownLabel\" | Measure-Object | Select-Object -Expand Count | ForEach-Object { \"Matches for new styling hooks: $_\" }; \"---\"; Select-String -Path _site/assets/css/tailwind.css -Pattern \"pitch-bg|gold-shimmer|podium-card|flag-stripe|animate-goldGlow|barFill\" | Measure-Object | Select-Object -Expand Count | ForEach-Object { \"CSS rules emitted: $_\" })",
+      "PowerShell($css = Get-Content _site/assets/css/tailwind.css -Raw; \"pitch-bg present: $\\($css -match 'pitch-bg'\\)\"; \"gold-shimmer present: $\\($css -match 'gold-shimmer'\\)\"; \"podium-card present: $\\($css -match 'podium-card'\\)\"; \"flag-stripe present: $\\($css -match 'flag-stripe'\\)\"; \"@keyframes goldGlow: $\\($css -match 'goldGlow'\\)\"; \"@keyframes barFill: $\\($css -match 'barFill'\\)\"; \"@keyframes pitchPan: $\\($css -match 'pitchPan'\\)\"; \"animate-goldGlow utility: $\\($css -match 'animate-goldGlow'\\)\"; \"animate-barFill utility: $\\($css -match 'animate-barFill'\\)\"; \"Total CSS length: $\\($css.Length\\)\")",
+      "PowerShell(git add tailwind.config.js src/styles/input.css src/_data/site.js src/_includes/layout.njk src/pages/index.njk)",
+      "PowerShell($resp = Invoke-WebRequest -Uri \"https://varungupta11288-dev.github.io/fifa-predictor/assets/css/tailwind.css\" -UseBasicParsing; \"CSS size: $\\($resp.RawContentLength\\) bytes\"; \"Has podium-card: $\\($resp.Content.Contains\\('podium-card'\\)\\)\"; \"Has pitch-bg: $\\($resp.Content.Contains\\('pitch-bg'\\)\\)\"; \"Has gold-shimmer: $\\($resp.Content.Contains\\('gold-shimmer'\\)\\)\"; \"Has barFill: $\\($resp.Content.Contains\\('barFill'\\)\\)\")",
+      "Bash(node -e \"const fs=require\\('fs'\\),path=require\\('path'\\);const dir='data/predictions';fs.readdirSync\\(dir\\).forEach\\(f=>{const p=JSON.parse\\(fs.readFileSync\\(path.join\\(dir,f\\)\\)\\);console.log\\(p.name+'\\\\t'+p.token\\);}\\);\")",
+      "Bash(npm run *)",
+      "Bash(node -e ' *)",
+      "Bash(git rm *)",
+      "Bash(git config *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('hex'\\)\\)\")",
+      "Bash(git check-ignore *)",
+      "Bash(git ls-tree *)",
+      "Bash(git fetch *)",
+      "Read(//tmp/**)",
+      "Bash(gh api *)",
+      "PowerShell(gh api repos/varungupta11288-dev/fifa-predictor/pages)",
+      "Bash(git ls-remote *)"
+    ]
+  }
+}
