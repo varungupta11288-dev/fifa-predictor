@@ -227,18 +227,25 @@
   (function () {
     var KEY = 'wc2026:meToken';
     var BASE = '/fifa-predictor';
-    try {
-      // If we're on a private predictions page, capture & remember its token.
-      var onMe = location.pathname.match(/\/me\/([^/]+)/);
-      if (onMe) localStorage.setItem(KEY, onMe[1]);
+    function sync() {
+      try {
+        // If we're on a private predictions page, capture & remember its token.
+        var onMe = location.pathname.match(/\/me\/([^/]+)/);
+        if (onMe) localStorage.setItem(KEY, onMe[1]);
 
-      var token = localStorage.getItem(KEY);
-      var link = document.getElementById('nav-my-predictions');
-      if (link && token) {
-        link.href = BASE + '/me/' + token + '/';
-        link.hidden = false;
-      }
-    } catch (e) { /* localStorage unavailable (private mode) — link stays hidden. */ }
+        var token = localStorage.getItem(KEY);
+        var link = document.getElementById('nav-my-predictions');
+        if (link && token) {
+          link.href = BASE + '/me/' + token + '/';
+          link.hidden = false;
+        }
+      } catch (e) { /* localStorage unavailable (private mode) — link stays hidden. */ }
+    }
+    sync();
+    // Re-run on back/forward (bfcache) restores: the page comes back in its cached
+    // state with inline scripts NOT re-executed, but a token may have been stored
+    // since it was last shown — so re-sync to reveal the link.
+    window.addEventListener('pageshow', sync);
   })();
   </script>
 </body>

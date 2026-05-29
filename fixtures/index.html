@@ -61,7 +61,7 @@
   <h1 class="display text-3xl md:text-4xl text-slate-900">Fixtures</h1>
   <p class="text-sm text-slate-600 mt-2">
     All 104 matches · times shown in UTC
-    · schedule updated 2026-05-29 17:27Z
+    · schedule updated 2026-05-29 21:00Z
   </p>
 </section>
 
@@ -4623,18 +4623,25 @@
   (function () {
     var KEY = 'wc2026:meToken';
     var BASE = '/fifa-predictor';
-    try {
-      // If we're on a private predictions page, capture & remember its token.
-      var onMe = location.pathname.match(/\/me\/([^/]+)/);
-      if (onMe) localStorage.setItem(KEY, onMe[1]);
+    function sync() {
+      try {
+        // If we're on a private predictions page, capture & remember its token.
+        var onMe = location.pathname.match(/\/me\/([^/]+)/);
+        if (onMe) localStorage.setItem(KEY, onMe[1]);
 
-      var token = localStorage.getItem(KEY);
-      var link = document.getElementById('nav-my-predictions');
-      if (link && token) {
-        link.href = BASE + '/me/' + token + '/';
-        link.hidden = false;
-      }
-    } catch (e) { /* localStorage unavailable (private mode) — link stays hidden. */ }
+        var token = localStorage.getItem(KEY);
+        var link = document.getElementById('nav-my-predictions');
+        if (link && token) {
+          link.href = BASE + '/me/' + token + '/';
+          link.hidden = false;
+        }
+      } catch (e) { /* localStorage unavailable (private mode) — link stays hidden. */ }
+    }
+    sync();
+    // Re-run on back/forward (bfcache) restores: the page comes back in its cached
+    // state with inline scripts NOT re-executed, but a token may have been stored
+    // since it was last shown — so re-sync to reveal the link.
+    window.addEventListener('pageshow', sync);
   })();
   </script>
 </body>
