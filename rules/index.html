@@ -45,54 +45,174 @@
   
 
   <main class="max-w-6xl mx-auto px-4 py-8 w-full flex-1">
-    <h1 class="text-2xl font-bold mb-4">Game rules</h1>
+    
 
-<p class="text-sm text-slate-600 mb-4">New here? See <a href="/fifa-predictor/how-to-enter/" class="text-emerald-700 underline">how to enter</a> for downloading and submitting your prediction sheet.</p>
+<section class="mb-8">
+  <p class="text-xs uppercase tracking-[0.25em] text-pitch-700 font-semibold mb-1">Reference</p>
+  <h1 class="display text-3xl md:text-4xl text-slate-900">Game rules</h1>
+  <p class="text-sm text-slate-600 mt-2">
+    How points are awarded and how ties are broken. New here?
+    See <a href="/fifa-predictor/how-to-enter/" class="text-emerald-700 underline">how to enter</a>
+    for downloading and submitting your prediction sheet.
+  </p>
+</section>
 
-<div class="prose max-w-none">
-<h2 class="text-lg font-semibold mt-6 mb-2">Tournament structure</h2>
-<p>The FIFA World Cup 2026 has 48 teams in 12 groups of 4. The group stage produces 72 matches.
-32 teams advance to the knockout phase: the 12 group winners, 12 runners-up, and the 8 best
-third-placed teams. The bracket runs Round of 32 → Round of 16 → Quarter-Finals → Semi-Finals →
-Final, plus a 3rd-place play-off. Tournament window: 11 Jun — 19 Jul 2026.</p>
 
-<h2 class="text-lg font-semibold mt-6 mb-2">Scoring</h2>
-<table class="min-w-full text-sm bg-white rounded border border-slate-200">
-  <thead class="bg-slate-100"><tr>
-    <th class="text-left p-2">Outcome</th>
-    <th class="text-right p-2">Points</th>
-    <th class="text-left p-2">Awarded per</th>
-  </tr></thead>
-  <tbody>
-    <tr class="border-t"><td class="p-2">Group match: correct result (W/L/D), wrong score</td><td class="text-right p-2">3</td><td class="p-2">match</td></tr>
-    <tr class="border-t"><td class="p-2">Group match: exact score</td><td class="text-right p-2">5</td><td class="p-2">match (replaces the 3, not additive)</td></tr>
-    <tr class="border-t"><td class="p-2">Round of 32 — team correctly placed</td><td class="text-right p-2">5</td><td class="p-2">team</td></tr>
-    <tr class="border-t"><td class="p-2">Round of 16 — team correctly placed</td><td class="text-right p-2">10</td><td class="p-2">team</td></tr>
-    <tr class="border-t"><td class="p-2">Quarter-Finals — team correctly placed</td><td class="text-right p-2">15</td><td class="p-2">team</td></tr>
-    <tr class="border-t"><td class="p-2">Semi-Finals — team correctly placed</td><td class="text-right p-2">20</td><td class="p-2">team</td></tr>
-    <tr class="border-t"><td class="p-2">Final — team correctly placed</td><td class="text-right p-2">25</td><td class="p-2">team</td></tr>
-    <tr class="border-t"><td class="p-2">Winner — correct champion</td><td class="text-right p-2">30</td><td class="p-2">one team</td></tr>
-  </tbody>
-</table>
-<p class="text-xs text-slate-500 mt-2">Maximum theoretical score: 960 points.</p>
+<nav class="mb-8 flex flex-wrap gap-2 text-xs">
+  <a href="#structure" class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 hover:border-pitch-700 hover:text-pitch-700 transition">Tournament structure</a>
+  <a href="#scoring" class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 hover:border-pitch-700 hover:text-pitch-700 transition">Scoring</a>
+  <a href="#examples" class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 hover:border-pitch-700 hover:text-pitch-700 transition">Worked examples</a>
+  <a href="#tiebreaker" class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 hover:border-pitch-700 hover:text-pitch-700 transition">Tie-breaker</a>
+</nav>
 
-<h2 class="text-lg font-semibold mt-6 mb-2">Worked examples</h2>
-<p>Brazil 2-1 Morocco actual:</p>
-<ul class="list-disc list-inside">
-  <li>You predicted 3-1 Brazil → <strong>3 pts</strong> (correct outcome, wrong score)</li>
-  <li>You predicted 2-1 Brazil → <strong>5 pts</strong> (exact score)</li>
-  <li>You predicted 1-1 draw → <strong>0 pts</strong> (wrong outcome)</li>
-</ul>
+<div class="space-y-6">
 
-<h2 class="text-lg font-semibold mt-6 mb-2">Knockout scoring is per-team-in-round</h2>
-<p>A team predicted to reach the Quarter-Finals scores its 15 points if it gets there <em>via any bracket
-path</em>. The opponent or specific R32 match does not matter — only whether the team appears in that
-round.</p>
 
-<h2 class="text-lg font-semibold mt-6 mb-2">Tie-breaker</h2>
-<p>Predicted total goals across all 104 matches, <em>including extra time, excluding penalty shootouts</em>.
-Closest to actual wins. Exact tie splits any prize equally.</p>
+<section id="structure" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 scroll-mt-6">
+  <h2 class="display text-xl text-slate-800 mb-3">Tournament structure</h2>
+  <p class="text-sm text-slate-700 leading-relaxed">
+    The FIFA World Cup 2026 has <strong>48 teams in 12 groups of 4</strong>. The group stage produces
+    <strong>72 matches</strong>. <strong>32 teams</strong> advance to the knockout phase: the 12 group
+    winners, 12 runners-up, and the 8 best third-placed teams. The bracket runs
+    Round of 32 → Round of 16 → Quarter-Finals → Semi-Finals → Final, plus a 3rd-place play-off.
+  </p>
+  <p class="text-sm text-slate-500 mt-3">Tournament window: 11 Jun — 19 Jul 2026.</p>
+</section>
+
+
+<section id="scoring" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 scroll-mt-6">
+  <h2 class="display text-xl text-slate-800 mb-4">Scoring</h2>
+  <div class="overflow-x-auto rounded-lg border border-slate-200">
+    <table class="min-w-full text-sm">
+      <thead class="bg-slate-50 text-slate-600">
+        <tr class="text-[11px] uppercase tracking-wider">
+          <th class="text-left p-3 font-semibold">Outcome</th>
+          <th class="text-right p-3 font-semibold w-20">Points</th>
+          <th class="text-left p-3 font-semibold">Awarded per</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-pitch-50/60">
+          <td colspan="3" class="px-3 py-1.5 text-[11px] uppercase tracking-wider font-semibold text-pitch-700">Group stage</td>
+        </tr>
+        <tr class="border-t border-slate-100">
+          <td class="p-3">Correct result (W/L/D), wrong score</td>
+          <td class="text-right p-3 display text-base text-slate-900">3</td>
+          <td class="p-3 text-slate-600">match</td>
+        </tr>
+        <tr class="border-t border-slate-100 odd:bg-slate-50/50">
+          <td class="p-3">Exact score <sup class="text-pitch-700 font-semibold">†</sup></td>
+          <td class="text-right p-3 display text-base text-slate-900">5</td>
+          <td class="p-3 text-slate-600">match</td>
+        </tr>
+
+        <tr class="bg-pitch-50/60">
+          <td colspan="3" class="px-3 py-1.5 text-[11px] uppercase tracking-wider font-semibold text-pitch-700">Knockout — per team correctly placed</td>
+        </tr>
+        <tr class="border-t border-slate-100">
+          <td class="p-3">Round of 32</td>
+          <td class="text-right p-3 display text-base text-slate-900">5</td>
+          <td class="p-3 text-slate-600">team</td>
+        </tr>
+        <tr class="border-t border-slate-100 odd:bg-slate-50/50">
+          <td class="p-3">Round of 16</td>
+          <td class="text-right p-3 display text-base text-slate-900">10</td>
+          <td class="p-3 text-slate-600">team</td>
+        </tr>
+        <tr class="border-t border-slate-100">
+          <td class="p-3">Quarter-Finals</td>
+          <td class="text-right p-3 display text-base text-slate-900">15</td>
+          <td class="p-3 text-slate-600">team</td>
+        </tr>
+        <tr class="border-t border-slate-100 odd:bg-slate-50/50">
+          <td class="p-3">Semi-Finals</td>
+          <td class="text-right p-3 display text-base text-slate-900">20</td>
+          <td class="p-3 text-slate-600">team</td>
+        </tr>
+        <tr class="border-t border-slate-100">
+          <td class="p-3">Final</td>
+          <td class="text-right p-3 display text-base text-slate-900">25</td>
+          <td class="p-3 text-slate-600">team</td>
+        </tr>
+        <tr class="border-t border-slate-100 odd:bg-slate-50/50">
+          <td class="p-3">Winner — correct champion</td>
+          <td class="text-right p-3 display text-base text-slate-900">30</td>
+          <td class="p-3 text-slate-600">one team</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="flex flex-wrap items-center justify-between gap-2 mt-3">
+    <p class="text-xs text-slate-500">
+      <sup class="text-pitch-700 font-semibold">†</sup> An exact score awards 5 and
+      <strong>replaces</strong> the 3 — it is not added on top.
+    </p>
+    <p class="text-xs text-slate-500">Maximum theoretical score: <strong>960 points</strong>.</p>
+  </div>
+
+  
+  <div class="mt-4 rounded-lg border border-pitch-200 bg-pitch-50 px-4 py-3 text-sm text-pitch-900">
+    <p class="font-semibold mb-1">Knockout scoring is per-team-in-round</p>
+    <p class="leading-relaxed">
+      A team predicted to reach the Quarter-Finals scores its 15 points if it gets there
+      <em>via any bracket path</em>. The opponent or specific R32 match does not matter — only
+      whether the team appears in that round.
+    </p>
+  </div>
+</section>
+
+
+<section id="examples" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 scroll-mt-6">
+  <h2 class="display text-xl text-slate-800 mb-1">Worked examples</h2>
+  <p class="text-sm text-slate-600 mb-4">Actual result: <strong>Brazil 2-1 Morocco</strong>.</p>
+  <div class="overflow-x-auto rounded-lg border border-slate-200">
+    <table class="min-w-full text-sm">
+      <thead class="bg-slate-50 text-slate-600">
+        <tr class="text-[11px] uppercase tracking-wider">
+          <th class="text-left p-3 font-semibold">You predicted</th>
+          <th class="text-right p-3 font-semibold w-20">Points</th>
+          <th class="text-left p-3 font-semibold">Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-t border-slate-100">
+          <td class="p-3 tabular-nums">3-1 Brazil</td>
+          <td class="text-right p-3 display text-base text-slate-900">3</td>
+          <td class="p-3 text-slate-600">correct outcome, wrong score</td>
+        </tr>
+        <tr class="border-t border-slate-100 odd:bg-slate-50/50">
+          <td class="p-3 tabular-nums">2-1 Brazil</td>
+          <td class="text-right p-3 display text-base text-slate-900">5</td>
+          <td class="p-3 text-slate-600">exact score</td>
+        </tr>
+        <tr class="border-t border-slate-100">
+          <td class="p-3 tabular-nums">1-1 draw</td>
+          <td class="text-right p-3 display text-base text-slate-400">0</td>
+          <td class="p-3 text-slate-600">wrong outcome</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<section id="tiebreaker" class="scroll-mt-6">
+  <div class="rounded-xl border border-amber-300 bg-amber-50 px-6 py-5 text-amber-900">
+    <h2 class="display text-xl mb-2">Tie-breaker</h2>
+    <p class="text-sm leading-relaxed">
+      Predicted <strong>total goals across all 104 matches</strong>,
+      <em>including extra time, excluding penalty shootouts</em>. Closest to the actual total wins.
+      An exact tie splits any prize equally.
+    </p>
+  </div>
+</section>
+
 </div>
+
+
+<p class="text-sm text-slate-600 mt-8">
+  Ready to enter? See <a href="/fifa-predictor/how-to-enter/" class="text-emerald-700 underline">how to enter</a>.
+</p>
 
   </main>
 
