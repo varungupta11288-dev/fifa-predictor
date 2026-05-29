@@ -26,23 +26,22 @@ permalink: /fixtures/index.html
 
 {% macro matchTable(matches) %}
   <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
-    <table class="min-w-full text-sm">
+    <table class="fx-table w-full text-sm">
       <thead class="bg-slate-50 text-slate-600">
         <tr class="text-[11px] uppercase tracking-wider">
-          <th class="text-left  p-3 font-semibold w-44">Kickoff (UTC)</th>
+          <th class="text-left  p-3 font-semibold w-32">Kickoff</th>
           <th class="text-right p-3 font-semibold">Home</th>
-          <th class="text-center p-3 font-semibold w-16"></th>
+          <th class="text-center p-3 font-semibold w-8"></th>
           <th class="text-left  p-3 font-semibold">Away</th>
-          <th class="text-center p-3 font-semibold w-24">Result</th>
+          <th class="text-center p-3 font-semibold w-16">Result</th>
         </tr>
       </thead>
       <tbody>
         {% for match in matches %}
           <tr class="border-t border-slate-100 align-middle">
-            <td class="p-3 whitespace-nowrap">
-              <span class="text-slate-900 font-medium">{{ match.dateLabel }}</span>
-              <span class="text-slate-400"> · </span>
-              <span class="text-slate-600 tabular-nums">{{ match.timeLabel }}</span>
+            <td class="p-3">
+              <span class="fx-date">{{ match.dateLabel }}</span>
+              <span class="fx-time tabular-nums">{{ match.timeLabel }} UTC</span>
             </td>
             <td class="p-3 text-right">{{ teamCell(match.home, 'home', match) }}</td>
             <td class="p-3 text-center text-slate-400 text-xs">v</td>

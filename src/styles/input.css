@@ -389,15 +389,29 @@
     margin-bottom: 0.5rem;
     padding-left: 0.125rem;
   }
+  /* Fixed layout = every group table is identical width with aligned columns,
+     regardless of the team names inside. */
+  .fx-table { table-layout: fixed; }
+  /* Stacked kickoff keeps the date column narrow so team names get the room. */
+  .fx-date { display: block; font-weight: 500; color: #0f172a; white-space: nowrap; }
+  .fx-time { display: block; font-size: 0.75rem; color: #64748b; white-space: nowrap; }
   .fx-team {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    max-width: 100%;
     font-weight: 600;
     color: #0f172a;            /* slate-900 */
   }
   .fx-team--won { color: #06432a; }
   .fx-team--won .fx-name { font-weight: 800; }
+  /* Country names stay on one line; ellipsis is a safety net for narrow screens. */
+  .fx-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
   .fx-flag {
     width: 24px;
     height: 18px;
