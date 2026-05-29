@@ -29,7 +29,11 @@ permalink: /index.html
         <img class="countdown-trophy countdown-trophy--right" src="{{ site.baseUrl }}/assets/trophy.webp" alt="" aria-hidden="true">
       </div>
       <p class="countdown-modal__sub">USA · Canada · Mexico · 11 Jun 2026</p>
-      <button type="button" class="countdown-modal__cta" data-close>View leaderboard →</button>
+      {% if site.tournamentLive %}
+        <button type="button" class="countdown-modal__cta" data-close>View leaderboard →</button>
+      {% else %}
+        <a href="{{ site.baseUrl }}/how-to-enter/" class="countdown-modal__cta">How to enter →</a>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -82,7 +86,7 @@ permalink: /index.html
         <div class="bar {% if loop.index == 1 %}bar-gold{% endif %}">
           <i class="animate-barFill" style="width: {{ (entry.totalPoints / maxScore * 100) | round(1) }}%; animation-delay: {{ loop.index0 * 120 }}ms"></i>
         </div>
-        <p class="text-[10px] text-slate-500 mt-1">{{ (entry.totalPoints / maxScore * 100) | round(1) }}% of max ({{ maxScore }})</p>
+        <p class="text-[10px] text-slate-500 mt-1">{{ (entry.totalPoints / maxScore * 100) | round(1) }}% of {{ maxScore }} points won</p>
       </div>
     </article>
   {% endfor %}
@@ -98,7 +102,7 @@ permalink: /index.html
       <tr class="text-[11px] uppercase tracking-wider">
         <th class="text-left  p-3 font-semibold w-12">#</th>
         <th class="text-left  p-3 font-semibold">Player</th>
-        <th class="text-left  p-3 font-semibold w-64">Progress</th>
+        <th class="text-left  p-3 font-semibold w-64">Points won</th>
         <th class="text-right p-3 font-semibold w-16">Total</th>
         <th class="text-left  p-3 font-semibold">Stages</th>
         <th class="text-right p-3 font-semibold w-14">TB</th>
@@ -167,8 +171,20 @@ permalink: /index.html
     </tbody>
   </table>
   </div>
+  <div class="mt-3">
+    <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-1.5">Stage legend</p>
+    <div class="flex flex-wrap gap-1">
+      <span class="chip" style="--chip-color: #0b6b3a">G · Group</span>
+      <span class="chip" style="--chip-color: #0ea5e9">R32 · Round of 32 (5)</span>
+      <span class="chip" style="--chip-color: #6366f1">R16 · Round of 16 (10)</span>
+      <span class="chip" style="--chip-color: #a855f7">QF · Quarter-Final (15)</span>
+      <span class="chip" style="--chip-color: #ec4899">SF · Semi-Final (20)</span>
+      <span class="chip" style="--chip-color: #f97316">Final (25)</span>
+      <span class="chip" style="--chip-color: #b08323">🏆 Winner (30)</span>
+    </div>
+  </div>
   <p class="text-xs text-slate-500 mt-3">
-    <strong>Progress</strong> bar = points / 960 max ·
+    <strong>Points won</strong> bar = points / 960 max ·
     <strong>TB</strong> = tie-breaker prediction (total goals across all 104 matches, incl. extra time)
   </p>
 </section>

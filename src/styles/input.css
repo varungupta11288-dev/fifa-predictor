@@ -295,6 +295,8 @@
   }
 
   .countdown-modal__cta {
+    display: inline-block;
+    text-decoration: none;
     margin-top: 1.75rem;
     padding: 0.6rem 1.4rem;
     font-size: 0.75rem;
