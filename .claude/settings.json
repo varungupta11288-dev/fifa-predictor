@@ -43,7 +43,10 @@
       "Bash(npx --no-install playwright --version)",
       "Read(//c/Temp/**)",
       "Bash(node -e \"console.log\\(JSON.stringify\\(require\\('./package.json'\\).scripts,null,2\\)\\)\")",
-      "PowerShell(Test-Path \"_site\\\\how-to-enter\\\\index.html\"; Test-Path \"_site\\\\WC2026-entry-sheet.xlsx\"; \\(Get-Item \"_site\\\\WC2026-entry-sheet.xlsx\"\\).Length)"
+      "PowerShell(Test-Path \"_site\\\\how-to-enter\\\\index.html\"; Test-Path \"_site\\\\WC2026-entry-sheet.xlsx\"; \\(Get-Item \"_site\\\\WC2026-entry-sheet.xlsx\"\\).Length)",
+      "Bash(node -e \"const m=require\\('./data/fixtures/matches.json'\\); const g=m.filter\\(x=>x.stage==='group'\\); console.log\\('count',g.length\\); console.log\\(JSON.stringify\\(g[0],null,2\\)\\); console.log\\('groups:', [...new Set\\(g.map\\(x=>x.group\\)\\)].join\\(','\\)\\);\")",
+      "Bash(node -e \"const {matches}=require\\('./data/fixtures/schedule.json'\\); const g=matches.filter\\(x=>x.stage==='GROUP_STAGE'\\); console.log\\('count',g.length\\); console.log\\(JSON.stringify\\(g[0],null,2\\)\\);\")",
+      "Bash(node -e \"const t=require\\('./data/fixtures/teams.json'\\); const keys=Object.keys\\(t\\); console.log\\('type:', Array.isArray\\(t\\)?'array':'object','len',Array.isArray\\(t\\)?t.length:keys.length\\); console.log\\(JSON.stringify\\(Array.isArray\\(t\\)?t.slice\\(0,3\\):{[keys[0]]:t[keys[0]],[keys[1]]:t[keys[1]],MEX:t.MEX,ZAF:t.ZAF},null,2\\)\\);\")"
     ]
   }
 }
