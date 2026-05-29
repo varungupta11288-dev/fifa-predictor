@@ -41,7 +41,8 @@
       "Bash(node -e \"try{require.resolve\\('playwright'\\);console.log\\('playwright: yes'\\)}catch{console.log\\('playwright: no'\\)}\")",
       "Bash(node -e \"try{require.resolve\\('puppeteer'\\);console.log\\('puppeteer: yes'\\)}catch{console.log\\('puppeteer: no'\\)}\")",
       "Bash(npx --no-install playwright --version)",
-      "Read(//c/Temp/**)"
+      "Read(//c/Temp/**)",
+      "Bash(node -e \"console.log\\(JSON.stringify\\(require\\('./package.json'\\).scripts,null,2\\)\\)\")"
     ]
   }
 }
