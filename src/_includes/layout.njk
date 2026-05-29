@@ -22,6 +22,10 @@
       </a>
       <nav class="space-x-1 text-xs md:text-sm uppercase tracking-wider font-semibold">
         <a href="{{ site.baseUrl }}/"        class="px-3 py-1.5 rounded hover:bg-white/10 transition">Leaderboard</a>
+        {# "My Predictions" is shown only on a player's own private /me/ page — never on public pages, so no token URL or PII is exposed in the global nav. #}
+        {% if page.url and (page.url | string | safe).startsWith('/me/') %}
+        <a href="{{ page.url }}" class="px-3 py-1.5 rounded hover:bg-white/10 transition">My Predictions</a>
+        {% endif %}
         <a href="{{ site.baseUrl }}/fixtures/" class="px-3 py-1.5 rounded hover:bg-white/10 transition">Fixtures</a>
         <a href="{{ site.baseUrl }}/how-to-enter/" class="px-3 py-1.5 rounded hover:bg-white/10 transition">How to enter</a>
         <a href="{{ site.baseUrl }}/rules/"   class="px-3 py-1.5 rounded hover:bg-white/10 transition">Rules</a>
