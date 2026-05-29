@@ -56,15 +56,23 @@ permalink: /index.html
 {% else %}
 
 {# ─── Podium (top 3) ───────────────────────────────────────────────────── #}
+{# Visual order is 2-1-3 (silver · gold · bronze) via CSS `order` on sm+; the   #}
+{# loop stays in rank order so the markup/DOM remains 1-2-3 for accessibility.  #}
 {% if leaderboard.length >= 3 %}
-<section class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+<section class="podium flex flex-col sm:flex-row sm:items-end gap-4 mb-10">
   {% for entry in leaderboard.slice(0, 3) %}
     {% set rankClass = 'rank-' ~ loop.index %}
     {% set medalLabel = ['🥇','🥈','🥉'][loop.index0] %}
     {% set behind = leader.totalPoints - entry.totalPoints %}
-    <article class="podium-card {{ rankClass }} {% if loop.index == 1 %}animate-goldGlow{% endif %}">
+    {# Bronze rises first, then silver, then gold lands last for the build-up. #}
+    {% set riseDelay = (3 - loop.index) * 140 %}
+    <article class="podium-card {{ rankClass }} flex-1{% if loop.index == 1 %} podium-card--leader{% endif %}">
+      {% if loop.index == 1 %}
+        <span class="podium-crown" aria-hidden="true">👑</span>
+        <span class="podium-sparkle" aria-hidden="true"></span>
+      {% endif %}
       <div class="flex items-center gap-3">
-        <span class="medal text-lg">{{ loop.index }}</span>
+        <span class="medal {% if loop.index == 1 %}medal-shine {% endif %}text-lg">{{ loop.index }}</span>
         <div>
           <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">
             {% if loop.index == 1 %}Leader{% elif loop.index == 2 %}2nd place{% else %}3rd place{% endif %}
@@ -73,7 +81,7 @@ permalink: /index.html
         </div>
       </div>
       <div class="mt-4 flex items-end justify-between">
-        <span class="display text-4xl text-slate-900">{{ entry.totalPoints }}</span>
+        <span class="display text-4xl text-slate-900" data-countup="{{ entry.totalPoints }}" data-countup-delay="{{ riseDelay + 120 }}">0</span>
         <span class="text-xs text-slate-500">
           {% if loop.index == 1 %}
             <span class="text-champ-600 font-semibold">{{ medalLabel }} top of the table</span>
@@ -84,7 +92,7 @@ permalink: /index.html
       </div>
       <div class="mt-3">
         <div class="bar {% if loop.index == 1 %}bar-gold{% endif %}">
-          <i class="animate-barFill" style="width: {{ (entry.totalPoints / maxScore * 100) | round(1) }}%; animation-delay: {{ loop.index0 * 120 }}ms"></i>
+          <i class="animate-barFill" style="width: {{ (entry.totalPoints / maxScore * 100) | round(1) }}%; animation-delay: {{ riseDelay + 120 }}ms"></i>
         </div>
         <p class="text-[10px] text-slate-500 mt-1">{{ (entry.totalPoints / maxScore * 100) | round(1) }}% of {{ maxScore }} points won</p>
       </div>
@@ -232,3 +240,44 @@ permalink: /index.html
 })();
 </script>
 {% endif %}
+
+{# ─── Podium score count-up ───────────────────────────────────────────────
+   Ticks each podium total from 0 to its value, synced with the bar fill and
+   the per-card rise stagger. Structured to re-run if scores ever update live. #}
+<script>
+(function () {
+  var nums = document.querySelectorAll('[data-countup]');
+  if (!nums.length) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    nums.forEach(function (el) { el.textContent = el.getAttribute('data-countup'); });
+    return;
+  }
+  function run(el) {
+    var target = parseInt(el.getAttribute('data-countup'), 10) || 0;
+    var delay = parseInt(el.getAttribute('data-countup-delay'), 10) || 0;
+    var dur = 1100;
+    setTimeout(function () {
+      var start = null;
+      requestAnimationFrame(function frame(ts) {
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic, matches the bar's feel
+        el.textContent = Math.round(target * eased);
+        if (p < 1) requestAnimationFrame(frame);
+        else el.textContent = target;
+      });
+    }, delay);
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { run(e.target); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.4 });
+    nums.forEach(function (el) { io.observe(el); });
+  } else {
+    nums.forEach(run);
+  }
+})();
+</script>
