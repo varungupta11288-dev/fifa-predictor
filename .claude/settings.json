@@ -27,7 +27,13 @@
       "Bash(gh api *)",
       "PowerShell(gh api repos/varungupta11288-dev/fifa-predictor/pages)",
       "Bash(git ls-remote *)",
-      "PowerShell(npx tailwindcss -i ./src/styles/input.css -o ./_site/assets/css/tailwind.css --minify)"
+      "PowerShell(npx tailwindcss -i ./src/styles/input.css -o ./_site/assets/css/tailwind.css --minify)",
+      "Bash(ls -la .env*)",
+      "Bash(grep -oE '^[A-Z_]+' .env)",
+      "Bash(node -e \"console.log\\('dotenv:', !!require.resolve\\('dotenv'\\)\\)\")",
+      "Bash(node -e \"console.log\\('fetch:', typeof fetch\\)\")",
+      "Bash(node --env-file=.env -e ' *)",
+      "Bash(node --env-file=.env scripts/fetch-schedule.js)"
     ]
   }
 }

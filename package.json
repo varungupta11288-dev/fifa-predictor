@@ -6,6 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "parse-template": "node scripts/parse-template.js",
+    "fetch:schedule": "node --env-file=.env scripts/fetch-schedule.js",
     "ingest": "node scripts/ingest.js",
     "links": "node scripts/list-links.js",
     "generate-samples": "node scripts/generate-samples.js",

@@ -10,6 +10,7 @@
 //   POST /api/remove      { name } -> deletes data/submissions/<name>
 //   GET  /api/deploy      SSE stream of `npm run deploy`
 //   GET  /api/links       SSE stream of `npm run links`
+//   GET  /api/fetch-schedule  SSE stream of `npm run fetch:schedule`
 //   POST /api/git-push    { message } -> git add -u; commit; push origin main
 //
 // All /api/* require the per-boot token. POST bodies + JSON; SSE endpoints
@@ -294,6 +295,10 @@ async function handle(req, res) {
 
   if (req.method === 'GET' && url.pathname === '/api/links') {
     return streamCommand(res, 'npm', ['run', 'links']);
+  }
+
+  if (req.method === 'GET' && url.pathname === '/api/fetch-schedule') {
+    return streamCommand(res, 'npm', ['run', 'fetch:schedule']);
   }
 
   if (req.method === 'POST' && url.pathname === '/api/git-push') {

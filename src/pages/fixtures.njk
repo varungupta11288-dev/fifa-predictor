@@ -1,0 +1,107 @@
+---
+layout: layout.njk
+title: Fixtures — WC2026 Predictor
+permalink: /fixtures/index.html
+---
+
+{# ── Reusable cells ─────────────────────────────────────────────────────── #}
+{% macro flag(team, align) %}
+  {% if team and team.iso2 %}
+    <img class="fx-flag" src="https://flagcdn.com/24x18/{{ team.iso2 }}.png"
+         srcset="https://flagcdn.com/48x36/{{ team.iso2 }}.png 2x"
+         width="24" height="18" loading="lazy" alt="{{ team.name }}">
+  {% else %}
+    <span class="fx-flag fx-flag--tbd" aria-hidden="true"></span>
+  {% endif %}
+{% endmacro %}
+
+{% macro teamCell(team, side, match) %}
+  {% set won = match.finished and match.score.winner == ('HOME_TEAM' if side == 'home' else 'AWAY_TEAM') %}
+  <span class="fx-team {{ 'fx-team--won' if won }}">
+    {% if side == 'away' %}<span class="fx-name">{{ team.name if team else 'TBD' }}</span>{% endif %}
+    {{ flag(team) }}
+    {% if side == 'home' %}<span class="fx-name">{{ team.name if team else 'TBD' }}</span>{% endif %}
+  </span>
+{% endmacro %}
+
+{% macro matchTable(matches) %}
+  <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
+    <table class="min-w-full text-sm">
+      <thead class="bg-slate-50 text-slate-600">
+        <tr class="text-[11px] uppercase tracking-wider">
+          <th class="text-left  p-3 font-semibold w-44">Kickoff (UTC)</th>
+          <th class="text-right p-3 font-semibold">Home</th>
+          <th class="text-center p-3 font-semibold w-16"></th>
+          <th class="text-left  p-3 font-semibold">Away</th>
+          <th class="text-center p-3 font-semibold w-24">Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for match in matches %}
+          <tr class="border-t border-slate-100 align-middle">
+            <td class="p-3 whitespace-nowrap">
+              <span class="text-slate-900 font-medium">{{ match.dateLabel }}</span>
+              <span class="text-slate-400"> · </span>
+              <span class="text-slate-600 tabular-nums">{{ match.timeLabel }}</span>
+            </td>
+            <td class="p-3 text-right">{{ teamCell(match.home, 'home', match) }}</td>
+            <td class="p-3 text-center text-slate-400 text-xs">v</td>
+            <td class="p-3 text-left">{{ teamCell(match.away, 'away', match) }}</td>
+            <td class="p-3 text-center">
+              {% if match.finished %}
+                <span class="fx-score tabular-nums">{{ match.score.home }}–{{ match.score.away }}</span>
+              {% else %}
+                <span class="text-slate-300">—</span>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endmacro %}
+
+{# ── Header ─────────────────────────────────────────────────────────────── #}
+<section class="mb-8">
+  <p class="text-xs uppercase tracking-[0.25em] text-pitch-700 font-semibold mb-1">Schedule</p>
+  <h1 class="display text-3xl md:text-4xl text-slate-900">Fixtures</h1>
+  <p class="text-sm text-slate-600 mt-2">
+    All 104 matches · times shown in UTC
+    {% if schedule.fetchedAtShort %}· schedule updated {{ schedule.fetchedAtShort }}{% endif %}
+  </p>
+</section>
+
+{% if not schedule.available %}
+  <div class="bg-white border border-slate-200 rounded-lg p-10 text-center text-slate-500">
+    No schedule loaded yet. Run <code class="text-slate-700">node --env-file=.env scripts/fetch-schedule.js</code>.
+  </div>
+{% else %}
+
+{# ── Group stage ────────────────────────────────────────────────────────── #}
+<section class="mb-12">
+  <h2 class="display text-xl text-slate-800 mb-4">Group Stage</h2>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    {% for group in schedule.groups %}
+      <div>
+        <h3 class="fx-group-title">{{ group.title }}</h3>
+        {{ matchTable(group.matches) }}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{# ── Knockouts ──────────────────────────────────────────────────────────── #}
+<section>
+  <h2 class="display text-xl text-slate-800 mb-4">Knockouts</h2>
+  <p class="text-xs text-slate-500 mb-4">Bracket teams show as <strong>TBD</strong> until the group stage resolves.</p>
+  <div class="space-y-8">
+    {% for round in schedule.knockouts %}
+      <div>
+        <h3 class="fx-group-title">{{ round.title }}</h3>
+        {{ matchTable(round.matches) }}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endif %}

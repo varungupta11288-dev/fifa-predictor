@@ -378,6 +378,46 @@
     .countdown-trophy { display: none; }
     .countdown-display { gap: 0; }
   }
+
+  /* ── Fixtures page ──────────────────────────────────────────────────── */
+  .fx-group-title {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    color: #06432a;            /* pitch-700 */
+    margin-bottom: 0.5rem;
+    padding-left: 0.125rem;
+  }
+  .fx-team {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #0f172a;            /* slate-900 */
+  }
+  .fx-team--won { color: #06432a; }
+  .fx-team--won .fx-name { font-weight: 800; }
+  .fx-flag {
+    width: 24px;
+    height: 18px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  }
+  .fx-flag--tbd {
+    display: inline-block;
+    background: repeating-linear-gradient(45deg, #e2e8f0 0 4px, #f1f5f9 4px 8px);
+  }
+  .fx-score {
+    display: inline-block;
+    font-weight: 800;
+    color: #06432a;            /* pitch-700 */
+    background: #e6f4ec;       /* pitch-50 */
+    border-radius: 0.375rem;
+    padding: 0.125rem 0.5rem;
+  }
 }
 
 @keyframes cmFade {

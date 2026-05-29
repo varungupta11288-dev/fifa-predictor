@@ -7,7 +7,7 @@ Scoring + leaderboard site for a FIFA World Cup 2026 prediction game. Static sit
 - **Fixtures** (`data/fixtures/`) — parsed from the canonical [entry sheet template](asset/) once: 48 teams, 12 groups, 104 matches.
 - **Scoring engine** ([scripts/score.js](scripts/score.js)) — pure function, 14 unit tests covering the rules-doc worked examples + edge cases.
 - **Ingestion** ([scripts/ingest.js](scripts/ingest.js)) — reads `data/submissions/*.xlsx`, emits `data/predictions/<token>.json`. Deterministic token = `sha256(name + filename)`.
-- **Static site** (`src/`) — Eleventy + Tailwind v3. Leaderboard at `/`, per-player view at `/me/<token>/` (noindexed + `robots.txt` disallowed), `/results/`, `/rules/`.
+- **Static site** (`src/`) — Eleventy + Tailwind v3. Leaderboard at `/`, per-player view at `/me/<token>/` (noindexed + `robots.txt` disallowed), `/fixtures/`, `/rules/`.
 - **Daily digest** ([scripts/build-digest.js](scripts/build-digest.js)) — standalone `digest.html` with inline styles, suitable for emailing.
 - **GitHub Action** ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)) — builds + tests + deploys to GitHub Pages on push, on `workflow_dispatch`, and daily at 07:00 UTC.
 
