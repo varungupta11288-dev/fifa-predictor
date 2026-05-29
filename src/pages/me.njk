@@ -40,8 +40,6 @@ eleventyComputed:
     handle <span class="font-semibold text-slate-700">{{ player.handle }}</span>
     · submitted {{ player.submittedAt }}
     · tie-breaker <span class="font-semibold text-slate-700">{{ player.tiebreaker }}</span> goals
-    · winner pick <span class="font-semibold text-slate-700">{{ player.winner or '—' }}</span>
-    {% if player.winnerHit %}<span class="text-emerald-700 font-semibold">✓ +{{ player.winnerPoints }}</span>{% endif %}
   </p>
 </section>
 
@@ -99,26 +97,49 @@ eleventyComputed:
 {# ── Knockout picks ─────────────────────────────────────────────────────── #}
 <section>
   <h2 class="display text-xl text-slate-800 mb-4">Knockout Picks</h2>
-  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-  {% for section in player.knockoutSections %}
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
-      <div class="flex items-center justify-between mb-3">
-        <h3 class="fx-group-title mb-0">{{ section.label }}</h3>
-        <span class="chip" style="--chip-color: {{ stageColors[section.stage] or '#64748b' }}">{{ section.pointsPer }} pt/team</span>
+  <p class="text-xs text-slate-500 mb-4">A team scores its round's points if it reaches that stage — independent of the bracket path. Hits are highlighted.</p>
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-start">
+    {% for section in player.knockoutSections %}
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="flex items-center justify-between gap-2 px-4 py-2.5 bg-slate-50 border-b border-slate-200">
+          <h3 class="fx-group-title mb-0">{{ section.label }}</h3>
+          <span class="chip" style="--chip-color: {{ stageColors[section.stage] or '#64748b' }}">{{ section.pointsPer }} pt/team</span>
+        </div>
+        {% if section.picks.length == 0 %}
+          <p class="px-4 py-3 text-xs text-slate-400">No picks recorded.</p>
+        {% else %}
+          <ul class="divide-y divide-slate-100">
+            {% for pick in section.picks %}
+              <li class="flex items-center justify-between gap-2 px-4 py-2{% if pick.hit %} bg-emerald-50{% endif %}">
+                <span class="fx-team {{ 'fx-team--won' if pick.hit }}">
+                  {{ flag(pick.team) }}
+                  <span class="fx-name">{{ pick.team.name }}</span>
+                </span>
+                {% if pick.hit %}<span class="text-emerald-700 text-xs font-bold whitespace-nowrap">✓ +{{ pick.pointsIfHit }}</span>{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       </div>
-      {% if section.picks.length == 0 %}
-        <p class="text-xs text-slate-400">No picks recorded.</p>
+    {% endfor %}
+
+    {# Winner — gold-accented card to set the champion pick apart. #}
+    <div class="rounded-xl shadow-sm border border-champ-400 overflow-hidden bg-gradient-to-b from-amber-50 to-champ-300/30">
+      <div class="flex items-center justify-between gap-2 px-4 py-2.5 bg-champ-300/40 border-b border-champ-400">
+        <h3 class="fx-group-title mb-0 text-champ-700">🏆 Winner</h3>
+        <span class="chip" style="--chip-color: #b08323">30 pts</span>
+      </div>
+      {% if player.winnerTeam %}
+        <div class="flex items-center justify-between gap-2 px-4 py-3{% if player.winnerHit %} bg-emerald-50{% endif %}">
+          <span class="fx-team {{ 'fx-team--won' if player.winnerHit }}">
+            {{ flag(player.winnerTeam) }}
+            <span class="fx-name text-base">{{ player.winnerTeam.name }}</span>
+          </span>
+          {% if player.winnerHit %}<span class="text-emerald-700 text-xs font-bold whitespace-nowrap">✓ +{{ player.winnerPoints }}</span>{% endif %}
+        </div>
       {% else %}
-        <ul class="text-sm space-y-1.5">
-          {% for p in section.picks %}
-            <li class="flex items-center justify-between {% if p.hit %}text-emerald-700 font-semibold{% else %}text-slate-700{% endif %}">
-              <span>{{ p.team }}</span>
-              {% if p.hit %}<span class="text-xs">✓ +{{ p.pointsIfHit }}</span>{% endif %}
-            </li>
-          {% endfor %}
-        </ul>
+        <p class="px-4 py-3 text-xs text-slate-400">No winner pick recorded.</p>
       {% endif %}
     </div>
-  {% endfor %}
   </div>
 </section>

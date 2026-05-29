@@ -110,20 +110,22 @@ module.exports = () => {
 
     const knockoutSections = KO_STAGES.map(({ key, stage, points }) => {
       const reached = reachedByStage[stage];
-      const picks = (p[key] || []).map(name => ({
-        team: name,
-        hit: reached.has(name),
+      const picks = (p[key] || []).map(code => ({
+        team: team(code),          // { name, iso2 } for flag + country name
+        hit: reached.has(code),
         pointsIfHit: points,
       }));
       return { stage, key, label: stage.toUpperCase(), pointsPer: points, picks };
     });
 
     const winnerHit = champion != null && p.winner === champion;
+    const winnerTeam = p.winner ? team(p.winner) : null;
 
     return {
       ...p,
       groupSections,
       knockoutSections,
+      winnerTeam,
       winnerHit,
       winnerPoints: winnerHit ? WINNER_POINTS : 0,
     };
