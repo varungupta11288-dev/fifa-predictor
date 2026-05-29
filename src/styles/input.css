@@ -14,6 +14,15 @@
     line-height: 0.95;
   }
 
+  /* Golden gradient brand title — same treatment as the countdown digits. */
+  .brand-gold {
+    background: linear-gradient(180deg, #fff8d6 0%, #fcd34d 38%, #b08323 96%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(252, 211, 77, 0.25));
+  }
+
   /* Host-country flag stripe — USA red/white/blue ▸ Mexico green/red.
      `flagSweep` animates the gradient position slowly side-to-side. */
   .flag-stripe {

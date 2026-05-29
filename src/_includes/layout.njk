@@ -16,13 +16,9 @@
     <div class="max-w-6xl mx-auto px-4 py-5 flex items-center justify-between relative z-10">
       <a href="{{ site.baseUrl }}/" class="flex items-center gap-3 group">
         <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-white/10 ring-1 ring-white/20 group-hover:bg-white/15 transition">
-          {# Minimal football icon, inline SVG so no external request #}
-          <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 3l2.5 4-1 4.5-4-0.5-2-3.5z M12 21l-2.5-4 1-4.5 4 0.5 2 3.5z M3 12l4-2 4 1.5-1 4-3.5 2z M21 12l-4 2-4-1.5 1-4 3.5-2z"/>
-          </svg>
+          <img src="{{ site.baseUrl }}/assets/trophy.webp" alt="" aria-hidden="true" class="w-6 h-6 object-contain">
         </span>
-        <span class="display text-xl md:text-2xl tracking-wider">WC2026 Predictor</span>
+        <span class="display brand-gold text-xl md:text-2xl tracking-wider">WC2026 Predictor</span>
       </a>
       <nav class="space-x-1 text-xs md:text-sm uppercase tracking-wider font-semibold">
         <a href="{{ site.baseUrl }}/"        class="px-3 py-1.5 rounded hover:bg-white/10 transition">Leaderboard</a>

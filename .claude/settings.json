@@ -26,7 +26,8 @@
       "Read(//tmp/**)",
       "Bash(gh api *)",
       "PowerShell(gh api repos/varungupta11288-dev/fifa-predictor/pages)",
-      "Bash(git ls-remote *)"
+      "Bash(git ls-remote *)",
+      "PowerShell(npx tailwindcss -i ./src/styles/input.css -o ./_site/assets/css/tailwind.css --minify)"
     ]
   }
 }
