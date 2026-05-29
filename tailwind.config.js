@@ -65,6 +65,10 @@ module.exports = {
           '0%':   { backgroundPosition: '0% 0%' },
           '100%': { backgroundPosition: '100% 0%' },
         },
+        flagText: {
+          '0%':   { transform: 'translateX(-10%)' },
+          '100%': { transform: 'translateX(10%)' },
+        },
       },
       animation: {
         goldGlow:    'goldGlow 3.5s ease-in-out infinite',
@@ -73,6 +77,7 @@ module.exports = {
         pulseDot:    'pulseDot 1.6s ease-in-out infinite',
         barFill:     'barFill 1.1s cubic-bezier(0.22, 1, 0.36, 1) both',
         flagSweep:   'flagSweep 14s ease-in-out infinite alternate',
+        flagText:    'flagText 14s ease-in-out infinite alternate',
       },
     },
   },

@@ -34,38 +34,36 @@
   {# Host-country flag stripe — gently sweeps via background-position animation. #}
   <div class="flag-stripe animate-flagSweep"></div>
 
-  {# Countdown / live banner. #}
-  <div class="bg-slate-900 text-slate-100">
-    <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between text-xs">
-      <span class="flex items-center gap-2">
-        {% if site.tournamentLive %}
+  {% if site.tournamentLive %}
+    {# Live banner — shown only during play. #}
+    <div class="bg-slate-900 text-slate-100">
+      <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between text-xs">
+        <span class="flex items-center gap-2">
           <span class="live-dot animate-pulseDot"></span>
           <strong class="uppercase tracking-wider text-red-300">Live</strong>
           <span class="text-slate-300">·</span>
           <span>{{ site.countdownLabel }}</span>
-        {% else %}
-          <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulseDot"></span>
-          <span class="uppercase tracking-wider text-emerald-300 font-semibold">{{ site.countdownLabel }}</span>
-        {% endif %}
-      </span>
-      <span class="text-slate-400 hidden sm:inline">{{ site.tournament.start }} → {{ site.tournament.end }}</span>
+        </span>
+        <span class="text-slate-400 hidden sm:inline">{{ site.tournament.start }} → {{ site.tournament.end }}</span>
+      </div>
     </div>
-  </div>
+  {% else %}
+    {# Host-country wordmark — drifts left↔right in time with the flag stripe above. #}
+    <div class="bg-slate-900 text-slate-100 overflow-hidden">
+      <div class="max-w-6xl mx-auto px-4 py-2 text-center">
+        <span class="inline-block animate-flagText display uppercase text-xs sm:text-sm tracking-[0.3em] text-slate-200 whitespace-nowrap">
+          FIFA 2026 <span class="text-slate-500">·</span> USA <span class="text-slate-500">·</span> Canada <span class="text-slate-500">·</span> Mexico
+        </span>
+      </div>
+    </div>
+  {% endif %}
 
   <main class="max-w-6xl mx-auto px-4 py-8 w-full flex-1">
     {{ content | safe }}
   </main>
 
-  <footer class="bg-slate-900 text-slate-300 mt-12">
-    <div class="flag-stripe"></div>
-    <div class="max-w-6xl mx-auto px-4 py-5 flex flex-col sm:flex-row gap-2 justify-between items-center text-xs">
-      <div class="flex items-center gap-2">
-        <span class="display text-sm tracking-widest text-white">WC2026 PREDICTOR</span>
-        <span class="text-slate-500">·</span>
-        <span>{{ site.tournament.start }} → {{ site.tournament.end }}</span>
-      </div>
-      <div class="text-slate-500">Built {{ site.lastUpdatedShort }} · static site, no client JS</div>
-    </div>
+  <footer class="bg-slate-900 mt-12">
+    <div class="flag-stripe animate-flagSweep"></div>
   </footer>
 </body>
 </html>
