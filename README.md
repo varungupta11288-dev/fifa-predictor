@@ -66,6 +66,14 @@ This fetch is folded into `npm run deploy`, so the **daily operation from 11 Jun
 
 > The sample `data/results/2026-06-11.json` is demo data; it is overwritten by real results on opening day. Manual `data/results/*.json` files are no longer needed — the API is the single source of truth.
 
+## Entry-sheet download
+
+The blank template is published at `{{ site.baseUrl }}/WC2026-entry-sheet.xlsx` via a copy at
+[_site-static/WC2026-entry-sheet.xlsx](_site-static/WC2026-entry-sheet.xlsx) (linked from the
+[How to enter](src/pages/how-to-enter.njk) page). This is a **copy** of the source-of-truth
+[asset/WC2026_Predictor_Entry_Sheet (v1).xlsx](asset/) — if the `asset/` template changes, re-sync the published
+copy: `copy "asset\WC2026_Predictor_Entry_Sheet (v1).xlsx" "_site-static\WC2026-entry-sheet.xlsx"`.
+
 ## Why xlsx@0.18 despite the audit warning
 
 SheetJS hasn't published a fix on npm; we only read files we generate locally, so the prototype-pollution risk is contained. The production plan ([tasks/production-plan.md](tasks/production-plan.md)) should switch to either the SheetJS-hosted CDN build or a different library before accepting third-party uploads.

@@ -6,6 +6,7 @@ Detailed plans are split into focused files. Start here, pick the right one.
 
 - **[mvp-plan.md](mvp-plan.md)** — Detailed build plan for the MVP demo (~1 day's work, 5 sample players, 3 hand-authored results). Self-contained; anyone competent can implement it without prior context.
 - **[production-plan.md](production-plan.md)** — Build plan for the full tournament system (~3 days spread across registration, build, and dress rehearsal). Assumes the MVP is already built.
+- **[enhancements/](enhancements/)** — Post-review enhancement handoffs (one self-contained file per item). Start at [enhancements/README.md](enhancements/README.md). Covers the How-to-enter page, template download, leaderboard polish, Rules formatting, and entry-workflow streamlining.
 
 ## Operating
 

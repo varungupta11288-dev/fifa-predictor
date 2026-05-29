@@ -1,0 +1,67 @@
+---
+layout: layout.njk
+title: How to enter — WC2026 Predictor
+permalink: /how-to-enter/index.html
+---
+<h1 class="text-2xl font-bold mb-4">How to enter</h1>
+
+<div class="prose max-w-none">
+<p class="text-slate-700">Everything you need to download the prediction sheet, fill it in correctly, and
+submit it before kickoff. Looking for how points are awarded instead?
+See the <a href="{{ site.baseUrl }}/rules/" class="text-emerald-700 underline">Rules page</a>.</p>
+
+<div class="mt-4 rounded border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+  <strong>Deadline:</strong> entries lock at <strong>kickoff — 11 Jun 2026, 16:00 UTC</strong>.
+  Nothing submitted after that can be scored.
+</div>
+
+<h2 class="text-lg font-semibold mt-8 mb-2">1. Get the sheet</h2>
+<p>Download the blank entry sheet, then open it in Excel (or Google Sheets / LibreOffice).</p>
+<a href="{{ site.baseUrl }}/WC2026-entry-sheet.xlsx" download
+   class="inline-flex items-center gap-2 mt-2 px-4 py-2 rounded bg-emerald-700 text-white font-semibold hover:bg-emerald-800 transition">
+  ⬇ Download the entry sheet (.xlsx)
+</a>
+
+<h2 class="text-lg font-semibold mt-8 mb-2">2. Fill it in</h2>
+<p>Only the highlighted (yellow) input cells are yours to fill. Here's what each section needs:</p>
+<ul class="list-disc list-inside space-y-2 mt-2">
+  <li><strong>Your details</strong> — type your <strong>name</strong>, <strong>email</strong>, and a public
+    <strong>handle</strong> in the boxes at the top right of the sheet. The handle is the name shown on the
+    public leaderboard; your email is how you receive your personal results link (it is never published).</li>
+  <li><strong>Group stage</strong> — for every group match across Groups A–L, predict the
+    <strong>home score</strong> and <strong>away score</strong>. There are 72 group matches; fill the score
+    boxes next to each fixture.</li>
+  <li><strong>Knockout picks</strong> — name the teams you think reach each round:
+    <strong>Round of 32</strong> (32 teams), <strong>Round of 16</strong> (16),
+    <strong>Quarter-Finals</strong> (8), <strong>Semi-Finals</strong> (4), and the
+    <strong>Final</strong> (2) — plus your overall <strong>Winner</strong>.
+    <br>
+    <span class="text-slate-600">Knockout points are awarded <strong>per team reaching a round, independent of
+    the bracket path</strong> — a team you place in the Quarter-Finals scores whether it gets there via any
+    matchup. You don't need to predict specific fixtures, just which teams go that far.
+    (<a href="{{ site.baseUrl }}/rules/" class="text-emerald-700 underline">scoring details</a>.)</span></li>
+  <li><strong>Tie-breaker</strong> — predict the <strong>total number of goals scored across all 104 matches</strong>,
+    <em>including extra time but excluding penalty shoot-outs</em>. If two players tie on points, closest to the
+    actual total wins.</li>
+</ul>
+
+<h2 class="text-lg font-semibold mt-8 mb-2">3. Don't change the template structure</h2>
+<p>Fill in the input cells only. <strong>Do not</strong> rename, move, delete, or reorder the team names,
+group headers, or any locked label cells. The ingester verifies a "template signature" — a set of fixed cells
+that must stay exactly as shipped — and will <strong>reject your file</strong> if the structure has been edited.</p>
+<p class="text-slate-600">Typos in a team name you <em>type</em> (e.g. "Brasil" for "Brazil") are fine — those are
+fuzzy-matched automatically. What breaks ingestion is altering the template's own layout or pre-printed labels.</p>
+
+<h2 class="text-lg font-semibold mt-8 mb-2">4. Submit it</h2>
+<p>Save the file as <strong>.xlsx</strong> (not .xls) and send the completed sheet to:</p>
+<p class="mt-1 font-mono text-sm bg-slate-100 border border-slate-200 rounded px-3 py-2 inline-block">
+  TODO: confirm submission address
+</p>
+<p class="text-slate-600 mt-2">Get it in before <strong>kickoff on 11 Jun 2026, 16:00 UTC</strong> — entries lock at
+the first whistle and late submissions can't be scored.</p>
+
+<h2 class="text-lg font-semibold mt-8 mb-2">5. After you submit</h2>
+<p>Once the tournament starts you'll receive a <strong>personal link</strong> (a private
+<code>/me/&lt;your-token&gt;/</code> page) where you can review your picks and watch your points add up as results
+come in. That link is private to you — anyone with it can see your picks, so keep it to yourself.</p>
+</div>

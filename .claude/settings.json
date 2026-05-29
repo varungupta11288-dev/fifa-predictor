@@ -42,7 +42,8 @@
       "Bash(node -e \"try{require.resolve\\('puppeteer'\\);console.log\\('puppeteer: yes'\\)}catch{console.log\\('puppeteer: no'\\)}\")",
       "Bash(npx --no-install playwright --version)",
       "Read(//c/Temp/**)",
-      "Bash(node -e \"console.log\\(JSON.stringify\\(require\\('./package.json'\\).scripts,null,2\\)\\)\")"
+      "Bash(node -e \"console.log\\(JSON.stringify\\(require\\('./package.json'\\).scripts,null,2\\)\\)\")",
+      "PowerShell(Test-Path \"_site\\\\how-to-enter\\\\index.html\"; Test-Path \"_site\\\\WC2026-entry-sheet.xlsx\"; \\(Get-Item \"_site\\\\WC2026-entry-sheet.xlsx\"\\).Length)"
     ]
   }
 }
