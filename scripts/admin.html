@@ -263,9 +263,10 @@
 
   <section class="card">
     <h2>② Build &amp; deploy</h2>
-    <div class="subhead">Runs <code>npm run deploy</code> (ingest → build → push gh-pages).</div>
+    <div class="subhead">Runs <code>npm run deploy</code> (ingest → build → push gh-pages). Refresh fixtures pulls the latest kickoff times &amp; scores from football-data.org.</div>
     <div class="button-row">
       <button class="btn" id="btn-deploy">🚀 Deploy</button>
+      <button class="btn ghost" id="btn-fetch">📅 Refresh fixtures</button>
       <button class="btn ghost" id="btn-links">🔗 Generate links</button>
       <button class="btn ghost" id="btn-stop" hidden>✕ Stop</button>
     </div>
@@ -437,6 +438,11 @@ document.addEventListener('click', async (e) => {
 // ---- streaming commands (SSE) ----
 const logEl = $('log');
 let currentSrc = null;
+const ACTION_BTNS = ['btn-deploy', 'btn-fetch', 'btn-links'];
+function setActionsDisabled(disabled) {
+  ACTION_BTNS.forEach((id) => { $(id).disabled = disabled; });
+  $('btn-stop').hidden = !disabled;
+}
 
 function logLine(text, cls = '') {
   const span = document.createElement('span');
@@ -452,9 +458,7 @@ function startStream(name, urlPath) {
   logEl.innerHTML = '';
   logLine(`▶ ${name}\n`, 'meta');
 
-  $('btn-deploy').disabled = true;
-  $('btn-links').disabled = true;
-  $('btn-stop').hidden = false;
+  setActionsDisabled(true);
 
   const src = new EventSource(`${urlPath}?token=${encodeURIComponent(TOKEN)}`);
   currentSrc = src;
@@ -468,9 +472,7 @@ function startStream(name, urlPath) {
     toast(code === 0 ? `${name} succeeded` : `${name} failed (exit ${code})`, code === 0 ? 'ok' : 'err');
     src.close();
     currentSrc = null;
-    $('btn-deploy').disabled = false;
-    $('btn-links').disabled = false;
-    $('btn-stop').hidden = true;
+    setActionsDisabled(false);
     refresh();
   });
   src.addEventListener('error', () => {
@@ -478,9 +480,7 @@ function startStream(name, urlPath) {
     logLine('\n[stream error]\n', 'err');
     src.close();
     currentSrc = null;
-    $('btn-deploy').disabled = false;
-    $('btn-links').disabled = false;
-    $('btn-stop').hidden = true;
+    setActionsDisabled(false);
   });
 }
 
@@ -488,15 +488,14 @@ function startStream(name, urlPath) {
 // Note: there's no in-flight kill API; "Stop" just closes the SSE.
 // The child process keeps running on the server until it finishes.
 $('btn-deploy').addEventListener('click', () => startStream('npm run deploy', '/api/deploy'));
+$('btn-fetch').addEventListener('click', () => startStream('npm run fetch:schedule', '/api/fetch-schedule'));
 $('btn-links').addEventListener('click', () => startStream('npm run links', '/api/links'));
 $('btn-stop').addEventListener('click', () => {
   if (currentSrc) {
     currentSrc.close();
     currentSrc = null;
     logLine('\n[client disconnected]\n', 'meta');
-    $('btn-deploy').disabled = false;
-    $('btn-links').disabled = false;
-    $('btn-stop').hidden = true;
+    setActionsDisabled(false);
   }
 });
 

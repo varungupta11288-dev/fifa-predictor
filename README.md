@@ -55,11 +55,16 @@ Run `npm run deploy` after every batch of new submissions or new match results.
 
 Hand-authored matchday-1 results are at `data/results/2026-06-11.json` (3 matches). The current leaderboard reflects scoring those 3 matches against the 5 predictions.
 
-## Adding results during the tournament
+## Results during the tournament (automated)
 
-Drop a new file `data/results/YYYY-MM-DD.json` with the day's completed matches, then run `npm run deploy`. (Results files _are_ committed to the public repo — match outcomes are public information; only player picks and emails are not.)
+Match results come from the **football-data.org** API (WC competition), not hand-authored files. `scripts/fetch-schedule.js` fetches all 104 matches and writes two things:
 
-For schema, see the example in `data/results/2026-06-11.json` and the [`Result JSON`](tasks/mvp-plan.md#31-schemas) section of the plan.
+- `data/fixtures/schedule.json` — kickoff times, teams, and scores for the **Fixtures** page.
+- `data/results/YYYY-MM-DD.json` — one file per match day, **finished matches only**, in the scoring schema `score.js` consumes. Team codes are mapped from the API's FIFA TLAs to our ISO-3 codes, and group scores are oriented to our fixture's home/away.
+
+This fetch is folded into `npm run deploy`, so the **daily operation from 11 Jun is a single click of _Deploy_ in the admin console** (`npm run admin`): it pulls the latest scores, regenerates results, rescores every player, rebuilds, and pushes to gh-pages. Requires `FOOTBALL_API` in `.env`. To refresh without publishing, click **Refresh fixtures** (runs `npm run fetch:schedule`).
+
+> The sample `data/results/2026-06-11.json` is demo data; it is overwritten by real results on opening day. Manual `data/results/*.json` files are no longer needed — the API is the single source of truth.
 
 ## Why xlsx@0.18 despite the audit warning
 

@@ -33,7 +33,10 @@
       "Bash(node -e \"console.log\\('dotenv:', !!require.resolve\\('dotenv'\\)\\)\")",
       "Bash(node -e \"console.log\\('fetch:', typeof fetch\\)\")",
       "Bash(node --env-file=.env -e ' *)",
-      "Bash(node --env-file=.env scripts/fetch-schedule.js)"
+      "Bash(node --env-file=.env scripts/fetch-schedule.js)",
+      "Bash(node --test scripts/admin-server.test.js)",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\(0\\)\\);console.log\\('keys:',Object.keys\\(d\\)\\);console.log\\('groupScores sample:',JSON.stringify\\(Object.entries\\(d.groupScores||{}\\).slice\\(0,2\\)\\)\\);console.log\\('round32 sample:',JSON.stringify\\(\\(d.round32||[]\\).slice\\(0,4\\)\\)\\);console.log\\('winner:',d.winner\\)\")",
+      "Bash(node --test scripts/fetch-schedule.test.js)"
     ]
   }
 }
