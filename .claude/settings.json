@@ -36,7 +36,8 @@
       "Bash(node --env-file=.env scripts/fetch-schedule.js)",
       "Bash(node --test scripts/admin-server.test.js)",
       "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\(0\\)\\);console.log\\('keys:',Object.keys\\(d\\)\\);console.log\\('groupScores sample:',JSON.stringify\\(Object.entries\\(d.groupScores||{}\\).slice\\(0,2\\)\\)\\);console.log\\('round32 sample:',JSON.stringify\\(\\(d.round32||[]\\).slice\\(0,4\\)\\)\\);console.log\\('winner:',d.winner\\)\")",
-      "Bash(node --test scripts/fetch-schedule.test.js)"
+      "Bash(node --test scripts/fetch-schedule.test.js)",
+      "Bash(git commit -m 'feat: auto-derive results from API so daily Deploy is one click' -m 'Fold the football-data.org fetch into '\\\\''npm run deploy'\\\\'' and derive the *)"
     ]
   }
 }
