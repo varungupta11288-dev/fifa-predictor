@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-05-29T21:00:55.213Z",
+  "fetchedAt": "2026-05-29T21:11:17.205Z",
   "source": "football-data.org v4 / competition WC",
   "matches": [
     {
@@ -190,9 +190,9 @@
         "iso2": "de"
       },
       "away": {
-        "tla": "CUR",
+        "tla": "CUW",
         "name": "Curaçao",
-        "iso2": null
+        "iso2": "cw"
       },
       "score": {
         "home": null,
@@ -227,7 +227,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "utcDate": "2026-06-14T23:00:00Z",
-      "status": "SCHEDULED",
+      "status": "TIMED",
       "home": {
         "tla": "CIV",
         "name": "Ivory Coast",
@@ -762,9 +762,9 @@
         "iso2": "ec"
       },
       "away": {
-        "tla": "CUR",
+        "tla": "CUW",
         "name": "Curaçao",
-        "iso2": null
+        "iso2": "cw"
       },
       "score": {
         "home": null,
@@ -1219,9 +1219,9 @@
       "utcDate": "2026-06-25T20:00:00Z",
       "status": "TIMED",
       "home": {
-        "tla": "CUR",
+        "tla": "CUW",
         "name": "Curaçao",
-        "iso2": null
+        "iso2": "cw"
       },
       "away": {
         "tla": "CIV",
