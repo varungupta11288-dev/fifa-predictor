@@ -50,7 +50,26 @@
       "Bash(node -e 'const h=require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''_site/__TRACKED_VAR__/index.html'\\\\'','\\\\''utf8'\\\\''\\); const a=h.indexOf\\('\\\\''nav-my-predictions'\\\\''\\); const s=h.indexOf\\('\\\\''wc2026:meToken'\\\\''\\); console.log\\('\\\\''anchor@'\\\\'',a,'\\\\''script@'\\\\'',s>=0\\);')",
       "Bash(node -e \"const h=require\\('fs'\\).readFileSync\\('_site/index.html','utf8'\\); console.log\\('anchor@',h.indexOf\\('nav-my-predictions'\\),'script@',h.indexOf\\('wc2026:meToken'\\)>=0\\);\")",
       "Bash(node -e 'const h=require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf8'\\\\''\\); const i=h.indexOf\\('\\\\''>SF<'\\\\''\\); console.log\\(i<0?'\\\\''SF NOT FOUND'\\\\'':h.slice\\(i-90, i+760\\).replace\\(/\\\\n\\\\s*/g,'\\\\''\\\\n'\\\\''\\).replace\\(/\\\\n{2,}/g,'\\\\''\\\\n'\\\\''\\)\\);')",
-      "Bash(node -e 'const h=require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf8'\\\\''\\); const i=h.indexOf\\('\\\\''🏆 Winner'\\\\''\\); console.log\\(i<0?'\\\\''WINNER NOT FOUND'\\\\'':h.slice\\(i-160, i+520\\).replace\\(/\\\\n\\\\s*/g,'\\\\''\\\\n'\\\\''\\).replace\\(/\\\\n{2,}/g,'\\\\''\\\\n'\\\\''\\)\\);')"
+      "Bash(node -e 'const h=require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf8'\\\\''\\); const i=h.indexOf\\('\\\\''🏆 Winner'\\\\''\\); console.log\\(i<0?'\\\\''WINNER NOT FOUND'\\\\'':h.slice\\(i-160, i+520\\).replace\\(/\\\\n\\\\s*/g,'\\\\''\\\\n'\\\\''\\).replace\\(/\\\\n{2,}/g,'\\\\''\\\\n'\\\\''\\)\\);')",
+      "Bash(npx tailwindcss *)",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\varun.j.gupta\\\\OneDrive - Accenture\\\\Code\\\\fifa\" -Force | Select-Object Name, @{Name='Type';Expression={if\\($_.PSIsContainer\\){'Dir'}else{'File'}}} | Format-Table -AutoSize)",
+      "Bash(node -e \"const c=require\\('fs'\\).readFileSync\\('./_site/assets/css/tailwind.css','utf8'\\); const util=c.search\\(/\\\\.animate-barFill\\\\{/\\); const gate=c.search\\(/\\\\.lb-gated .animate-barFill/\\); console.log\\('utility .animate-barFill at:', util\\); console.log\\('.lb-gated rule at:', gate\\); console.log\\('gate comes after utility:', gate>util\\);\")",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('data/fixtures/schedule.json'\\)\\); console.log\\('keys:', Object.keys\\(d\\)\\); console.log\\('fetchedAt:', d.fetchedAt\\); console.log\\('count:', d.matches.length\\); console.log\\('sample match:', JSON.stringify\\(d.matches[0],null,2\\)\\); const dates=[...new Set\\(d.matches.map\\(m=>m.utcDate.slice\\(0,10\\)\\)\\)].sort\\(\\); console.log\\('first dates:', dates.slice\\(0,5\\)\\); console.log\\('last dates:', dates.slice\\(-3\\)\\);\")",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\varun.j.gupta\\\\OneDrive - Accenture\\\\Code\\\\fifa\\\\data\\\\fixtures\" | Select-Object Name, @{Name='Size\\(KB\\)';Expression={[math]::Round\\($_.Length/1KB,1\\)}} | Format-Table)",
+      "Bash(cd \"/c/Users/varun.j.gupta/OneDrive - Accenture/Code/fifa\" && find src/_data -type f -name \"*.js\" | xargs grep -l \"pagination\\\\|alias\" 2>/dev/null)",
+      "Read(//c/c/Users/varun.j.gupta/OneDrive - Accenture/Code/fifa/src/**)",
+      "Bash(node -e \"console.log\\(require.resolve\\('nunjucks',{paths:['node_modules/@11ty/eleventy']}\\)\\)\")",
+      "Bash(find node_modules -maxdepth 3 -type d -name nunjucks)",
+      "Bash(node -e \"const p=require\\('./node_modules/@11ty/eleventy/package.json'\\); console.log\\('bin:', JSON.stringify\\(p.bin\\)\\); console.log\\('type:', p.type\\); console.log\\('version:', p.version\\);\")",
+      "Bash(ls -1 .eleventy.js eleventy.config.js eleventy.config.cjs)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const f=fs.readFileSync\\('node_modules/@11ty/eleventy/cmd.cjs','utf8'\\);console.log\\(f.slice\\(0,400\\)\\)\")",
+      "Bash(WC_NOW='2026-06-27T15:00:00Z' node -r ./tmp-mockdate.cjs node_modules/@11ty/eleventy/cmd.cjs --serve --port=8080)",
+      "Bash(node -e \"let s='';process.stdin.on\\('data',d=>s+=d\\).on\\('end',\\(\\)=>{console.log\\('modalKey:',\\(s.match\\(/=== \\(\\\\\"[^\\\\\"]+\\\\\"\\)/\\)||[]\\)[1]\\);console.log\\(\\\\\"Today's matches:\\\\\",s.includes\\(\\\\\"Today's matches\\\\\"\\)\\);console.log\\('match cards:',\\(s.match\\(/modal-match-card/g\\)||[]\\).length\\);console.log\\('matchday:',\\(s.match\\(/modal-matchday\\\\\">\\([^<]+\\)/\\)||[]\\)[1].trim\\(\\)\\);}\\)\")",
+      "Bash(node -e \"const c=require\\('fs'\\).readFileSync\\('_site/assets/css/tailwind.css','utf8'\\); console.log\\('webkit thumb:', c.includes\\('.modal-match-list::-webkit-scrollbar-thumb'\\)\\); console.log\\('scrollbar-width thin:', /\\\\.modal-match-list\\\\{[^}]*scrollbar-width:thin/.test\\(c\\)\\);\")",
+      "Bash(WC_NOW='2026-08-01T12:00:00Z' node -r ./tmp-mockdate.cjs node_modules/@11ty/eleventy/cmd.cjs --serve --port=8080)",
+      "Bash(node -e \"let s='';process.stdin.on\\('data',d=>s+=d\\).on\\('end',\\(\\)=>{console.log\\('modalKey:',\\(s.match\\(/=== \\(\\\\\"[^\\\\\"]+\\\\\"\\)/\\)||[]\\)[1]\\);console.log\\('Thanks for playing:',s.includes\\('Thanks for playing'\\)\\);console.log\\('final-leaderboard CTA:',s.includes\\('View final leaderboard'\\)\\);console.log\\('thanks trophy:',s.includes\\('modal-thanks-trophy'\\)\\);console.log\\('match cards:',\\(s.match\\(/modal-match-card/g\\)||[]\\).length\\);}\\)\")",
+      "Bash(rm -f tmp-mockdate.cjs)",
+      "Bash(ls tmp-*)"
     ]
   }
 }

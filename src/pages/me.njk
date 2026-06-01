@@ -63,9 +63,9 @@ eleventyComputed:
           <table class="fx-table w-full text-sm">
             <thead class="bg-slate-50 text-slate-600">
               <tr class="text-[11px] uppercase tracking-wider">
-                <th class="text-right  p-2 font-semibold">Home</th>
+                <th class="text-left   p-2 font-semibold">Home</th>
                 <th class="text-center p-2 font-semibold w-6"></th>
-                <th class="text-left   p-2 font-semibold">Away</th>
+                <th class="text-right  p-2 font-semibold">Away</th>
                 <th class="text-center p-2 font-semibold w-16">Pred</th>
                 <th class="text-center p-2 font-semibold w-14">Result</th>
                 <th class="text-right  p-2 font-semibold w-10">Pts</th>
@@ -74,9 +74,9 @@ eleventyComputed:
             <tbody>
               {% for row in group.rows %}
                 <tr class="border-t border-slate-100 align-middle{% if row.outcomeClass == 'exact' %} bg-emerald-50{% elif row.outcomeClass == 'result' %} bg-sky-50{% elif row.outcomeClass == 'wrong' %} bg-rose-50{% endif %}">
-                  <td class="p-2 text-right">{{ teamCell(row.home, 'home') }}</td>
+                  <td class="p-2 text-left">{{ teamCell(row.home, 'home') }}</td>
                   <td class="p-2 text-center text-slate-400 text-xs">v</td>
-                  <td class="p-2 text-left">{{ teamCell(row.away, 'away') }}</td>
+                  <td class="p-2 text-right">{{ teamCell(row.away, 'away') }}</td>
                   <td class="p-2 text-center">
                     {% if row.predicted %}<span class="font-semibold text-slate-700 tabular-nums">{{ row.predicted.home }}–{{ row.predicted.away }}</span>{% else %}<span class="text-slate-300">—</span>{% endif %}
                   </td>

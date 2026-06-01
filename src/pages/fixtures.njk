@@ -30,9 +30,9 @@ permalink: /fixtures/index.html
       <thead class="bg-slate-50 text-slate-600">
         <tr class="text-[11px] uppercase tracking-wider">
           <th class="text-left  p-3 font-semibold w-32">Kickoff</th>
-          <th class="text-right p-3 font-semibold">Home</th>
+          <th class="text-left  p-3 font-semibold">Home</th>
           <th class="text-center p-3 font-semibold w-8"></th>
-          <th class="text-left  p-3 font-semibold">Away</th>
+          <th class="text-right p-3 font-semibold">Away</th>
           <th class="text-center p-3 font-semibold w-16">Result</th>
         </tr>
       </thead>
@@ -43,9 +43,9 @@ permalink: /fixtures/index.html
               <span class="fx-date">{{ match.dateLabel }}</span>
               <span class="fx-time tabular-nums">{{ match.timeLabel }} UTC</span>
             </td>
-            <td class="p-3 text-right">{{ teamCell(match.home, 'home', match) }}</td>
+            <td class="p-3 text-left">{{ teamCell(match.home, 'home', match) }}</td>
             <td class="p-3 text-center text-slate-400 text-xs">v</td>
-            <td class="p-3 text-left">{{ teamCell(match.away, 'away', match) }}</td>
+            <td class="p-3 text-right">{{ teamCell(match.away, 'away', match) }}</td>
             <td class="p-3 text-center">
               {% if match.finished %}
                 <span class="fx-score tabular-nums">{{ match.score.home }}–{{ match.score.away }}</span>

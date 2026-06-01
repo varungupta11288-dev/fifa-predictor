@@ -6,18 +6,51 @@ permalink: /index.html
 {% set leader = leaderboard[0] %}
 {% set maxScore = 960 %}
 
-{# ─── Countdown modal (pre-kickoff only) ──────────────────────────────── #}
-{% if not site.tournamentLive and not site.tournamentFinished %}
-<div id="wc-countdown" class="countdown-modal" role="dialog" aria-modal="true" aria-labelledby="countdown-title">
+{# ─── Entry modal ─────────────────────────────────────────────────────────
+   One modal greets the visitor on each new state, then reveals the leaderboard
+   when closed. Three states drive its content:
+     • pre   — countdown to kickoff
+     • live  — the day's fixtures as cards (today, or the next match day)
+     • done  — a closing thank-you
+   `modalKey` is what we remember as "seen" in localStorage; for the live state
+   it includes the focus date so a new match day re-opens the modal. #}
+{% if site.tournamentFinished %}{% set modalState = 'done' %}
+{% elif site.tournamentLive %}{% set modalState = 'live' %}
+{% else %}{% set modalState = 'pre' %}{% endif %}
+{% set modalKey = modalState %}
+{% if modalState == 'live' and schedule.today.iso %}{% set modalKey = 'live:' ~ schedule.today.iso %}{% endif %}
+
+{% macro modalFlag(team) %}
+  {%- if team and team.iso2 -%}
+    <img class="modal-match-flag" src="https://flagcdn.com/24x18/{{ team.iso2 }}.png"
+         srcset="https://flagcdn.com/48x36/{{ team.iso2 }}.png 2x" width="24" height="18" loading="lazy" alt="">
+  {%- else -%}
+    <span class="modal-match-flag modal-match-flag--tbd" aria-hidden="true"></span>
+  {%- endif -%}
+{% endmacro %}
+
+{# Before the leaderboard below is parsed/painted, decide whether the modal will
+   show. If it's already been dismissed for this state, reveal the board straight
+   away; otherwise gate its entrance animations until the modal is closed. #}
+<script>
+(function () {
+  var seen = false;
+  try { seen = localStorage.getItem('wc2026:modalSeen') === {{ modalKey | dump | safe }}; } catch (e) {}
+  document.documentElement.classList.add(seen ? 'wc-modal-seen' : 'lb-gated');
+})();
+</script>
+
+<div id="wc-modal" class="countdown-modal" role="dialog" aria-modal="true" aria-labelledby="wc-modal-title">
   <div class="countdown-modal__panel">
-    <button type="button" class="countdown-modal__close" data-close aria-label="Close countdown">
+    <button type="button" class="countdown-modal__close" data-close aria-label="Close">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
         <path d="M6 6 L18 18 M18 6 L6 18"/>
       </svg>
     </button>
 
+    {% if modalState == 'pre' %}
     <div class="countdown-modal__content">
-      <p id="countdown-title" class="countdown-modal__eyebrow">FIFA World Cup 2026 kicks off in</p>
+      <p id="wc-modal-title" class="countdown-modal__eyebrow">FIFA World Cup 2026 kicks off in</p>
       <div class="countdown-display">
         <img class="countdown-trophy countdown-trophy--left" src="{{ site.baseUrl }}/assets/trophy.webp" alt="" aria-hidden="true">
         <div class="countdown-numbers">
@@ -29,15 +62,48 @@ permalink: /index.html
         <img class="countdown-trophy countdown-trophy--right" src="{{ site.baseUrl }}/assets/trophy.webp" alt="" aria-hidden="true">
       </div>
       <p class="countdown-modal__sub">USA · Canada · Mexico · 11 Jun 2026</p>
-      {% if site.tournamentLive %}
-        <button type="button" class="countdown-modal__cta" data-close>View leaderboard →</button>
-      {% else %}
-        <a href="{{ site.baseUrl }}/how-to-enter/" class="countdown-modal__cta">How to enter →</a>
-      {% endif %}
+      <a href="{{ site.baseUrl }}/how-to-enter/" class="countdown-modal__cta">How to enter →</a>
     </div>
+
+    {% elif modalState == 'live' %}
+    <div class="countdown-modal__content countdown-modal__content--matches">
+      <p id="wc-modal-title" class="countdown-modal__eyebrow">
+        {% if schedule.today.isToday %}Today's matches{% else %}Next up{% endif %}
+      </p>
+      {% if schedule.today.label %}<p class="modal-matchday">{{ schedule.today.label }}</p>{% endif %}
+      {% if schedule.today.matches.length %}
+      <div class="modal-match-list">
+        {% for m in schedule.today.matches %}
+        <div class="modal-match-card">
+          <div class="modal-match-meta">
+            <span>{{ m.stageLabel }}</span>
+            <span class="tabular-nums">{{ m.timeLabel }} UTC</span>
+          </div>
+          <div class="modal-match-teams">
+            <span class="modal-match-team">{{ modalFlag(m.home) }}<span>{{ m.home.name if m.home else 'TBD' }}</span></span>
+            <span class="modal-match-vs">{% if m.finished %}{{ m.score.home }}–{{ m.score.away }}{% else %}v{% endif %}</span>
+            <span class="modal-match-team modal-match-team--away"><span>{{ m.away.name if m.away else 'TBD' }}</span>{{ modalFlag(m.away) }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="countdown-modal__sub">No matches scheduled.</p>
+      {% endif %}
+      <button type="button" class="countdown-modal__cta" data-close>View leaderboard →</button>
+    </div>
+
+    {% else %}
+    <div class="countdown-modal__content">
+      <img class="modal-thanks-trophy" src="{{ site.baseUrl }}/assets/trophy.webp" alt="" aria-hidden="true">
+      <p id="wc-modal-title" class="countdown-modal__eyebrow">FIFA World Cup 2026</p>
+      <h2 class="modal-thanks-title display">Thanks for playing!</h2>
+      <p class="modal-thanks-text">That's a wrap on the tournament. Thank you for taking part in the WC2026 Predictor — we hope you enjoyed every twist of the bracket.</p>
+      <button type="button" class="countdown-modal__cta" data-close>View final leaderboard →</button>
+    </div>
+    {% endif %}
   </div>
 </div>
-{% endif %}
 
 <section class="mb-8">
   <p class="text-xs uppercase tracking-[0.25em] text-pitch-700 font-semibold mb-1">Standings</p>
@@ -199,38 +265,50 @@ permalink: /index.html
 
 {% endif %}
 
-{# ─── Countdown JS (only when the modal is rendered) ──────────────────── #}
-{% if not site.tournamentLive and not site.tournamentFinished %}
+{# ─── Entry modal control ─────────────────────────────────────────────────
+   Closing the modal remembers this state as "seen" (so it won't reappear until
+   the state changes), then reveals the leaderboard and releases its held
+   entrance animations. The countdown ticker only runs in the pre-kickoff
+   state, when the digit tiles are present. #}
 <script>
 (function () {
-  // First match: Mexico vs South Africa, Mexico City, 11 Jun 2026 16:00 UTC.
-  var KICKOFF = new Date('2026-06-11T16:00:00Z').getTime();
-  var modal = document.getElementById('wc-countdown');
+  var modal = document.getElementById('wc-modal');
   if (!modal) return;
+  // Already dismissed for this state → it's hidden; nothing to wire up.
+  if (document.documentElement.classList.contains('wc-modal-seen')) return;
+
+  var timer = null;
   var d = modal.querySelector('[data-d]');
-  var h = modal.querySelector('[data-h]');
-  var m = modal.querySelector('[data-m]');
-  var s = modal.querySelector('[data-s]');
-  var timer;
-  function pad(n) { return String(n).padStart(2, '0'); }
-  function tick() {
-    var ms = KICKOFF - Date.now();
-    if (ms <= 0) {
-      d.textContent = '00'; h.textContent = '00'; m.textContent = '00'; s.textContent = '00';
-      clearInterval(timer);
-      return;
-    }
-    d.textContent = pad(Math.floor(ms / 86400000));
-    h.textContent = pad(Math.floor(ms / 3600000) % 24);
-    m.textContent = pad(Math.floor(ms / 60000) % 60);
-    s.textContent = pad(Math.floor(ms / 1000) % 60);
+  if (d) {
+    // First match: Mexico vs South Africa, Mexico City, 11 Jun 2026 16:00 UTC.
+    var KICKOFF = new Date('2026-06-11T16:00:00Z').getTime();
+    var h = modal.querySelector('[data-h]');
+    var m = modal.querySelector('[data-m]');
+    var s = modal.querySelector('[data-s]');
+    var pad = function (n) { return String(n).padStart(2, '0'); };
+    var tick = function () {
+      var ms = KICKOFF - Date.now();
+      if (ms <= 0) {
+        d.textContent = '00'; h.textContent = '00'; m.textContent = '00'; s.textContent = '00';
+        clearInterval(timer);
+        return;
+      }
+      d.textContent = pad(Math.floor(ms / 86400000));
+      h.textContent = pad(Math.floor(ms / 3600000) % 24);
+      m.textContent = pad(Math.floor(ms / 60000) % 60);
+      s.textContent = pad(Math.floor(ms / 1000) % 60);
+    };
+    tick();
+    timer = setInterval(tick, 1000);
   }
-  tick();
-  timer = setInterval(tick, 1000);
 
   function close() {
     modal.setAttribute('data-closed', 'true');
-    clearInterval(timer);
+    if (timer) clearInterval(timer);
+    try { localStorage.setItem('wc2026:modalSeen', {{ modalKey | dump | safe }}); } catch (e) {}
+    // Release the leaderboard's held entrance animations now the page is visible.
+    document.documentElement.classList.remove('lb-gated');
+    document.dispatchEvent(new CustomEvent('wc:ungate'));
   }
   modal.querySelectorAll('[data-close]').forEach(function (el) {
     el.addEventListener('click', function (e) { e.stopPropagation(); close(); });
@@ -239,7 +317,6 @@ permalink: /index.html
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
 })();
 </script>
-{% endif %}
 
 {# ─── Podium score count-up ───────────────────────────────────────────────
    Ticks each podium total from 0 to its value, synced with the bar fill and
@@ -269,15 +346,24 @@ permalink: /index.html
       });
     }, delay);
   }
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries, obs) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { run(e.target); obs.unobserve(e.target); }
-      });
-    }, { threshold: 0.4 });
-    nums.forEach(function (el) { io.observe(el); });
+  function start() {
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { run(e.target); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.4 });
+      nums.forEach(function (el) { io.observe(el); });
+    } else {
+      nums.forEach(run);
+    }
+  }
+  // If the countdown modal is covering the page, hold the count-up until it's
+  // closed (mirrors the CSS animation gate) so it isn't spent behind the overlay.
+  if (document.documentElement.classList.contains('lb-gated')) {
+    document.addEventListener('wc:ungate', start, { once: true });
   } else {
-    nums.forEach(run);
+    start();
   }
 })();
 </script>
