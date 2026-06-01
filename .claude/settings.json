@@ -75,7 +75,8 @@
       "Bash(Format-Table FullName)",
       "Bash(Get-ChildItem -Directory)",
       "Bash(Select-Object Name)",
-      "Bash(powershell -Command \"Get-ChildItem -Path 'data/predictions/' -File | Select-Object Name, Length, LastWriteTime\")"
+      "Bash(powershell -Command \"Get-ChildItem -Path 'data/predictions/' -File | Select-Object Name, Length, LastWriteTime\")",
+      "PowerShell(Get-ChildItem -Recurse data/submissions, data/predictions, data/links, data/results -ErrorAction SilentlyContinue | Select-Object FullName; \"--- schedule.json score sample ---\"; if \\(Test-Path data/fixtures/schedule.json\\) { \\(Get-Content data/fixtures/schedule.json -Raw\\).Substring\\(0,400\\) })"
     ]
   }
 }
