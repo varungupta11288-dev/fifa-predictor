@@ -11,6 +11,10 @@
 //   GET  /api/deploy      SSE stream of `npm run deploy`
 //   GET  /api/links       SSE stream of `npm run links`
 //   GET  /api/fetch-schedule  SSE stream of `npm run fetch:schedule`
+//   GET  /api/digest      SSE stream of `npm run build:digest`
+//   GET  /api/digests     { latest, archives } — list of built digests
+//   GET  /digest          serves the latest _site/digest.html (token-gated)
+//   GET  /digests/<file>  serves a dated archive from digests/ (token-gated)
 //   POST /api/git-push    { message } -> git add -u; commit; push origin main
 //
 // All /api/* require the per-boot token. POST bodies + JSON; SSE endpoints
@@ -26,6 +30,8 @@ const { URL } = require('url');
 
 const ROOT = path.join(__dirname, '..');
 const SUBMISSIONS_DIR = path.join(ROOT, 'data', 'submissions');
+const DIGEST_DIR = path.join(ROOT, 'digests');
+const LATEST_DIGEST = path.join(ROOT, '_site', 'digest.html');
 const HOST = '127.0.0.1';
 const PORT = 5174;
 const ORIGIN = `http://${HOST}:${PORT}`;
@@ -160,6 +166,40 @@ async function listSubmissions() {
   return rows;
 }
 
+const DIGEST_NAME_RE = /^digest-\d{4}-\d{2}-\d{2}\.html$/;
+
+async function listDigests() {
+  if (!fs.existsSync(DIGEST_DIR)) return [];
+  const names = await fsp.readdir(DIGEST_DIR);
+  const rows = [];
+  for (const name of names) {
+    if (!DIGEST_NAME_RE.test(name)) continue;
+    try {
+      const st = await fsp.stat(path.join(DIGEST_DIR, name));
+      rows.push({ name, date: name.slice('digest-'.length, -'.html'.length), mtime: st.mtime.toISOString() });
+    } catch (_) {
+      // skip
+    }
+  }
+  rows.sort((a, b) => b.name.localeCompare(a.name)); // newest date first
+  return rows;
+}
+
+async function serveHtmlFile(res, filePath) {
+  try {
+    const buf = await fsp.readFile(filePath);
+    res.writeHead(200, {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Content-Length': buf.length,
+      'Cache-Control': 'no-store',
+    });
+    res.end(buf);
+  } catch (_) {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Digest not found — run “Daily digest” first.');
+  }
+}
+
 // ---- streaming command runner (SSE) -----------------------------------------
 
 function streamCommand(res, cmd, args) {
@@ -236,6 +276,32 @@ async function handle(req, res) {
     return;
   }
 
+  // Digest viewing — token-gated (the digest embeds player handles/standings). Opened in a new
+  // browser tab via ?token=..., since these are navigations, not fetch() calls.
+  if (req.method === 'GET' && url.pathname === '/digest') {
+    if (!authorize(req, url)) {
+      res.writeHead(403, { 'Content-Type': 'text/plain' });
+      res.end('Bad token');
+      return;
+    }
+    return serveHtmlFile(res, LATEST_DIGEST);
+  }
+
+  if (req.method === 'GET' && url.pathname.startsWith('/digests/')) {
+    if (!authorize(req, url)) {
+      res.writeHead(403, { 'Content-Type': 'text/plain' });
+      res.end('Bad token');
+      return;
+    }
+    const name = decodeURIComponent(url.pathname.slice('/digests/'.length));
+    if (!DIGEST_NAME_RE.test(name)) {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Not found');
+      return;
+    }
+    return serveHtmlFile(res, path.join(DIGEST_DIR, name));
+  }
+
   if (!url.pathname.startsWith('/api/')) {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not found');
@@ -299,6 +365,15 @@ async function handle(req, res) {
 
   if (req.method === 'GET' && url.pathname === '/api/fetch-schedule') {
     return streamCommand(res, 'npm', ['run', 'fetch:schedule']);
+  }
+
+  if (req.method === 'GET' && url.pathname === '/api/digest') {
+    return streamCommand(res, 'npm', ['run', 'build:digest']);
+  }
+
+  if (req.method === 'GET' && url.pathname === '/api/digests') {
+    const archives = await listDigests();
+    return jsonResponse(res, 200, { latest: fs.existsSync(LATEST_DIGEST), archives });
   }
 
   if (req.method === 'POST' && url.pathname === '/api/git-push') {

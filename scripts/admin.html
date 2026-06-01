@@ -176,6 +176,16 @@
   .log .ok { color: var(--green); }
   .log .meta { color: var(--muted); }
 
+  /* Digest links */
+  .digest-links { margin-top: 14px; display: grid; gap: 8px; }
+  .digest-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; }
+  .digest-label { color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 1px; min-width: 56px; }
+  .digest-row a { color: var(--accent); text-decoration: none; }
+  .digest-row a:hover { text-decoration: underline; }
+  .digest-archive { display: flex; gap: 8px; flex-wrap: wrap; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  .digest-archive a { padding: 2px 8px; border: 1px solid var(--border); border-radius: 4px; color: var(--text); }
+  .digest-archive a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
   /* Push panel */
   .changed-files {
     margin: 8px 0 14px;
@@ -263,14 +273,16 @@
 
   <section class="card">
     <h2>② Build &amp; deploy</h2>
-    <div class="subhead">Runs <code>npm run deploy</code> (ingest → build → push gh-pages). Refresh fixtures pulls the latest kickoff times &amp; scores from football-data.org.</div>
+    <div class="subhead">Runs <code>npm run deploy</code> (ingest → build → push gh-pages). Refresh fixtures pulls the latest kickoff times &amp; scores from football-data.org. Daily digest builds <code>_site/digest.html</code> — the email summary of yesterday's results &amp; top 10.</div>
     <div class="button-row">
       <button class="btn" id="btn-deploy">🚀 Deploy</button>
       <button class="btn ghost" id="btn-fetch">📅 Refresh fixtures</button>
       <button class="btn ghost" id="btn-links">🔗 Generate links</button>
+      <button class="btn ghost" id="btn-digest">📰 Daily digest</button>
       <button class="btn ghost" id="btn-stop" hidden>✕ Stop</button>
     </div>
     <div class="log" id="log"></div>
+    <div class="digest-links" id="digest-links" hidden></div>
   </section>
 
   <section class="card">
@@ -379,6 +391,35 @@ async function refresh() {
   $('btn-push').disabled = !dirty;
 }
 
+// ---- digest links ----
+async function refreshDigests() {
+  let data;
+  try { data = await api('/api/digests'); }
+  catch (_) { return; }
+
+  const box = $('digest-links');
+  const archives = data.archives || [];
+  if (!data.latest && archives.length === 0) {
+    box.hidden = true;
+    box.innerHTML = '';
+    return;
+  }
+
+  const tok = encodeURIComponent(TOKEN);
+  const latest = data.latest
+    ? `<a href="/digest?token=${tok}" target="_blank" rel="noopener">Open latest digest →</a>`
+    : '<span class="meta">not built yet</span>';
+  const archiveLinks = archives
+    .map(a => `<a href="/digests/${encodeURIComponent(a.name)}?token=${tok}" target="_blank" rel="noopener">${a.date}</a>`)
+    .join('');
+
+  box.hidden = false;
+  box.innerHTML = `
+    <div class="digest-row"><span class="digest-label">Latest</span>${latest}</div>
+    ${archiveLinks ? `<div class="digest-row"><span class="digest-label">Archive</span><span class="digest-archive">${archiveLinks}</span></div>` : ''}
+  `;
+}
+
 // ---- upload ----
 function readAsBase64(file) {
   return new Promise((resolve, reject) => {
@@ -438,7 +479,7 @@ document.addEventListener('click', async (e) => {
 // ---- streaming commands (SSE) ----
 const logEl = $('log');
 let currentSrc = null;
-const ACTION_BTNS = ['btn-deploy', 'btn-fetch', 'btn-links'];
+const ACTION_BTNS = ['btn-deploy', 'btn-fetch', 'btn-links', 'btn-digest'];
 function setActionsDisabled(disabled) {
   ACTION_BTNS.forEach((id) => { $(id).disabled = disabled; });
   $('btn-stop').hidden = !disabled;
@@ -474,6 +515,10 @@ function startStream(name, urlPath) {
     currentSrc = null;
     setActionsDisabled(false);
     refresh();
+    if (urlPath === '/api/digest' && code === 0) {
+      logLine('\nDigest ready — open it from the "Latest digest" link below.\n', 'ok');
+    }
+    refreshDigests();
   });
   src.addEventListener('error', () => {
     if (currentSrc !== src) return;
@@ -490,6 +535,7 @@ function startStream(name, urlPath) {
 $('btn-deploy').addEventListener('click', () => startStream('npm run deploy', '/api/deploy'));
 $('btn-fetch').addEventListener('click', () => startStream('npm run fetch:schedule', '/api/fetch-schedule'));
 $('btn-links').addEventListener('click', () => startStream('npm run links', '/api/links'));
+$('btn-digest').addEventListener('click', () => startStream('npm run build:digest', '/api/digest'));
 $('btn-stop').addEventListener('click', () => {
   if (currentSrc) {
     currentSrc.close();
@@ -529,6 +575,7 @@ $('btn-push').addEventListener('click', async () => {
 
 // ---- initial paint + periodic refresh ----
 refresh();
+refreshDigests();
 setInterval(refresh, 8000);
 </script>
 </body>

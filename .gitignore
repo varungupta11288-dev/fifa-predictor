@@ -17,5 +17,8 @@ data/links/
 # Worktree used by scripts/deploy-gh-pages.js
 .gh-pages-tmp/
 
+# Generated daily digest archives (contain player handles / standings)
+digests/
+
 # Excel lock files (open file = ~$Player1_Alex.xlsx etc.)
 ~$*.xlsx

@@ -1,8 +1,12 @@
 // Build _site/digest.html — a standalone HTML email summarizing yesterday's results, today's
 // top 10, and biggest movers. Inline <style> only (most email clients strip linked stylesheets).
+//
+// Pass --outlook (or -o) to also copy the digest to the clipboard and open Outlook Classic
+// with the email composed and ready to send (Windows-only; uses the Outlook COM object).
 
 const fs = require('fs');
 const path = require('path');
+const { spawn } = require('child_process');
 const { score } = require('./score');
 
 const ROOT = path.join(__dirname, '..');
@@ -19,7 +23,7 @@ function esc(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-function buildHtml({ todayDate, baseUrl, yesterdayDate, yesterdayResults, top10, movers }) {
+function buildHtml({ todayDate, yesterdayDate, yesterdayResults, top10, movers }) {
   const css = `
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #0f172a; background: #f8fafc; margin: 0; padding: 24px; }
     .wrap { max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; }
@@ -34,7 +38,6 @@ function buildHtml({ todayDate, baseUrl, yesterdayDate, yesterdayResults, top10,
     th { background: #f8fafc; font-weight: 600; }
     td.r, th.r { text-align: right; }
     .muted { color: #64748b; font-size: 12px; }
-    .cta { display: inline-block; background: #0f172a; color: #ffffff !important; padding: 8px 14px; border-radius: 4px; text-decoration: none; font-size: 13px; }
     .ftr { padding: 14px 20px; font-size: 11px; color: #64748b; background: #f8fafc; }
   `;
 
@@ -91,15 +94,47 @@ function buildHtml({ todayDate, baseUrl, yesterdayDate, yesterdayResults, top10,
       ${moversBlock}
     </div>
 
-    <div class="section" style="text-align: center;">
-      <a class="cta" href="${esc(baseUrl)}/">View full leaderboard</a>
-    </div>
-
     <div class="ftr">
       You are receiving this because you entered the WC2026 Predictor. Your private predictions page link was sent at kickoff.
     </div>
   </div>
 </body></html>`;
+}
+
+// Copy the digest HTML to the clipboard and open Outlook Classic (desktop) with a new
+// message whose body is the digest, ready to review and send. Windows-only — drives the
+// Outlook.Application COM object via PowerShell. The compose window is shown (Display),
+// never auto-sent, so nothing leaves the machine without a human clicking Send.
+function openInOutlook(htmlPath, subject) {
+  if (process.platform !== 'win32') {
+    console.warn('[skip] --outlook is Windows-only (needs Outlook Classic + COM). Skipping.');
+    return;
+  }
+  // Single-quoted PowerShell literals; escape any embedded single quote by doubling it.
+  const psPath = htmlPath.replace(/'/g, "''");
+  const psSubject = subject.replace(/'/g, "''");
+  const script = `
+$ErrorActionPreference = 'Stop'
+$html = Get-Content -Raw -LiteralPath '${psPath}'
+try { Set-Clipboard -Value $html } catch { Write-Warning "Clipboard copy failed: $_" }
+$outlook = New-Object -ComObject Outlook.Application
+$mail = $outlook.CreateItem(0)            # 0 = olMailItem
+$mail.Subject = '${psSubject}'
+$mail.HTMLBody = $html
+$mail.Display($false)                     # open compose window; do not block
+`;
+  const child = spawn(
+    'powershell.exe',
+    ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-Command', script],
+    { stdio: ['ignore', 'inherit', 'inherit'] },
+  );
+  child.on('error', (err) => {
+    console.error(`[err] Could not launch Outlook: ${err.message}`);
+  });
+  child.on('close', (code) => {
+    if (code === 0) console.log('[OK] Digest copied to clipboard and opened in Outlook Classic.');
+    else console.error(`[err] Outlook handoff exited with code ${code}. Is Outlook Classic installed?`);
+  });
 }
 
 function main() {
@@ -127,9 +162,9 @@ function main() {
   const yesterdayDate = latest ? latest.file.replace('.json', '') : null;
   const yesterdayResults = latest ? latest.json : [];
 
+  const todayDate = new Date().toISOString().slice(0, 10);
   const html = buildHtml({
-    todayDate: new Date().toISOString().slice(0, 10),
-    baseUrl: process.env.SITE_BASE_URL || '',
+    todayDate,
     yesterdayDate,
     yesterdayResults,
     top10,
@@ -139,6 +174,19 @@ function main() {
   if (!fs.existsSync(path.dirname(outPath))) fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, html);
   console.log(`[OK] Wrote ${path.relative(ROOT, outPath)} (${html.length} bytes, ${top10.length}-player top 10)`);
+
+  // Persist a dated archive outside _site/ (which `npm run clean` wipes) so each day's digest
+  // can be reviewed later. Filename carries the date: digests/digest-YYYY-MM-DD.html.
+  const archiveDir = path.join(ROOT, 'digests');
+  const archivePath = path.join(archiveDir, `digest-${todayDate}.html`);
+  if (!fs.existsSync(archiveDir)) fs.mkdirSync(archiveDir, { recursive: true });
+  fs.writeFileSync(archivePath, html);
+  console.log(`[OK] Archived ${path.relative(ROOT, archivePath)}`);
+
+  // `--outlook` (or `-o`): copy the digest + open Outlook Classic with the email ready to send.
+  if (process.argv.includes('--outlook') || process.argv.includes('-o')) {
+    openInOutlook(outPath, `FIFA WC 2026 Predictor — Daily Update · ${todayDate}`);
+  }
 }
 
 if (require.main === module) main();
