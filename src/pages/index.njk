@@ -34,9 +34,7 @@ permalink: /index.html
    away; otherwise gate its entrance animations until the modal is closed. #}
 <script>
 (function () {
-  var seen = false;
-  try { seen = localStorage.getItem('wc2026:modalSeen') === {{ modalKey | dump | safe }}; } catch (e) {}
-  document.documentElement.classList.add(seen ? 'wc-modal-seen' : 'lb-gated');
+  document.documentElement.classList.add('lb-gated');
 })();
 </script>
 
@@ -171,22 +169,22 @@ permalink: /index.html
 <section>
   <h2 class="display text-lg text-slate-700 mb-3">Full standings</h2>
   <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-slate-200">
-  <table class="min-w-full text-sm">
+  <table class="w-full text-sm">
     <thead class="bg-slate-50 text-slate-600">
       <tr class="text-[11px] uppercase tracking-wider">
-        <th class="text-left  p-3 font-semibold w-12">#</th>
-        <th class="text-left  p-3 font-semibold">Player</th>
-        <th class="text-left  p-3 font-semibold w-64">Points won</th>
-        <th class="text-right p-3 font-semibold w-16">Total</th>
-        <th class="text-left  p-3 font-semibold">Stages</th>
-        <th class="text-right p-3 font-semibold w-14">TB</th>
+        <th class="text-left  px-3 py-2.5 font-semibold w-10">#</th>
+        <th class="text-left  px-3 py-2.5 font-semibold min-w-[9rem]">Player</th>
+        <th class="text-left  px-3 py-2.5 font-semibold w-28">Points won</th>
+        <th class="text-right px-3 py-2.5 font-semibold w-16">Total</th>
+        <th class="text-left  px-3 py-2.5 font-semibold">Stages</th>
+        <th class="text-right px-3 py-2.5 font-semibold w-14">TB</th>
       </tr>
     </thead>
     <tbody>
     {% for entry in leaderboard %}
       {% set isLeader = loop.index == 1 and entry.totalPoints > 0 %}
       <tr class="lb-row border-t border-slate-100 relative {% if isLeader %}gold-shimmer animate-goldShimmer{% endif %}">
-        <td class="p-3 align-middle">
+        <td class="px-3 py-2.5 align-middle">
           {% if loop.index <= 3 and entry.totalPoints > 0 %}
             <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-[11px] font-bold
               {% if loop.index == 1 %}bg-champ-400 text-champ-700
@@ -198,18 +196,18 @@ permalink: /index.html
             <span class="text-slate-400 pl-1">{{ loop.index }}</span>
           {% endif %}
         </td>
-        <td class="p-3 align-middle">
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
           <span class="font-semibold text-slate-900">{{ entry.name }}</span> <span class="text-slate-500">({{ entry.handle }})</span>
         </td>
-        <td class="p-3 align-middle">
+        <td class="px-3 py-2.5 align-middle">
           <div class="bar {% if isLeader %}bar-gold{% endif %}">
             <i class="animate-barFill" style="width: {{ (entry.totalPoints / maxScore * 100) | round(1) }}%; animation-delay: {{ loop.index0 * 60 }}ms"></i>
           </div>
         </td>
-        <td class="p-3 align-middle text-right">
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
           <span class="display text-lg {% if isLeader %}text-champ-700{% else %}text-slate-900{% endif %}">{{ entry.totalPoints }}</span>
         </td>
-        <td class="p-3 align-middle">
+        <td class="px-3 py-2.5 align-middle">
           <div class="flex flex-wrap gap-1">
             {% if entry.pointsByStage.group > 0 %}
               <span class="chip" style="--chip-color: #0b6b3a">G {{ entry.pointsByStage.group }}</span>
@@ -237,7 +235,7 @@ permalink: /index.html
             {% endif %}
           </div>
         </td>
-        <td class="p-3 align-middle text-right text-slate-500 text-xs">
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
           {{ entry.tiebreaker if entry.tiebreaker != null else '—' }}
         </td>
       </tr>
@@ -274,8 +272,6 @@ permalink: /index.html
 (function () {
   var modal = document.getElementById('wc-modal');
   if (!modal) return;
-  // Already dismissed for this state → it's hidden; nothing to wire up.
-  if (document.documentElement.classList.contains('wc-modal-seen')) return;
 
   var timer = null;
   var d = modal.querySelector('[data-d]');
@@ -305,8 +301,6 @@ permalink: /index.html
   function close() {
     modal.setAttribute('data-closed', 'true');
     if (timer) clearInterval(timer);
-    try { localStorage.setItem('wc2026:modalSeen', {{ modalKey | dump | safe }}); } catch (e) {}
-    // Release the leaderboard's held entrance animations now the page is visible.
     document.documentElement.classList.remove('lb-gated');
     document.dispatchEvent(new CustomEvent('wc:ungate'));
   }
