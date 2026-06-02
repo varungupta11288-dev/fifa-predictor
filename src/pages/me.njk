@@ -6,7 +6,7 @@ pagination:
   alias: player
 permalink: "/me/{{ player.token }}/index.html"
 eleventyComputed:
-  title: "Predictions — {{ player.handle }}"
+  title: "Predictions — {{ player.name }} ({{ player.handle }})"
 ---
 {# Stage accent colours mirror the leaderboard's stage legend on the home page. #}
 {% set stageColors = { r32: '#0ea5e9', r16: '#6366f1', qf: '#a855f7', sf: '#ec4899', final: '#f97316' } %}
