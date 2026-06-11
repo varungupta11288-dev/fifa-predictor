@@ -784,6 +784,12 @@
   display: block;
   height: 100%;
   width: auto;
+  /* The ball is mostly white; on the white field it needs an edge to be
+     visible. A zero-offset halo outlines it without orbiting as it spins
+     (an offset shadow would swing around and read as a flip). */
+  filter:
+    drop-shadow(0 0 1px rgba(15, 23, 42, 0.85))
+    drop-shadow(0 0 4px rgba(15, 23, 42, 0.25));
   will-change: transform;
   animation: ballSpin 7s linear infinite;
 }

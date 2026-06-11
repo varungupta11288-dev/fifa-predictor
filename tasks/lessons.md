@@ -65,3 +65,11 @@ Patterns from corrections during the build. Read before starting work in this re
 **Why:** PowerShell `/` returns a double; `[int]` rounds to nearest (banker's rounding), not toward zero. In a flood-fill background cutout this miscomputed the row for ~half the pixels, so the fill cleared only ~half the connected white region — and exited 0 with no error, so it looked like a logic/threshold bug. Wasted two re-runs widening colour predicates before spotting the real cause.
 
 **How to apply:** Any time an integer is derived from division in PowerShell (row = index / width, page = offset / size), wrap in `[math]::Floor(...)`. Symptom of getting it wrong: results that are partially-correct/halved rather than totally broken.
+
+## Every asset/link in templates must use `{{ site.baseUrl }}`
+
+**Rule:** Never hardcode a root-absolute path (`/assets/...`, `/rules/`) in a template. Always prefix with `{{ site.baseUrl }}` — e.g. `src="{{ site.baseUrl }}/assets/ball.png"`.
+
+**Why:** The site deploys to a GitHub **project** page (`owner.github.io/<repo>/`), so `deploy-gh-pages.js` builds with `SITE_BASE_URL=/<repo>`. A hardcoded `/assets/ball.png` resolves to the domain root (`/assets/ball.png`), not `/<repo>/assets/ball.png`, and 404s in production only — it works locally where baseUrl is `''`. Symptom seen: the dribble ball `<img>` was invisible on GitHub Pages while its pure-CSS shadow still animated (CSS loaded because its `<link>` used the prefix).
+
+**How to apply:** Grep new templates for `"/assets/`, `href="/`, `src="/` with no `site.baseUrl` in front before committing. To catch it without deploying, build with `SITE_BASE_URL=/<repo>` and confirm the rendered paths carry the prefix.

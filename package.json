@@ -17,7 +17,9 @@
     "build": "npm run clean && npm run build:css && npm run build:site && npm run build:digest",
     "test": "node --test scripts/*.test.js",
     "deploy": "npm test && npm run fetch:schedule && npm run ingest && node scripts/deploy-gh-pages.js",
-    "admin": "node scripts/admin-server.js"
+    "admin": "node scripts/admin-server.js",
+    "send-links": "node scripts/send-player-links.js",
+    "send-links:dry": "node scripts/send-player-links.js --dry-run"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.5",
