@@ -37,17 +37,22 @@
 
   
     
-    <div class="bg-slate-900 text-slate-100 overflow-hidden">
-      <div class="max-w-6xl mx-auto px-4 py-2 text-center">
-        <span class="inline-block animate-flagText display uppercase text-xs sm:text-sm tracking-[0.3em] text-slate-200 whitespace-nowrap">
-          FIFA 2026 <span class="text-slate-500">·</span> USA <span class="text-slate-500">·</span> Canada <span class="text-slate-500">·</span> Mexico
+    <div class="bg-slate-900 text-slate-100">
+      <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between text-xs">
+        <span class="flex items-center gap-2">
+          <span class="live-dot animate-pulseDot"></span>
+          <strong class="uppercase tracking-wider text-red-300">Live</strong>
+          <span class="text-slate-300">·</span>
+          <span>Matchday 1 — tournament live</span>
         </span>
+        <span class="text-slate-400 hidden sm:inline">2026-06-11 → 2026-07-19</span>
       </div>
     </div>
   
 
   <main class="max-w-6xl mx-auto px-4 py-8 w-full flex-1">
     
+
 
 
 
@@ -73,20 +78,31 @@
     </button>
 
     
-    <div class="countdown-modal__content">
-      <p id="wc-modal-title" class="countdown-modal__eyebrow">FIFA World Cup 2026 kicks off in</p>
-      <div class="countdown-display">
-        <img class="countdown-trophy countdown-trophy--left" src="/fifa-predictor/assets/trophy.webp" alt="" aria-hidden="true">
-        <div class="countdown-numbers">
-          <div><span class="countdown-num" data-d>--</span><span class="countdown-label">Days</span></div>
-          <div><span class="countdown-num" data-h>--</span><span class="countdown-label">Hours</span></div>
-          <div><span class="countdown-num" data-m>--</span><span class="countdown-label">Min</span></div>
-          <div><span class="countdown-num" data-s>--</span><span class="countdown-label">Sec</span></div>
+    <div class="countdown-modal__content countdown-modal__content--matches">
+      <p id="wc-modal-title" class="countdown-modal__eyebrow">
+        Today's matches
+      </p>
+      <p class="modal-matchday">Thursday 11 June</p>
+      
+      <div class="modal-match-list">
+        
+        <div class="modal-match-card">
+          <div class="modal-match-meta">
+            <span>Group A</span>
+            <span class="tabular-nums">19:00 UTC</span>
+          </div>
+          <div class="modal-match-teams">
+            <span class="modal-match-team"><img class="modal-match-flag" src="https://flagcdn.com/24x18/mx.png"
+         srcset="https://flagcdn.com/48x36/mx.png 2x" width="24" height="18" loading="lazy" alt=""><span>Mexico</span></span>
+            <span class="modal-match-vs">v</span>
+            <span class="modal-match-team modal-match-team--away"><span>South Africa</span><img class="modal-match-flag" src="https://flagcdn.com/24x18/za.png"
+         srcset="https://flagcdn.com/48x36/za.png 2x" width="24" height="18" loading="lazy" alt=""></span>
+          </div>
         </div>
-        <img class="countdown-trophy countdown-trophy--right" src="/fifa-predictor/assets/trophy.webp" alt="" aria-hidden="true">
+        
       </div>
-      <p class="countdown-modal__sub">USA · Canada · Mexico · 11 Jun 2026</p>
-      <a href="/fifa-predictor/how-to-enter/" class="countdown-modal__cta">How to enter →</a>
+      
+      <button type="button" class="countdown-modal__cta" data-close>View leaderboard →</button>
     </div>
 
     
@@ -97,9 +113,9 @@
   <p class="text-xs uppercase tracking-[0.25em] text-pitch-700 font-semibold mb-1">Standings</p>
   <h1 class="display text-3xl md:text-4xl text-slate-900">Leaderboard</h1>
   <p class="text-sm text-slate-600 mt-2">
-    4 players
-    · 3 matches scored
-    · updated 2026-06-04 11:34Z
+    28 players
+    · 0 matches scored
+    · updated 2026-06-11 11:40Z
   </p>
 </section>
 
@@ -108,114 +124,28 @@
 <div class="lb-demo-wrap">
 
 
-<div class="demo-watermark" aria-hidden="true"></div>
 
 
 
 
 
 
-<section class="podium flex flex-col sm:flex-row sm:items-end gap-4 mb-10">
-  
-    
-    
-    
-    
-    
-    <article class="podium-card rank-1 flex-1 podium-card--leader">
-      
-        <span class="podium-crown" aria-hidden="true">👑</span>
-        <span class="podium-sparkle" aria-hidden="true"></span>
-      
-      <div class="flex items-center gap-3">
-        <span class="medal medal-shine text-lg">1</span>
-        <div>
-          <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">
-            Leader
-          </p>
-          <p class="display text-lg text-slate-900">Alex Bennett <span class="font-normal text-slate-500 text-base">(alex_b)</span></p>
-        </div>
+
+
+<section class="dribble-banner mb-10" aria-label="Tournament under way — no points scored yet">
+  <div class="dribble-pitch">
+    <div class="dribble-copy">
+      <p class="text-[10px] uppercase tracking-[0.25em] text-pitch-700 font-semibold mb-1">Kickoff</p>
+      <h2 class="display text-2xl md:text-3xl text-slate-900">Tournament under way</h2>
+      <p class="text-sm text-slate-600 mt-1">No points scored yet — first results land soon.</p>
+    </div>
+    <div class="dribble-track">
+      <span class="dribble-shadow" aria-hidden="true"></span>
+      <div class="dribble-bounce">
+        <img src="/assets/ball.png" alt="" aria-hidden="true" class="dribble-ball">
       </div>
-      <div class="mt-4 flex items-end justify-between">
-        <span class="display text-4xl text-slate-900" data-countup="5" data-countup-delay="400">0</span>
-        <span class="text-xs text-slate-500">
-          
-            <span class="text-champ-600 font-semibold">🥇 top of the table</span>
-          
-        </span>
-      </div>
-      <div class="mt-3">
-        <div class="bar bar-gold">
-          <i class="animate-barFill" style="width: 0.5%; animation-delay: 400ms"></i>
-        </div>
-        <p class="text-[10px] text-slate-500 mt-1">0.5% of 960 points won</p>
-      </div>
-    </article>
-  
-    
-    
-    
-    
-    
-    <article class="podium-card rank-2 flex-1">
-      
-      <div class="flex items-center gap-3">
-        <span class="medal text-lg">2</span>
-        <div>
-          <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">
-            2nd place
-          </p>
-          <p class="display text-lg text-slate-900">Carl Sanchez <span class="font-normal text-slate-500 text-base">(carl_sanchez)</span></p>
-        </div>
-      </div>
-      <div class="mt-4 flex items-end justify-between">
-        <span class="display text-4xl text-slate-900" data-countup="3" data-countup-delay="260">0</span>
-        <span class="text-xs text-slate-500">
-          
-            2 pt behind leader
-          
-        </span>
-      </div>
-      <div class="mt-3">
-        <div class="bar ">
-          <i class="animate-barFill" style="width: 0.3%; animation-delay: 260ms"></i>
-        </div>
-        <p class="text-[10px] text-slate-500 mt-1">0.3% of 960 points won</p>
-      </div>
-    </article>
-  
-    
-    
-    
-    
-    
-    <article class="podium-card rank-3 flex-1">
-      
-      <div class="flex items-center gap-3">
-        <span class="medal text-lg">3</span>
-        <div>
-          <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">
-            3rd place
-          </p>
-          <p class="display text-lg text-slate-900">Bea Okafor <span class="font-normal text-slate-500 text-base">(bea_o)</span></p>
-        </div>
-      </div>
-      <div class="mt-4 flex items-end justify-between">
-        <span class="display text-4xl text-slate-900" data-countup="3" data-countup-delay="120">0</span>
-        <span class="text-xs text-slate-500">
-          
-            2 pt behind leader
-          
-        </span>
-      </div>
-      <div class="mt-3">
-        <div class="bar ">
-          <i class="animate-barFill" style="width: 0.3%; animation-delay: 120ms"></i>
-        </div>
-        <p class="text-[10px] text-slate-500 mt-1">0.3% of 960 points won</p>
-      </div>
-    </article>
-  
+    </div>
+  </div>
 </section>
 
 
@@ -237,31 +167,26 @@
     <tbody>
     
       
-      <tr class="lb-row border-t border-slate-100 relative gold-shimmer animate-goldShimmer">
+      <tr class="lb-row border-t border-slate-100 relative ">
         <td class="px-3 py-2.5 align-middle">
           
-            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-[11px] font-bold
-              bg-champ-400 text-champ-700
-              ">
-              1
-            </span>
+            <span class="text-slate-400 pl-1">1</span>
           
         </td>
         <td class="px-3 py-2.5 align-middle whitespace-nowrap">
-          <span class="font-semibold text-slate-900">Alex Bennett</span> <span class="text-slate-500">(alex_b)</span>
+          <span class="font-semibold text-slate-900">Kaushal Banga</span> <span class="text-slate-500">(kaushalbanga)</span>
         </td>
         <td class="px-3 py-2.5 align-middle">
-          <div class="bar bar-gold">
-            <i class="animate-barFill" style="width: 0.5%; animation-delay: 0ms"></i>
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 0ms"></i>
           </div>
         </td>
         <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
-          <span class="display text-lg text-champ-700">5</span>
+          <span class="display text-lg text-slate-900">0</span>
         </td>
         <td class="px-3 py-2.5 align-middle">
           <div class="flex flex-wrap gap-1">
             
-              <span class="chip" style="--chip-color: #0b6b3a">G 5</span>
             
             
             
@@ -269,11 +194,12 @@
             
             
             
+              <span class="text-slate-400 text-xs italic">no points yet</span>
             
           </div>
         </td>
         <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
-          145
+          324
         </td>
       </tr>
     
@@ -281,28 +207,23 @@
       <tr class="lb-row border-t border-slate-100 relative ">
         <td class="px-3 py-2.5 align-middle">
           
-            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-[11px] font-bold
-              bg-slate-200 text-slate-700
-              ">
-              2
-            </span>
+            <span class="text-slate-400 pl-1">2</span>
           
         </td>
         <td class="px-3 py-2.5 align-middle whitespace-nowrap">
-          <span class="font-semibold text-slate-900">Carl Sanchez</span> <span class="text-slate-500">(carl_sanchez)</span>
+          <span class="font-semibold text-slate-900">Abhineet Mathur</span> <span class="text-slate-500">(abhi20)</span>
         </td>
         <td class="px-3 py-2.5 align-middle">
           <div class="bar ">
-            <i class="animate-barFill" style="width: 0.3%; animation-delay: 60ms"></i>
+            <i class="animate-barFill" style="width: 0%; animation-delay: 60ms"></i>
           </div>
         </td>
         <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
-          <span class="display text-lg text-slate-900">3</span>
+          <span class="display text-lg text-slate-900">0</span>
         </td>
         <td class="px-3 py-2.5 align-middle">
           <div class="flex flex-wrap gap-1">
             
-              <span class="chip" style="--chip-color: #0b6b3a">G 3</span>
             
             
             
@@ -310,11 +231,12 @@
             
             
             
+              <span class="text-slate-400 text-xs italic">no points yet</span>
             
           </div>
         </td>
         <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
-          162
+          269
         </td>
       </tr>
     
@@ -322,27 +244,23 @@
       <tr class="lb-row border-t border-slate-100 relative ">
         <td class="px-3 py-2.5 align-middle">
           
-            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-[11px] font-bold
-              bg-orange-200 text-orange-800">
-              3
-            </span>
+            <span class="text-slate-400 pl-1">3</span>
           
         </td>
         <td class="px-3 py-2.5 align-middle whitespace-nowrap">
-          <span class="font-semibold text-slate-900">Bea Okafor</span> <span class="text-slate-500">(bea_o)</span>
+          <span class="font-semibold text-slate-900">Ratheesh Kumar I S</span> <span class="text-slate-500">(r_k)</span>
         </td>
         <td class="px-3 py-2.5 align-middle">
           <div class="bar ">
-            <i class="animate-barFill" style="width: 0.3%; animation-delay: 120ms"></i>
+            <i class="animate-barFill" style="width: 0%; animation-delay: 120ms"></i>
           </div>
         </td>
         <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
-          <span class="display text-lg text-slate-900">3</span>
+          <span class="display text-lg text-slate-900">0</span>
         </td>
         <td class="px-3 py-2.5 align-middle">
           <div class="flex flex-wrap gap-1">
             
-              <span class="chip" style="--chip-color: #0b6b3a">G 3</span>
             
             
             
@@ -350,11 +268,12 @@
             
             
             
+              <span class="text-slate-400 text-xs italic">no points yet</span>
             
           </div>
         </td>
         <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
-          178
+          276
         </td>
       </tr>
     
@@ -366,7 +285,7 @@
           
         </td>
         <td class="px-3 py-2.5 align-middle whitespace-nowrap">
-          <span class="font-semibold text-slate-900">Dani Park</span> <span class="text-slate-500">(dani_p)</span>
+          <span class="font-semibold text-slate-900">Omm Shree Mohanty</span> <span class="text-slate-500">(omm_mohanty)</span>
         </td>
         <td class="px-3 py-2.5 align-middle">
           <div class="bar ">
@@ -391,7 +310,895 @@
           </div>
         </td>
         <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
-          155
+          341
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">5</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Ayush Shrivastava</span> <span class="text-slate-500">(ayusssssssh_0_0_7)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 240ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          284
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">6</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Koripelli Rehan Reddy</span> <span class="text-slate-500">(rehan_reddy)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 300ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          291
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">7</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Kusuma Poloju</span> <span class="text-slate-500">(kusuma)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 360ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          157
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">8</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Ashish Mayani</span> <span class="text-slate-500">(ashish_mayani)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 420ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          298
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">9</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Ajay Kumar M</span> <span class="text-slate-500">(aj)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 480ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          285
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">10</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Soumik Maity</span> <span class="text-slate-500">(soumik_maity)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 540ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          214
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">11</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Juan Miguel Ramos Pugnaire</span> <span class="text-slate-500">(juanmi_ramos)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 600ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          264
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">12</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Santhosh Mutyala</span> <span class="text-slate-500">(sanm)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 660ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          285
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">13</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Divyanshu Sharma</span> <span class="text-slate-500">(divyanshu)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 720ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          268
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">14</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Anil Ananda Supugade</span> <span class="text-slate-500">(nomorespoolfc)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 780ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          268
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">15</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Varun Gupta</span> <span class="text-slate-500">(goofymonk)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 840ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          278
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">16</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Purendu Nayak</span> <span class="text-slate-500">(purendu_nayak)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 900ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          269
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">17</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Pallavi Mazumder</span> <span class="text-slate-500">(pallavi_mazumder)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 960ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          10
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">18</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Richard Madders</span> <span class="text-slate-500">(madders)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1020ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          278
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">19</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Ankur Bansal</span> <span class="text-slate-500">(ab)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1080ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          280
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">20</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Phil Jarvis</span> <span class="text-slate-500">(pjj)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1140ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          278
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">21</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Mrunali Tirpude</span> <span class="text-slate-500">(mrunali_t)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1200ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          281
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">22</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Saanidhya Yadav</span> <span class="text-slate-500">(ryuke)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1260ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          318
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">23</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Jeff Kahlon</span> <span class="text-slate-500">(eze_come_eze_go)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1320ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          299
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">24</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Shashank Chaturvedi</span> <span class="text-slate-500">(shashankftw)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1380ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          275
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">25</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Joaquin Gallego</span> <span class="text-slate-500">(joa)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1440ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          290
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">26</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Jenil Sangoi</span> <span class="text-slate-500">(jenil)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1500ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          305
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">27</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Narinder Singh</span> <span class="text-slate-500">(nirvair)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1560ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          291
+        </td>
+      </tr>
+    
+      
+      <tr class="lb-row border-t border-slate-100 relative ">
+        <td class="px-3 py-2.5 align-middle">
+          
+            <span class="text-slate-400 pl-1">28</span>
+          
+        </td>
+        <td class="px-3 py-2.5 align-middle whitespace-nowrap">
+          <span class="font-semibold text-slate-900">Jason Haines</span> <span class="text-slate-500">(jason_h)</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="bar ">
+            <i class="animate-barFill" style="width: 0%; animation-delay: 1620ms"></i>
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right whitespace-nowrap">
+          <span class="display text-lg text-slate-900">0</span>
+        </td>
+        <td class="px-3 py-2.5 align-middle">
+          <div class="flex flex-wrap gap-1">
+            
+            
+            
+            
+            
+            
+            
+            
+              <span class="text-slate-400 text-xs italic">no points yet</span>
+            
+          </div>
+        </td>
+        <td class="px-3 py-2.5 align-middle text-right text-slate-500 text-xs whitespace-nowrap">
+          288
         </td>
       </tr>
     
