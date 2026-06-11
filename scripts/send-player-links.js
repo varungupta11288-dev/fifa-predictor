@@ -16,7 +16,16 @@ const { spawn } = require('child_process');
 const ROOT            = path.join(__dirname, '..');
 const PREDICTIONS_DIR = path.join(ROOT, 'data', 'predictions');
 const DEFAULT_SITE    = 'https://varungupta11288-dev.github.io/fifa-predictor';
-const SUBJECT         = 'Your WC2026 Predictor — Personal Predictions Page';
+const SUBJECT         = 'Your WC2026 Predictor &mdash; Personal Predictions Page';
+const SUBJECT_PLAIN   = 'Your WC2026 Predictor — Personal Predictions Page';
+
+// Embed ball.png as base64 so the logo works in local previews and email clients
+// without any external image request.
+const BALL_B64 = (() => {
+  const p = path.join(ROOT, '_site', 'assets', 'ball.png');
+  if (!fs.existsSync(p)) return null;
+  return 'data:image/png;base64,' + fs.readFileSync(p).toString('base64');
+})();
 
 function esc(s) {
   return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -35,9 +44,6 @@ function buildPlayerEmail({ name, handle, url, site }) {
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #0f172a; background: #f1f5f9; margin: 0; padding: 24px; }
     .wrap { max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; }
     .hdr  { background-color: #0b6b3a; background-image: ${pitchBg}; color: #ffffff; padding: 20px 24px; }
-    .hdr-inner { display: flex; align-items: center; gap: 12px; }
-    .logo-wrap { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
-    .logo-wrap img { width: 26px; height: 26px; object-fit: contain; display: block; }
     .hdr-title { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: 0.04em;
       background: linear-gradient(180deg, #fff8d6 0%, #fcd34d 38%, #b08323 96%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -52,25 +58,23 @@ function buildPlayerEmail({ name, handle, url, site }) {
   `;
 
   return `<!doctype html>
-<html><head><meta charset="utf-8"><title>${esc(SUBJECT)}</title><style>${css}</style></head>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="utf-8">
+<title>${SUBJECT}</title>
+<style>${css}</style>
+</head>
 <body>
   <div class="wrap">
     <div class="hdr">
-      <div class="hdr-inner">
-        <span class="logo-wrap">
-          <img src="${esc(site)}/assets/trophy.webp" alt="Trophy" width="26" height="26">
-        </span>
-        <div>
-          <div class="hdr-title">WC2026 Predictor</div>
-          <div class="hdr-sub">Your personal predictions page</div>
-        </div>
-      </div>
+      <div class="hdr-title">WC2026 Predictor</div>
+      <div class="hdr-sub">Your personal predictions page</div>
     </div>
 
     <div class="section">
       <p>Hi ${esc(firstName)},</p>
       <p>
-        Thank you for taking part in the WC2026 Predictor! The tournament has officially kicked off —
+        Thank you for taking part in the WC2026 Predictor! The tournament has officially kicked off &mdash;
         your entry is locked in and scoring has begun.
       </p>
       <p>
@@ -78,17 +82,17 @@ function buildPlayerEmail({ name, handle, url, site }) {
         picks are holding up, and track your position on the leaderboard as results come in.
       </p>
       <div class="btn-wrap">
-        <a href="${esc(url)}" class="btn">View My Predictions →</a>
+        <a href="${esc(url)}" class="btn">View My Predictions &rarr;</a>
       </div>
       <p class="link-plain">Or copy this link: ${esc(url)}</p>
       <p>
-        Good luck — may your picks prove prophetic! ⚽
+        Good luck &mdash; may your picks prove prophetic!
       </p>
     </div>
 
     <div class="ftr">
       You are receiving this because you submitted a prediction sheet for the WC2026 Predictor game.
-      Your page is private — this link was sent only to you.
+      Your page is private &mdash; this link was sent only to you.
     </div>
   </div>
 </body></html>`;
@@ -170,7 +174,7 @@ async function main() {
       console.log(`          HTML preview: ${path.relative(ROOT, htmlPath)}`);
     } else {
       console.log(`Sending to ${p.name} <${p.email}>`);
-      await openInOutlook(p.email, SUBJECT, htmlPath);
+      await openInOutlook(p.email, SUBJECT_PLAIN, htmlPath);
       // Brief pause so Outlook doesn't get overwhelmed opening many windows at once.
       await new Promise(r => setTimeout(r, 800));
     }

@@ -463,8 +463,7 @@
      A scrollable stack of fixture cards on the pitch-green panel, with the
      eyebrow pinned at top and the CTA at the bottom. */
   .countdown-modal__content--matches {
-    justify-content: flex-start;
-    padding-top: 2.75rem;
+    justify-content: center;
   }
   .modal-matchday {
     font-weight: 800;
@@ -476,8 +475,8 @@
   .modal-match-list {
     width: 100%;
     max-width: 30rem;
-    flex: 1 1 auto;
-    min-height: 0;
+    flex: 0 1 auto;
+    max-height: 18rem;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
