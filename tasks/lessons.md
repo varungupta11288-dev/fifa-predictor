@@ -57,3 +57,11 @@ Patterns from corrections during the build. Read before starting work in this re
 - The sheet, not any external roster, is the source of truth: name (U2), email (T3), handle (W3). MS Forms can't be used as a join (attachment-questions are Accenture-internal-only).
 - Resubmissions with the same email overwrite cleanly. `ingest.js` keeps the newest mtime and warns about superseded files. Older .xlsx files in `data/submissions/` should be deleted once you're sure the latest is good — they don't hurt anything but they clutter audit.
 - Two players choosing the same handle is auto-disambiguated (`rocky_star_2`) AND logged with a `[WARN]` — email the second player to pick a different one.
+
+## PowerShell `[int]` rounds (banker's), it does not floor
+
+**Rule:** For grid/pixel index math, use `[math]::Floor($idx / $w)`, never `[int]($idx / $w)`.
+
+**Why:** PowerShell `/` returns a double; `[int]` rounds to nearest (banker's rounding), not toward zero. In a flood-fill background cutout this miscomputed the row for ~half the pixels, so the fill cleared only ~half the connected white region — and exited 0 with no error, so it looked like a logic/threshold bug. Wasted two re-runs widening colour predicates before spotting the real cause.
+
+**How to apply:** Any time an integer is derived from division in PowerShell (row = index / width, page = offset / size), wrap in `[math]::Floor(...)`. Symptom of getting it wrong: results that are partially-correct/halved rather than totally broken.

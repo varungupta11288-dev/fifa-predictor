@@ -1,5 +1,5 @@
 // Resolve a free-text team name from a knockout cell to a canonical team code.
-// Pipeline: trim → strip diacritics → lowercase → alias-table → exact match → Levenshtein ≤ 2 → null.
+// Pipeline: trim → strip diacritics → lowercase → "&"→"and" → alias-table → exact match → Levenshtein ≤ 2 → null.
 
 const { TEAM_CODES } = require('./team-codes');
 
@@ -17,7 +17,7 @@ const ALIASES = {
   'czech republic': 'Czechia',
   'czechia': 'Czechia',
   'bosnia': 'Bosnia & Herz.',
-  'bosnia & herz.': 'Bosnia & Herz.',
+  'bosnia and herz.': 'Bosnia & Herz.',
   'bosnia and herzegovina': 'Bosnia & Herz.',
   'brasil': 'Brazil',
   'cote divoire': 'Ivory Coast',
@@ -51,6 +51,7 @@ function normalize(s) {
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
+    .replace(/&/g, ' and ')
     .replace(/[^a-z0-9 &.']/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();

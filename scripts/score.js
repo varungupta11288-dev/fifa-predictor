@@ -27,6 +27,8 @@ const KO_STAGES = [
 ];
 const WINNER_POINTS = 30;
 
+const { titleCaseName } = require('./format-name');
+
 function outcome(home, away) {
   return home > away ? 'H' : home < away ? 'A' : 'D';
 }
@@ -92,6 +94,7 @@ function scoreOne(prediction, results) {
     token: prediction.token,
     handle: prediction.handle,
     name: prediction.name,
+    displayName: titleCaseName(prediction.name),
     pointsByStage,
     totalPoints,
     correctCounts,

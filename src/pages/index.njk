@@ -119,10 +119,20 @@ permalink: /index.html
   </div>
 {% else %}
 
+<div class="lb-demo-wrap">
+{# Tiled diagonal "DEMO DATA" watermark across the standings — pre-kickoff only.
+   `tournamentLive` flips true at build on 11 Jun 2026 (src/_data/site.js), so
+   the watermark drops automatically once real results start being scored. #}
+{% if not site.tournamentLive and not site.tournamentFinished %}
+<div class="demo-watermark" aria-hidden="true"></div>
+{% endif %}
+
 {# ─── Podium (top 3) ───────────────────────────────────────────────────── #}
 {# Visual order is 2-1-3 (silver · gold · bronze) via CSS `order` on sm+; the   #}
 {# loop stays in rank order so the markup/DOM remains 1-2-3 for accessibility.  #}
-{% if leaderboard.length >= 3 %}
+{# Hidden while every player is on 0 pts (podium would be three names with     #}
+{# identical empty bars) — the dribble banner below stands in until points land. #}
+{% if leaderboard.length >= 3 and leader.totalPoints > 0 %}
 <section class="podium flex flex-col sm:flex-row sm:items-end gap-4 mb-10">
   {% for entry in leaderboard.slice(0, 3) %}
     {% set rankClass = 'rank-' ~ loop.index %}
@@ -141,7 +151,7 @@ permalink: /index.html
           <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">
             {% if loop.index == 1 %}Leader{% elif loop.index == 2 %}2nd place{% else %}3rd place{% endif %}
           </p>
-          <p class="display text-lg text-slate-900">{{ entry.name }} <span class="font-normal text-slate-500 text-base">({{ entry.handle }})</span></p>
+          <p class="display text-lg text-slate-900">{{ entry.displayName }} <span class="font-normal text-slate-500 text-base">({{ entry.handle }})</span></p>
         </div>
       </div>
       <div class="mt-4 flex items-end justify-between">
@@ -162,6 +172,25 @@ permalink: /index.html
       </div>
     </article>
   {% endfor %}
+</section>
+{% elif leader.totalPoints == 0 %}
+{# Nobody has scored yet → no meaningful podium. Stand-in hero: the cut-out
+   ball (from asset/runner.png) rolls left→right across a white field on a loop.
+   Returns to the podium automatically once any point lands. #}
+<section class="dribble-banner mb-10" aria-label="Tournament under way — no points scored yet">
+  <div class="dribble-pitch">
+    <div class="dribble-copy">
+      <p class="text-[10px] uppercase tracking-[0.25em] text-pitch-700 font-semibold mb-1">Kickoff</p>
+      <h2 class="display text-2xl md:text-3xl text-slate-900">Tournament under way</h2>
+      <p class="text-sm text-slate-600 mt-1">No points scored yet — first results land soon.</p>
+    </div>
+    <div class="dribble-track">
+      <span class="dribble-shadow" aria-hidden="true"></span>
+      <div class="dribble-bounce">
+        <img src="/assets/ball.png" alt="" aria-hidden="true" class="dribble-ball">
+      </div>
+    </div>
+  </div>
 </section>
 {% endif %}
 
@@ -197,7 +226,7 @@ permalink: /index.html
           {% endif %}
         </td>
         <td class="px-3 py-2.5 align-middle whitespace-nowrap">
-          <span class="font-semibold text-slate-900">{{ entry.name }}</span> <span class="text-slate-500">({{ entry.handle }})</span>
+          <span class="font-semibold text-slate-900">{{ entry.displayName }}</span> <span class="text-slate-500">({{ entry.handle }})</span>
         </td>
         <td class="px-3 py-2.5 align-middle">
           <div class="bar {% if isLeader %}bar-gold{% endif %}">
@@ -260,6 +289,7 @@ permalink: /index.html
     <strong>TB</strong> = tie-breaker prediction (total goals across all 104 matches, incl. extra time)
   </p>
 </section>
+</div>
 
 {% endif %}
 

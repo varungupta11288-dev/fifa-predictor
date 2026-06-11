@@ -219,6 +219,20 @@
     box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
   }
 
+  /* ── Demo-data watermark ───────────────────────────────────────────────
+     Tiled diagonal "DEMO DATA" text laid over the leaderboard so it's clear
+     the standings aren't real results. Overlay sits above content but never
+     intercepts clicks/hover. SVG data-URI tile = crisp text at any zoom. */
+  .lb-demo-wrap { position: relative; }
+  .demo-watermark {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='320'%20height='220'%3E%3Ctext%20x='30'%20y='130'%20transform='rotate(-28%20160%20110)'%20font-family='Arial,%20sans-serif'%20font-size='30'%20font-weight='800'%20fill='%230f172a'%20fill-opacity='0.08'%20letter-spacing='2'%3EDEMO%20DATA%3C/text%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
   /* Leaderboard row hover lift. */
   .lb-row {
     transition: transform 160ms ease, box-shadow 160ms ease;
@@ -719,4 +733,88 @@
   .podium-card { opacity: 1 !important; transform: none !important; }
   .podium-crown { opacity: 1 !important; transform: rotate(-8deg) !important; }
   .podium-sparkle { opacity: 0 !important; }
+  /* Freeze the ball resting on the ground near the left — no travel/spin/bounce. */
+  .dribble-track  { animation: none !important; left: 6% !important; }
+  .dribble-bounce { animation: none !important; transform: none !important; }
+  .dribble-ball   { animation: none !important; transform: none !important; }
+  .dribble-shadow { animation: none !important; transform: translateX(-50%) !important; opacity: 1 !important; }
+}
+
+/* ---------- All-zero "tournament under way" dribble banner ----------
+   Stands in for the podium before any player has scored (index.njk gates the
+   banner on leader.totalPoints == 0). A plain white field across which the
+   cut-out ball (from asset/runner.png) rolls left→right on a continuous loop.
+   Travel (`left` on the track) and roll (`rotate` on the ball) live on
+   separate elements/properties so they compose without fighting. */
+.dribble-pitch {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;              /* white field shows through the ball's transparency */
+}
+.dribble-copy {
+  position: absolute;
+  top: 1.1rem; left: 1.25rem; right: 1.25rem;
+  z-index: 2;
+  pointer-events: none;
+}
+/* Three nested elements so the three motions never share a `transform`:
+   .dribble-track  → horizontal travel (`left`)
+   .dribble-bounce → vertical bounce (translateY)
+   .dribble-ball   → roll (rotate)
+   .dribble-shadow → ground contact shadow, stays put and shrinks at apex. */
+.dribble-track {
+  position: absolute;
+  bottom: 0;                        /* ball rests on the section's bottom border */
+  left: 0;
+  width: 68px;
+  height: 68px;
+  will-change: left;
+  animation: dribbleRun 7s linear infinite;
+}
+.dribble-bounce {
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  animation: dribbleBounce 0.9s infinite;
+}
+.dribble-ball {
+  display: block;
+  height: 100%;
+  width: auto;
+  will-change: transform;
+  animation: ballSpin 7s linear infinite;
+}
+.dribble-shadow {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 56px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(15,23,42,0.34), rgba(15,23,42,0));
+  will-change: transform, opacity;
+  animation: dribbleShadow 0.9s infinite;
+}
+@keyframes dribbleRun {
+  /* `left` is container-relative; px margins (ball is ~68px) guarantee it fully
+     clears both edges, so the loop reset happens off-screen, never as a jump. */
+  0%   { left: -90px; }
+  100% { left: calc(100% + 90px); }
+}
+@keyframes ballSpin {               /* clockwise = rolls in the travel direction */
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(1080deg); }
+}
+/* Gravity feel: decelerate on the way up, accelerate on the way down. */
+@keyframes dribbleBounce {
+  0%   { transform: translateY(0);     animation-timing-function: cubic-bezier(0.33, 0, 0.4, 1); }
+  50%  { transform: translateY(-46px); animation-timing-function: cubic-bezier(0.6, 0, 0.66, 1); }
+  100% { transform: translateY(0); }
+}
+@keyframes dribbleShadow {           /* small + faint when the ball is at apex */
+  0%, 100% { transform: translateX(-50%) scale(1);    opacity: 1; }
+  50%      { transform: translateX(-50%) scale(0.5);  opacity: 0.45; }
 }

@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { outcome, teamsReachingStage, actualWinner, KO_STAGES, WINNER_POINTS } = require('../../scripts/score');
 const { resolveTeam } = require('../../scripts/normalize-team');
+const { titleCaseName } = require('../../scripts/format-name');
 
 const ROOT = path.join(__dirname, '..', '..');
 
@@ -123,6 +124,7 @@ module.exports = () => {
 
     return {
       ...p,
+      displayName: titleCaseName(p.name),
       groupSections,
       knockoutSections,
       winnerTeam,
