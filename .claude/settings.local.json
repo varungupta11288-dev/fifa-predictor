@@ -22,7 +22,9 @@
       "PowerShell(Move-Item _site-static/_robots.txt _site-static/robots.txt -Force)",
       "PowerShell(git checkout -b main 2>$null)",
       "PowerShell(git add .gitignore .eleventy.js README.md CLAUDE.md package.json package-lock.json tailwind.config.js .github asset data docs scripts src tasks _site-static .claude/settings.local.json)",
-      "Bash(node -e \"const fs=require\\('fs'\\);const b=fs.readFileSync\\('C:/Users/varun.j.gupta/OneDrive - Accenture/Code/fifa/_site/assets/ball.png'\\);console.log\\('ball.png b64 length:', b.toString\\('base64'\\).length\\);const t=fs.readFileSync\\('C:/Users/varun.j.gupta/OneDrive - Accenture/Code/fifa/_site/assets/trophy.webp'\\);console.log\\('trophy.webp b64 length:', t.toString\\('base64'\\).length\\)\")"
+      "Bash(node -e \"const fs=require\\('fs'\\);const b=fs.readFileSync\\('C:/Users/varun.j.gupta/OneDrive - Accenture/Code/fifa/_site/assets/ball.png'\\);console.log\\('ball.png b64 length:', b.toString\\('base64'\\).length\\);const t=fs.readFileSync\\('C:/Users/varun.j.gupta/OneDrive - Accenture/Code/fifa/_site/assets/trophy.webp'\\);console.log\\('trophy.webp b64 length:', t.toString\\('base64'\\).length\\)\")",
+      "Bash(node scripts/send-player-links.js --dry-run)",
+      "Bash(start \"data\\\\links\\\\emails\\\\abhineet_mathur.html\")"
     ]
   }
 }

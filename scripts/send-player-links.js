@@ -42,7 +42,7 @@ function buildPlayerEmail({ name, handle, url, site }) {
 
   const css = `
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #0f172a; background: #f1f5f9; margin: 0; padding: 24px; }
-    .wrap { max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; }
+    .wrap { max-width: 600px; width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; }
     .hdr  { background-color: #0b6b3a; background-image: ${pitchBg}; color: #ffffff; padding: 20px 24px; }
     .hdr-title { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: 0.04em;
       background: linear-gradient(180deg, #fff8d6 0%, #fcd34d 38%, #b08323 96%);
@@ -65,7 +65,7 @@ function buildPlayerEmail({ name, handle, url, site }) {
 <style>${css}</style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="wrap" width="600">
     <div class="hdr">
       <div class="hdr-title">WC2026 Predictor</div>
       <div class="hdr-sub">Your personal predictions page</div>
