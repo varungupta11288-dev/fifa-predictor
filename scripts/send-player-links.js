@@ -40,61 +40,70 @@ function buildPlayerEmail({ name, handle, url, site }) {
     'repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 38px, rgba(0,0,0,0.06) 38px, rgba(0,0,0,0.06) 76px)',
   ].join(', ');
 
-  const css = `
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #0f172a; background: #f1f5f9; margin: 0; padding: 24px; }
-    .wrap { max-width: 600px; width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; }
-    .hdr  { background-color: #0b6b3a; background-image: ${pitchBg}; color: #ffffff; padding: 20px 24px; }
-    .hdr-title { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: 0.04em;
-      background: linear-gradient(180deg, #fff8d6 0%, #fcd34d 38%, #b08323 96%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; color: #fcd34d; }
-    .hdr-sub { font-size: 12px; opacity: 0.7; margin-top: 2px; }
-    .section { padding: 20px 24px; border-top: 1px solid #e2e8f0; }
-    p { margin: 0 0 12px; font-size: 14px; line-height: 1.6; }
-    .btn-wrap { text-align: center; margin: 24px 0; }
-    .btn { display: inline-block; background: #0b6b3a; color: #ffffff; text-decoration: none; padding: 12px 32px; border-radius: 5px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }
-    .link-plain { font-size: 12px; color: #64748b; word-break: break-all; }
-    .ftr { padding: 14px 24px; font-size: 11px; color: #64748b; background: #f8fafc; }
-  `;
+  const hdrStyle = `background-color:#0b6b3a;background-image:${pitchBg};color:#ffffff;padding:20px 24px;`;
 
   return `<!doctype html>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta charset="utf-8">
 <title>${SUBJECT}</title>
-<style>${css}</style>
+<style>
+  body, table, td, p, a { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  p { margin: 0 0 12px; font-size: 14px; line-height: 1.6; color: #0f172a; }
+</style>
 </head>
-<body>
-  <div class="wrap" width="600">
-    <div class="hdr">
-      <div class="hdr-title">WC2026 Predictor</div>
-      <div class="hdr-sub">Your personal predictions page</div>
-    </div>
+<body style="background:#ffffff;margin:0;padding:0;color:#0f172a;">
+  <table width="600" align="center" cellpadding="0" cellspacing="0" border="0"
+         style="width:600px;max-width:600px;background:#ffffff;border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;">
 
-    <div class="section">
-      <p>Hi ${esc(firstName)},</p>
-      <p>
-        Thank you for taking part in the WC2026 Predictor! The tournament has officially kicked off &mdash;
-        your entry is locked in and scoring has begun.
-      </p>
-      <p>
-        Below is your private predictions page. Bookmark it to follow your score, see how your
-        picks are holding up, and track your position on the leaderboard as results come in.
-      </p>
-      <div class="btn-wrap">
-        <a href="${esc(url)}" class="btn">View My Predictions &rarr;</a>
-      </div>
-      <p class="link-plain">Or copy this link: ${esc(url)}</p>
-      <p>
-        Good luck &mdash; may your picks prove prophetic!
-      </p>
-    </div>
+    <!-- Header -->
+    <tr>
+      <td bgcolor="#0b6b3a" style="${hdrStyle}">
+        <div style="margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:19px;font-weight:700;letter-spacing:0.04em;color:#fcd34d;">WC2026 Predictor</div>
+        <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:12px;margin-top:4px;color:#ffffff;">Your personal predictions page</div>
+      </td>
+    </tr>
 
-    <div class="ftr">
-      You are receiving this because you submitted a prediction sheet for the WC2026 Predictor game.
-      Your page is private &mdash; this link was sent only to you.
-    </div>
-  </div>
+    <!-- Body -->
+    <tr>
+      <td style="padding:20px 24px;border-top:1px solid #e2e8f0;">
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;">Hi ${esc(firstName)},</p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;">
+          Thank you for taking part in the WC2026 Predictor! The tournament has officially kicked off &mdash;
+          your entry is locked in and scoring has begun.
+        </p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;">
+          Below is your private predictions page. Bookmark it to follow your score, see how your
+          picks are holding up, and track your position on the leaderboard as results come in.
+        </p>
+        <table align="center" cellpadding="0" cellspacing="0" border="0" style="margin:24px auto;">
+          <tr>
+            <td align="center" bgcolor="#0b6b3a"
+                style="background:#0b6b3a;border-radius:5px;padding:12px 32px;">
+              <a href="${esc(url)}"
+                 style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;letter-spacing:0.02em;display:block;"
+              >View My Predictions &rarr;</a>
+            </td>
+          </tr>
+        </table>
+        <p style="margin:16px 0 12px;font-size:12px;color:#64748b;word-break:break-all;text-align:center;">
+          Or copy this link: ${esc(url)}
+        </p>
+        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;">
+          Good luck &mdash; may your picks prove prophetic!
+        </p>
+      </td>
+    </tr>
+
+    <!-- Footer -->
+    <tr>
+      <td style="padding:14px 24px;font-size:11px;color:#64748b;border-top:1px solid #e2e8f0;">
+        You are receiving this because you submitted a prediction sheet for the WC2026 Predictor game.
+        Your page is private &mdash; this link was sent only to you.
+      </td>
+    </tr>
+
+  </table>
 </body></html>`;
 }
 
