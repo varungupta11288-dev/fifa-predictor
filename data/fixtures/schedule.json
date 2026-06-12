@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-11T13:23:19.053Z",
+  "fetchedAt": "2026-06-12T20:25:25.980Z",
   "source": "football-data.org v4 / competition WC",
   "matches": [
     {
@@ -7,7 +7,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
       "utcDate": "2026-06-11T19:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "MEX",
         "name": "Mexico",
@@ -19,9 +19,9 @@
         "iso2": "za"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 2,
+        "away": 0,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -29,7 +29,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
       "utcDate": "2026-06-12T02:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "KOR",
         "name": "Korea Republic",
@@ -41,9 +41,9 @@
         "iso2": "cz"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 2,
+        "away": 1,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -51,7 +51,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
       "utcDate": "2026-06-12T19:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "home": {
         "tla": "CAN",
         "name": "Canada",
@@ -63,9 +63,9 @@
         "iso2": "ba"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 0,
+        "away": 1,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -190,9 +190,9 @@
         "iso2": "de"
       },
       "away": {
-        "tla": "CUW",
+        "tla": "CUR",
         "name": "Curaçao",
-        "iso2": "cw"
+        "iso2": null
       },
       "score": {
         "home": null,
@@ -227,7 +227,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "utcDate": "2026-06-14T23:00:00Z",
-      "status": "TIMED",
+      "status": "SCHEDULED",
       "home": {
         "tla": "CIV",
         "name": "Ivory Coast",
@@ -762,9 +762,9 @@
         "iso2": "ec"
       },
       "away": {
-        "tla": "CUW",
+        "tla": "CUR",
         "name": "Curaçao",
-        "iso2": "cw"
+        "iso2": null
       },
       "score": {
         "home": null,
@@ -1219,9 +1219,9 @@
       "utcDate": "2026-06-25T20:00:00Z",
       "status": "TIMED",
       "home": {
-        "tla": "CUW",
+        "tla": "CUR",
         "name": "Curaçao",
-        "iso2": "cw"
+        "iso2": null
       },
       "away": {
         "tla": "CIV",

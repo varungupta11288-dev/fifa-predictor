@@ -146,6 +146,8 @@ $mail.Display($false)
 async function main() {
   const isDryRun = process.argv.includes('--dry-run');
   const site     = (process.env.SITE_URL || DEFAULT_SITE).replace(/\/$/, '');
+  const onlyArg  = process.argv.find(a => a.startsWith('--only='));
+  const onlyName = onlyArg ? onlyArg.split('=')[1].toLowerCase() : null;
 
   if (!fs.existsSync(PREDICTIONS_DIR)) {
     console.error(`No predictions directory — run \`npm run ingest\` first.`);
@@ -161,7 +163,9 @@ async function main() {
   const players = files.map(f => {
     const p = JSON.parse(fs.readFileSync(path.join(PREDICTIONS_DIR, f), 'utf8'));
     return { name: p.name, handle: p.handle, email: p.email, url: `${site}/me/${p.token}/`, site };
-  }).filter(p => p.email).sort((a, b) => a.name.localeCompare(b.name));
+  }).filter(p => p.email)
+    .filter(p => onlyName ? p.name.toLowerCase().includes(onlyName) : true)
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const skipped = files.length - players.length;
   if (skipped > 0) console.warn(`[warn] ${skipped} prediction file(s) have no email — skipping.`);
