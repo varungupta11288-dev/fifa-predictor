@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-12T20:25:25.980Z",
+  "fetchedAt": "2026-06-14T08:39:09.396Z",
   "source": "football-data.org v4 / competition WC",
   "matches": [
     {
@@ -51,7 +51,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
       "utcDate": "2026-06-12T19:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": {
         "tla": "CAN",
         "name": "Canada",
@@ -63,9 +63,9 @@
         "iso2": "ba"
       },
       "score": {
-        "home": 0,
-        "away": 1,
-        "winner": "AWAY_TEAM"
+        "home": null,
+        "away": null,
+        "winner": null
       }
     },
     {
@@ -73,7 +73,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
       "utcDate": "2026-06-13T01:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "USA",
         "name": "USA",
@@ -85,9 +85,9 @@
         "iso2": "py"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 4,
+        "away": 1,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -95,7 +95,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
       "utcDate": "2026-06-13T19:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "QAT",
         "name": "Qatar",
@@ -107,9 +107,9 @@
         "iso2": "ch"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 1,
+        "winner": "DRAW"
       }
     },
     {
@@ -117,7 +117,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
       "utcDate": "2026-06-13T22:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "BRA",
         "name": "Brazil",
@@ -129,9 +129,9 @@
         "iso2": "ma"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 1,
+        "winner": "DRAW"
       }
     },
     {
@@ -139,7 +139,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
       "utcDate": "2026-06-14T01:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "HAI",
         "name": "Haiti",
@@ -151,9 +151,9 @@
         "iso2": "gb-sct"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 0,
+        "away": 1,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -161,7 +161,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
       "utcDate": "2026-06-14T04:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "AUS",
         "name": "Australia",
@@ -173,9 +173,9 @@
         "iso2": "tr"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 2,
+        "away": 0,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -190,9 +190,9 @@
         "iso2": "de"
       },
       "away": {
-        "tla": "CUR",
+        "tla": "CUW",
         "name": "Curaçao",
-        "iso2": null
+        "iso2": "cw"
       },
       "score": {
         "home": null,
@@ -227,7 +227,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "utcDate": "2026-06-14T23:00:00Z",
-      "status": "SCHEDULED",
+      "status": "TIMED",
       "home": {
         "tla": "CIV",
         "name": "Ivory Coast",
@@ -762,9 +762,9 @@
         "iso2": "ec"
       },
       "away": {
-        "tla": "CUR",
+        "tla": "CUW",
         "name": "Curaçao",
-        "iso2": null
+        "iso2": "cw"
       },
       "score": {
         "home": null,
@@ -1219,9 +1219,9 @@
       "utcDate": "2026-06-25T20:00:00Z",
       "status": "TIMED",
       "home": {
-        "tla": "CUR",
+        "tla": "CUW",
         "name": "Curaçao",
-        "iso2": null
+        "iso2": "cw"
       },
       "away": {
         "tla": "CIV",
