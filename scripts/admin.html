@@ -246,6 +246,27 @@
     vertical-align: -2px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Collapsible submissions */
+  .collapsible-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 0;
+  }
+  .collapsible-header:hover h2 { color: var(--text); }
+  .collapsible-chevron {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform 200ms ease;
+  }
+  .collapsible-header[aria-expanded="true"] .collapsible-chevron {
+    transform: rotate(180deg);
+  }
+  .collapsible-body { display: none; margin-top: 12px; }
+  .collapsible-body.open { display: block; }
 </style>
 </head>
 <body>
@@ -258,21 +279,7 @@
 <main>
 
   <section class="card">
-    <h2>① Submissions</h2>
-    <div class="subhead">Drop .xlsx files to add them to <code>data/submissions/</code>.</div>
-
-    <label class="dropzone" id="drop">
-      <strong>Drag .xlsx files here</strong>
-      <small>or click to browse</small>
-      <input type="file" id="file-input" accept=".xlsx" multiple>
-    </label>
-
-    <ul class="sub-list" id="sub-list"></ul>
-    <div class="empty" id="sub-empty" hidden>No submissions yet.</div>
-  </section>
-
-  <section class="card">
-    <h2>② Build &amp; deploy</h2>
+    <h2>① Build &amp; deploy</h2>
     <div class="subhead">Runs <code>npm run deploy</code> (ingest → build → push gh-pages). Refresh fixtures pulls the latest kickoff times &amp; scores from football-data.org. Daily digest builds <code>_site/digest.html</code> — the email summary of yesterday's results &amp; top 10.</div>
     <div class="button-row">
       <button class="btn" id="btn-deploy">🚀 Deploy</button>
@@ -286,7 +293,7 @@
   </section>
 
   <section class="card">
-    <h2>③ Push code changes to main</h2>
+    <h2>② Push code changes to main</h2>
     <div class="subhead"><code>git add -u</code> · commit · push origin main. <code>data/</code> stays gitignored.</div>
     <div id="changed-wrap">
       <div class="empty" id="changed-empty">Working tree is clean.</div>
@@ -294,6 +301,23 @@
     </div>
     <input class="text" id="commit-msg" placeholder="Commit message" autocomplete="off">
     <button class="btn" id="btn-push" disabled>git add · commit · push</button>
+  </section>
+
+  <section class="card">
+    <div class="collapsible-header" id="sub-toggle" aria-expanded="false">
+      <h2>③ Submissions (<span id="sub-count">0</span> files)</h2>
+      <span class="collapsible-chevron">▼</span>
+    </div>
+    <div class="collapsible-body" id="sub-body">
+      <div class="subhead">Drop .xlsx files to add them to <code>data/submissions/</code>.</div>
+      <label class="dropzone" id="drop">
+        <strong>Drag .xlsx files here</strong>
+        <small>or click to browse</small>
+        <input type="file" id="file-input" accept=".xlsx" multiple>
+      </label>
+      <ul class="sub-list" id="sub-list"></ul>
+      <div class="empty" id="sub-empty" hidden>No submissions yet.</div>
+    </div>
   </section>
 
 </main>
@@ -350,6 +374,7 @@ async function refresh() {
   // Submissions
   const list = $('sub-list');
   list.innerHTML = '';
+  $('sub-count').textContent = data.submissions.length;
   if (data.submissions.length === 0) {
     $('sub-empty').hidden = false;
   } else {
@@ -571,6 +596,15 @@ $('btn-push').addEventListener('click', async () => {
     $('btn-push').innerHTML = 'git add · commit · push';
     refresh();
   }
+});
+
+// ---- collapsible submissions ----
+$('sub-toggle').addEventListener('click', () => {
+  const toggle = $('sub-toggle');
+  const body = $('sub-body');
+  const open = toggle.getAttribute('aria-expanded') === 'true';
+  toggle.setAttribute('aria-expanded', !open);
+  body.classList.toggle('open', !open);
 });
 
 // ---- initial paint + periodic refresh ----

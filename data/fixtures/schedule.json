@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-14T08:39:09.396Z",
+  "fetchedAt": "2026-06-18T07:57:59.219Z",
   "source": "football-data.org v4 / competition WC",
   "matches": [
     {
@@ -63,9 +63,9 @@
         "iso2": "ba"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 1,
+        "winner": "DRAW"
       }
     },
     {
@@ -183,7 +183,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "utcDate": "2026-06-14T17:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "GER",
         "name": "Germany",
@@ -195,9 +195,9 @@
         "iso2": "cw"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 7,
+        "away": 1,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -205,7 +205,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
       "utcDate": "2026-06-14T20:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "NED",
         "name": "Netherlands",
@@ -217,9 +217,9 @@
         "iso2": "jp"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 2,
+        "away": 2,
+        "winner": "DRAW"
       }
     },
     {
@@ -227,7 +227,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "utcDate": "2026-06-14T23:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "CIV",
         "name": "Ivory Coast",
@@ -239,9 +239,9 @@
         "iso2": "ec"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 0,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -249,7 +249,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
       "utcDate": "2026-06-15T02:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "SWE",
         "name": "Sweden",
@@ -261,9 +261,9 @@
         "iso2": "tn"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 5,
+        "away": 1,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -271,7 +271,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
       "utcDate": "2026-06-15T16:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "ESP",
         "name": "Spain",
@@ -283,9 +283,9 @@
         "iso2": "cv"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 0,
+        "away": 0,
+        "winner": "DRAW"
       }
     },
     {
@@ -293,7 +293,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
       "utcDate": "2026-06-15T19:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "BEL",
         "name": "Belgium",
@@ -305,9 +305,9 @@
         "iso2": "eg"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 1,
+        "winner": "DRAW"
       }
     },
     {
@@ -315,21 +315,21 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
       "utcDate": "2026-06-15T22:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "KSA",
         "name": "Saudi Arabia",
         "iso2": "sa"
       },
       "away": {
-        "tla": "URY",
+        "tla": "URU",
         "name": "Uruguay",
-        "iso2": "uy"
+        "iso2": null
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 1,
+        "winner": "DRAW"
       }
     },
     {
@@ -337,7 +337,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
       "utcDate": "2026-06-16T01:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "IRN",
         "name": "Iran",
@@ -349,9 +349,9 @@
         "iso2": "nz"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 2,
+        "away": 2,
+        "winner": "DRAW"
       }
     },
     {
@@ -359,7 +359,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
       "utcDate": "2026-06-16T19:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "FRA",
         "name": "France",
@@ -371,9 +371,9 @@
         "iso2": "sn"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 3,
+        "away": 1,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -381,7 +381,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
       "utcDate": "2026-06-16T22:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "IRQ",
         "name": "Iraq",
@@ -393,9 +393,9 @@
         "iso2": "no"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 4,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -403,7 +403,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
       "utcDate": "2026-06-17T01:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "ARG",
         "name": "Argentina",
@@ -415,9 +415,9 @@
         "iso2": "dz"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 3,
+        "away": 0,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -425,7 +425,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
       "utcDate": "2026-06-17T04:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "AUT",
         "name": "Austria",
@@ -437,9 +437,9 @@
         "iso2": "jo"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 3,
+        "away": 1,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -447,7 +447,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
       "utcDate": "2026-06-17T17:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "POR",
         "name": "Portugal",
@@ -459,9 +459,9 @@
         "iso2": "cd"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 1,
+        "winner": "DRAW"
       }
     },
     {
@@ -469,7 +469,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
       "utcDate": "2026-06-17T20:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "ENG",
         "name": "England",
@@ -481,9 +481,9 @@
         "iso2": "hr"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 4,
+        "away": 2,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -491,7 +491,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
       "utcDate": "2026-06-17T23:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "home": {
         "tla": "GHA",
         "name": "Ghana",
@@ -503,9 +503,9 @@
         "iso2": "pa"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 0,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -513,7 +513,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
       "utcDate": "2026-06-18T02:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "UZB",
         "name": "Uzbekistan",
@@ -525,9 +525,9 @@
         "iso2": "co"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 3,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -845,9 +845,9 @@
       "utcDate": "2026-06-21T22:00:00Z",
       "status": "TIMED",
       "home": {
-        "tla": "URY",
+        "tla": "URU",
         "name": "Uruguay",
-        "iso2": "uy"
+        "iso2": null
       },
       "away": {
         "tla": "CPV",
@@ -1373,9 +1373,9 @@
       "utcDate": "2026-06-27T00:00:00Z",
       "status": "TIMED",
       "home": {
-        "tla": "URY",
+        "tla": "URU",
         "name": "Uruguay",
-        "iso2": "uy"
+        "iso2": null
       },
       "away": {
         "tla": "ESP",
