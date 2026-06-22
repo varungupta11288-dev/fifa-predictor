@@ -46,7 +46,7 @@ permalink: /fixtures/index.html
             <td class="p-3 text-left">{{ teamCell(match.home, 'home', match) }}</td>
             <td class="p-3 text-center text-slate-400 text-xs">v</td>
             <td class="p-3 text-right">{{ teamCell(match.away, 'away', match) }}</td>
-            <td class="p-3 text-center">
+            <td class="p-3 text-center whitespace-nowrap">
               {% if match.finished %}
                 <span class="fx-score tabular-nums">{{ match.score.home }}–{{ match.score.away }}</span>
               {% else %}

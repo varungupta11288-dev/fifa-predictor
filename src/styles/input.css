@@ -637,6 +637,7 @@
     background: #e6f4ec;       /* pitch-50 */
     border-radius: 0.375rem;
     padding: 0.125rem 0.5rem;
+    white-space: nowrap;
   }
 }
 

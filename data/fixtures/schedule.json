@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-22T08:23:21.360Z",
+  "fetchedAt": "2026-06-22T08:49:12.081Z",
   "source": "football-data.org v4 / competition WC",
   "matches": [
     {
@@ -324,7 +324,7 @@
       "away": {
         "tla": "URU",
         "name": "Uruguay",
-        "iso2": null
+        "iso2": "uy"
       },
       "score": {
         "home": 1,
@@ -847,7 +847,7 @@
       "home": {
         "tla": "URU",
         "name": "Uruguay",
-        "iso2": null
+        "iso2": "uy"
       },
       "away": {
         "tla": "CPV",
@@ -1375,7 +1375,7 @@
       "home": {
         "tla": "URU",
         "name": "Uruguay",
-        "iso2": null
+        "iso2": "uy"
       },
       "away": {
         "tla": "ESP",

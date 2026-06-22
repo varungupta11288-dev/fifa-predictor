@@ -23,7 +23,7 @@ const TLA_TO_ISO2 = {
   GER: 'de', GHA: 'gh', HAI: 'ht', IRN: 'ir', IRQ: 'iq', JOR: 'jo', JPN: 'jp',
   KOR: 'kr', KSA: 'sa', MAR: 'ma', MEX: 'mx', NED: 'nl', NOR: 'no', NZL: 'nz',
   PAN: 'pa', PAR: 'py', POR: 'pt', QAT: 'qa', RSA: 'za', SCO: 'gb-sct',
-  SEN: 'sn', SUI: 'ch', SWE: 'se', TUN: 'tn', TUR: 'tr', URY: 'uy', USA: 'us',
+  SEN: 'sn', SUI: 'ch', SWE: 'se', TUN: 'tn', TUR: 'tr', URU: 'uy', USA: 'us',
   UZB: 'uz',
 };
 
@@ -37,7 +37,7 @@ const TLA_TO_CODE = {
   IRQ: 'IRQ', JOR: 'JOR', JPN: 'JPN', KOR: 'KOR', KSA: 'SAU', MAR: 'MAR',
   MEX: 'MEX', NED: 'NLD', NOR: 'NOR', NZL: 'NZL', PAN: 'PAN', PAR: 'PRY',
   POR: 'PRT', QAT: 'QAT', RSA: 'ZAF', SCO: 'SCO', SEN: 'SEN', SUI: 'CHE',
-  SWE: 'SWE', TUN: 'TUN', TUR: 'TUR', URY: 'URY', USA: 'USA', UZB: 'UZB',
+  SWE: 'SWE', TUN: 'TUN', TUR: 'TUR', URU: 'URY', USA: 'USA', UZB: 'UZB',
 };
 
 // API stage → our results-schema stage key. 3rd-place is omitted on purpose:

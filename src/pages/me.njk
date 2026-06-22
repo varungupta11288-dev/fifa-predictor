@@ -77,10 +77,10 @@ eleventyComputed:
                   <td class="p-2 text-left">{{ teamCell(row.home, 'home') }}</td>
                   <td class="p-2 text-center text-slate-400 text-xs">v</td>
                   <td class="p-2 text-right">{{ teamCell(row.away, 'away') }}</td>
-                  <td class="p-2 text-center">
+                  <td class="p-2 text-center whitespace-nowrap">
                     {% if row.predicted %}<span class="font-semibold text-slate-700 tabular-nums">{{ row.predicted.home }}–{{ row.predicted.away }}</span>{% else %}<span class="text-slate-300">—</span>{% endif %}
                   </td>
-                  <td class="p-2 text-center">
+                  <td class="p-2 text-center whitespace-nowrap">
                     {% if row.actual %}<span class="fx-score tabular-nums">{{ row.actual.homeScore }}–{{ row.actual.awayScore }}</span>{% else %}<span class="text-slate-300">—</span>{% endif %}
                   </td>
                   <td class="p-2 text-right font-semibold tabular-nums">{% if row.points != null %}{{ row.points }}{% else %}<span class="text-slate-300">—</span>{% endif %}</td>
