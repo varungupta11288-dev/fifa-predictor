@@ -241,8 +241,8 @@ function ingestWorkbook(wb, sourceFile, submittedAt = new Date(), secret = getSe
     warnings.push(`Missing tiebreaker (cell ${TIEBREAKER_CELL})`);
   } else {
     const n = toScore(tbVal);
-    if (n == null || n < 0 || n > 500) {
-      warnings.push(`Tiebreaker out of plausible range (cell ${TIEBREAKER_CELL}): ${tbVal}`);
+    if (n == null || n < 0) {
+      warnings.push(`Tiebreaker must be a non-negative integer (cell ${TIEBREAKER_CELL}): ${tbVal}`);
     } else {
       tiebreaker = n;
     }
