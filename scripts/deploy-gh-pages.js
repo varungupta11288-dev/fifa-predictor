@@ -107,7 +107,11 @@ function main() {
     const ts = new Date().toISOString().slice(0, 16).replace('T', ' ') + 'Z';
     execSync(`git commit -m "deploy ${ts}"`, { stdio: 'inherit', cwd: WORKTREE });
     console.log(`[deploy] Pushing to ${REMOTE}/${BRANCH}...`);
-    execSync(`git push ${REMOTE} ${BRANCH}`, { stdio: 'inherit', cwd: WORKTREE });
+    const ghToken = execSync('gh auth token', { encoding: 'utf8' }).trim();
+    const originUrl = execSync('git config --get remote.origin.url', { encoding: 'utf8', cwd: WORKTREE }).trim();
+    const cleanUrl = originUrl.replace(/https:\/\/[^@]*@/, 'https://');
+    const authedUrl = cleanUrl.replace('https://', `https://${ghToken}@`);
+    execSync(`git push "${authedUrl}" ${BRANCH}`, { stdio: 'inherit', cwd: WORKTREE });
     console.log('[deploy] Done.');
   }
 
