@@ -19,11 +19,11 @@
 // the QF scores 15 even if it gets there via a different bracket path.
 
 const KO_STAGES = [
-  { key: 'round32',      stage: 'r32',   points: 5  },
-  { key: 'round16',      stage: 'r16',   points: 10 },
-  { key: 'quarterFinal', stage: 'qf',    points: 15 },
-  { key: 'semiFinal',    stage: 'sf',    points: 20 },
-  { key: 'final',        stage: 'final', points: 25 },
+  { key: 'round32',      stage: 'r32',   points: 5,  scheduleStage: 'LAST_32'        },
+  { key: 'round16',      stage: 'r16',   points: 10, scheduleStage: 'LAST_16'        },
+  { key: 'quarterFinal', stage: 'qf',    points: 15, scheduleStage: 'QUARTER_FINALS' },
+  { key: 'semiFinal',    stage: 'sf',    points: 20, scheduleStage: 'SEMI_FINALS'    },
+  { key: 'final',        stage: 'final', points: 25, scheduleStage: 'FINAL'          },
 ];
 const WINNER_POINTS = 30;
 
@@ -33,14 +33,26 @@ function outcome(home, away) {
   return home > away ? 'H' : home < away ? 'A' : 'D';
 }
 
-// Teams that demonstrably reached a given knockout stage = teams appearing as home or away in any
-// completed result for that stage.
-function teamsReachingStage(results, stage) {
+// Teams that reached a given knockout stage = teams in any finished result for that stage,
+// unioned with teams drawn into scheduled (but not yet played) fixtures for that stage.
+// scheduleMatches is the matches array from schedule.json (optional).
+function teamsReachingStage(results, stage, scheduleMatches) {
   const set = new Set();
   for (const r of results) {
     if (r.stage === stage) {
       if (r.home) set.add(r.home);
       if (r.away) set.add(r.away);
+    }
+  }
+  if (scheduleMatches) {
+    const ko = KO_STAGES.find(s => s.stage === stage);
+    if (ko) {
+      for (const m of scheduleMatches) {
+        if (m.stage === ko.scheduleStage) {
+          if (m.home?.code) set.add(m.home.code);
+          if (m.away?.code) set.add(m.away.code);
+        }
+      }
     }
   }
   return set;
@@ -51,7 +63,7 @@ function actualWinner(results) {
   return final ? (final.winner || null) : null;
 }
 
-function scoreOne(prediction, results) {
+function scoreOne(prediction, results, scheduleMatches) {
   const pointsByStage = { group: 0, r32: 0, r16: 0, qf: 0, sf: 0, final: 0, winner: 0 };
   const correctCounts = { groupResult: 0, groupExact: 0, r32: 0, r16: 0, qf: 0, sf: 0, final: 0 };
 
@@ -74,7 +86,7 @@ function scoreOne(prediction, results) {
 
   for (const { key, stage, points } of KO_STAGES) {
     const predicted = new Set(prediction[key] || []);
-    const actual = teamsReachingStage(results, stage);
+    const actual = teamsReachingStage(results, stage, scheduleMatches);
     let hits = 0;
     for (const team of predicted) {
       if (actual.has(team)) hits += 1;
@@ -104,7 +116,8 @@ function scoreOne(prediction, results) {
 }
 
 function score(predictions, results, fixtures, opts = {}) {
-  const entries = predictions.map(p => scoreOne(p, results));
+  const scheduleMatches = opts.scheduleMatches || (fixtures && fixtures.scheduleMatches) || null;
+  const entries = predictions.map(p => scoreOne(p, results, scheduleMatches));
 
   if (typeof opts.actualTotalGoals === 'number') {
     for (const e of entries) {

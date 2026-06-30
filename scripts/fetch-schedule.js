@@ -51,7 +51,8 @@ function team(t) {
   if (!t || !t.tla) return null;
   const iso2 = TLA_TO_ISO2[t.tla];
   if (!iso2) console.warn(`[fetch-schedule] no flag mapping for TLA "${t.tla}" (${t.name})`);
-  return { tla: t.tla, name: t.shortName || t.name, iso2: iso2 || null };
+  const code = TLA_TO_CODE[t.tla] || null;
+  return { tla: t.tla, name: t.shortName || t.name, iso2: iso2 || null, code };
 }
 
 function isFinished(m) {

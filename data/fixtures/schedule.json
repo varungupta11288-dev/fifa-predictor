@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-25T10:09:08.369Z",
+  "fetchedAt": "2026-06-30T08:31:30.631Z",
   "source": "football-data.org v4 / competition WC",
   "matches": [
     {
@@ -11,12 +11,14 @@
       "home": {
         "tla": "MEX",
         "name": "Mexico",
-        "iso2": "mx"
+        "iso2": "mx",
+        "code": "MEX"
       },
       "away": {
         "tla": "RSA",
         "name": "South Africa",
-        "iso2": "za"
+        "iso2": "za",
+        "code": "ZAF"
       },
       "score": {
         "home": 2,
@@ -33,12 +35,14 @@
       "home": {
         "tla": "KOR",
         "name": "Korea Republic",
-        "iso2": "kr"
+        "iso2": "kr",
+        "code": "KOR"
       },
       "away": {
         "tla": "CZE",
         "name": "Czechia",
-        "iso2": "cz"
+        "iso2": "cz",
+        "code": "CZE"
       },
       "score": {
         "home": 2,
@@ -55,12 +59,14 @@
       "home": {
         "tla": "CAN",
         "name": "Canada",
-        "iso2": "ca"
+        "iso2": "ca",
+        "code": "CAN"
       },
       "away": {
         "tla": "BIH",
         "name": "Bosnia-H.",
-        "iso2": "ba"
+        "iso2": "ba",
+        "code": "BIH"
       },
       "score": {
         "home": 1,
@@ -77,12 +83,14 @@
       "home": {
         "tla": "USA",
         "name": "USA",
-        "iso2": "us"
+        "iso2": "us",
+        "code": "USA"
       },
       "away": {
         "tla": "PAR",
         "name": "Paraguay",
-        "iso2": "py"
+        "iso2": "py",
+        "code": "PRY"
       },
       "score": {
         "home": 4,
@@ -99,12 +107,14 @@
       "home": {
         "tla": "QAT",
         "name": "Qatar",
-        "iso2": "qa"
+        "iso2": "qa",
+        "code": "QAT"
       },
       "away": {
         "tla": "SUI",
         "name": "Switzerland",
-        "iso2": "ch"
+        "iso2": "ch",
+        "code": "CHE"
       },
       "score": {
         "home": 1,
@@ -121,12 +131,14 @@
       "home": {
         "tla": "BRA",
         "name": "Brazil",
-        "iso2": "br"
+        "iso2": "br",
+        "code": "BRA"
       },
       "away": {
         "tla": "MAR",
         "name": "Morocco",
-        "iso2": "ma"
+        "iso2": "ma",
+        "code": "MAR"
       },
       "score": {
         "home": 1,
@@ -143,12 +155,14 @@
       "home": {
         "tla": "HAI",
         "name": "Haiti",
-        "iso2": "ht"
+        "iso2": "ht",
+        "code": "HTI"
       },
       "away": {
         "tla": "SCO",
         "name": "Scotland",
-        "iso2": "gb-sct"
+        "iso2": "gb-sct",
+        "code": "SCO"
       },
       "score": {
         "home": 0,
@@ -165,12 +179,14 @@
       "home": {
         "tla": "AUS",
         "name": "Australia",
-        "iso2": "au"
+        "iso2": "au",
+        "code": "AUS"
       },
       "away": {
         "tla": "TUR",
         "name": "Turkey",
-        "iso2": "tr"
+        "iso2": "tr",
+        "code": "TUR"
       },
       "score": {
         "home": 2,
@@ -187,12 +203,14 @@
       "home": {
         "tla": "GER",
         "name": "Germany",
-        "iso2": "de"
+        "iso2": "de",
+        "code": "DEU"
       },
       "away": {
         "tla": "CUW",
         "name": "Curaçao",
-        "iso2": "cw"
+        "iso2": "cw",
+        "code": "CUW"
       },
       "score": {
         "home": 7,
@@ -209,12 +227,14 @@
       "home": {
         "tla": "NED",
         "name": "Netherlands",
-        "iso2": "nl"
+        "iso2": "nl",
+        "code": "NLD"
       },
       "away": {
         "tla": "JPN",
         "name": "Japan",
-        "iso2": "jp"
+        "iso2": "jp",
+        "code": "JPN"
       },
       "score": {
         "home": 2,
@@ -231,12 +251,14 @@
       "home": {
         "tla": "CIV",
         "name": "Ivory Coast",
-        "iso2": "ci"
+        "iso2": "ci",
+        "code": "CIV"
       },
       "away": {
         "tla": "ECU",
         "name": "Ecuador",
-        "iso2": "ec"
+        "iso2": "ec",
+        "code": "ECU"
       },
       "score": {
         "home": 1,
@@ -253,12 +275,14 @@
       "home": {
         "tla": "SWE",
         "name": "Sweden",
-        "iso2": "se"
+        "iso2": "se",
+        "code": "SWE"
       },
       "away": {
         "tla": "TUN",
         "name": "Tunisia",
-        "iso2": "tn"
+        "iso2": "tn",
+        "code": "TUN"
       },
       "score": {
         "home": 5,
@@ -275,12 +299,14 @@
       "home": {
         "tla": "ESP",
         "name": "Spain",
-        "iso2": "es"
+        "iso2": "es",
+        "code": "ESP"
       },
       "away": {
         "tla": "CPV",
         "name": "Cape Verde",
-        "iso2": "cv"
+        "iso2": "cv",
+        "code": "CPV"
       },
       "score": {
         "home": 0,
@@ -297,12 +323,14 @@
       "home": {
         "tla": "BEL",
         "name": "Belgium",
-        "iso2": "be"
+        "iso2": "be",
+        "code": "BEL"
       },
       "away": {
         "tla": "EGY",
         "name": "Egypt",
-        "iso2": "eg"
+        "iso2": "eg",
+        "code": "EGY"
       },
       "score": {
         "home": 1,
@@ -319,12 +347,14 @@
       "home": {
         "tla": "KSA",
         "name": "Saudi Arabia",
-        "iso2": "sa"
+        "iso2": "sa",
+        "code": "SAU"
       },
       "away": {
-        "tla": "URY",
+        "tla": "URU",
         "name": "Uruguay",
-        "iso2": "uy"
+        "iso2": "uy",
+        "code": "URY"
       },
       "score": {
         "home": 1,
@@ -341,12 +371,14 @@
       "home": {
         "tla": "IRN",
         "name": "Iran",
-        "iso2": "ir"
+        "iso2": "ir",
+        "code": "IRN"
       },
       "away": {
         "tla": "NZL",
         "name": "New Zealand",
-        "iso2": "nz"
+        "iso2": "nz",
+        "code": "NZL"
       },
       "score": {
         "home": 2,
@@ -363,12 +395,14 @@
       "home": {
         "tla": "FRA",
         "name": "France",
-        "iso2": "fr"
+        "iso2": "fr",
+        "code": "FRA"
       },
       "away": {
         "tla": "SEN",
         "name": "Senegal",
-        "iso2": "sn"
+        "iso2": "sn",
+        "code": "SEN"
       },
       "score": {
         "home": 3,
@@ -385,12 +419,14 @@
       "home": {
         "tla": "IRQ",
         "name": "Iraq",
-        "iso2": "iq"
+        "iso2": "iq",
+        "code": "IRQ"
       },
       "away": {
         "tla": "NOR",
         "name": "Norway",
-        "iso2": "no"
+        "iso2": "no",
+        "code": "NOR"
       },
       "score": {
         "home": 1,
@@ -407,12 +443,14 @@
       "home": {
         "tla": "ARG",
         "name": "Argentina",
-        "iso2": "ar"
+        "iso2": "ar",
+        "code": "ARG"
       },
       "away": {
         "tla": "ALG",
         "name": "Algeria",
-        "iso2": "dz"
+        "iso2": "dz",
+        "code": "DZA"
       },
       "score": {
         "home": 3,
@@ -429,12 +467,14 @@
       "home": {
         "tla": "AUT",
         "name": "Austria",
-        "iso2": "at"
+        "iso2": "at",
+        "code": "AUT"
       },
       "away": {
         "tla": "JOR",
         "name": "Jordan",
-        "iso2": "jo"
+        "iso2": "jo",
+        "code": "JOR"
       },
       "score": {
         "home": 3,
@@ -451,12 +491,14 @@
       "home": {
         "tla": "POR",
         "name": "Portugal",
-        "iso2": "pt"
+        "iso2": "pt",
+        "code": "PRT"
       },
       "away": {
         "tla": "COD",
         "name": "Congo DR",
-        "iso2": "cd"
+        "iso2": "cd",
+        "code": "COD"
       },
       "score": {
         "home": 1,
@@ -473,12 +515,14 @@
       "home": {
         "tla": "ENG",
         "name": "England",
-        "iso2": "gb-eng"
+        "iso2": "gb-eng",
+        "code": "ENG"
       },
       "away": {
         "tla": "CRO",
         "name": "Croatia",
-        "iso2": "hr"
+        "iso2": "hr",
+        "code": "HRV"
       },
       "score": {
         "home": 4,
@@ -495,12 +539,14 @@
       "home": {
         "tla": "GHA",
         "name": "Ghana",
-        "iso2": "gh"
+        "iso2": "gh",
+        "code": "GHA"
       },
       "away": {
         "tla": "PAN",
         "name": "Panama",
-        "iso2": "pa"
+        "iso2": "pa",
+        "code": "PAN"
       },
       "score": {
         "home": 1,
@@ -517,12 +563,14 @@
       "home": {
         "tla": "UZB",
         "name": "Uzbekistan",
-        "iso2": "uz"
+        "iso2": "uz",
+        "code": "UZB"
       },
       "away": {
         "tla": "COL",
         "name": "Colombia",
-        "iso2": "co"
+        "iso2": "co",
+        "code": "COL"
       },
       "score": {
         "home": 1,
@@ -539,12 +587,14 @@
       "home": {
         "tla": "CZE",
         "name": "Czechia",
-        "iso2": "cz"
+        "iso2": "cz",
+        "code": "CZE"
       },
       "away": {
         "tla": "RSA",
         "name": "South Africa",
-        "iso2": "za"
+        "iso2": "za",
+        "code": "ZAF"
       },
       "score": {
         "home": 1,
@@ -561,12 +611,14 @@
       "home": {
         "tla": "SUI",
         "name": "Switzerland",
-        "iso2": "ch"
+        "iso2": "ch",
+        "code": "CHE"
       },
       "away": {
         "tla": "BIH",
         "name": "Bosnia-H.",
-        "iso2": "ba"
+        "iso2": "ba",
+        "code": "BIH"
       },
       "score": {
         "home": 4,
@@ -583,12 +635,14 @@
       "home": {
         "tla": "CAN",
         "name": "Canada",
-        "iso2": "ca"
+        "iso2": "ca",
+        "code": "CAN"
       },
       "away": {
         "tla": "QAT",
         "name": "Qatar",
-        "iso2": "qa"
+        "iso2": "qa",
+        "code": "QAT"
       },
       "score": {
         "home": 6,
@@ -605,12 +659,14 @@
       "home": {
         "tla": "MEX",
         "name": "Mexico",
-        "iso2": "mx"
+        "iso2": "mx",
+        "code": "MEX"
       },
       "away": {
         "tla": "KOR",
         "name": "Korea Republic",
-        "iso2": "kr"
+        "iso2": "kr",
+        "code": "KOR"
       },
       "score": {
         "home": 1,
@@ -627,12 +683,14 @@
       "home": {
         "tla": "USA",
         "name": "USA",
-        "iso2": "us"
+        "iso2": "us",
+        "code": "USA"
       },
       "away": {
         "tla": "AUS",
         "name": "Australia",
-        "iso2": "au"
+        "iso2": "au",
+        "code": "AUS"
       },
       "score": {
         "home": 2,
@@ -649,12 +707,14 @@
       "home": {
         "tla": "SCO",
         "name": "Scotland",
-        "iso2": "gb-sct"
+        "iso2": "gb-sct",
+        "code": "SCO"
       },
       "away": {
         "tla": "MAR",
         "name": "Morocco",
-        "iso2": "ma"
+        "iso2": "ma",
+        "code": "MAR"
       },
       "score": {
         "home": 0,
@@ -671,12 +731,14 @@
       "home": {
         "tla": "BRA",
         "name": "Brazil",
-        "iso2": "br"
+        "iso2": "br",
+        "code": "BRA"
       },
       "away": {
         "tla": "HAI",
         "name": "Haiti",
-        "iso2": "ht"
+        "iso2": "ht",
+        "code": "HTI"
       },
       "score": {
         "home": 3,
@@ -693,12 +755,14 @@
       "home": {
         "tla": "TUR",
         "name": "Turkey",
-        "iso2": "tr"
+        "iso2": "tr",
+        "code": "TUR"
       },
       "away": {
         "tla": "PAR",
         "name": "Paraguay",
-        "iso2": "py"
+        "iso2": "py",
+        "code": "PRY"
       },
       "score": {
         "home": 0,
@@ -715,12 +779,14 @@
       "home": {
         "tla": "NED",
         "name": "Netherlands",
-        "iso2": "nl"
+        "iso2": "nl",
+        "code": "NLD"
       },
       "away": {
         "tla": "SWE",
         "name": "Sweden",
-        "iso2": "se"
+        "iso2": "se",
+        "code": "SWE"
       },
       "score": {
         "home": 5,
@@ -737,12 +803,14 @@
       "home": {
         "tla": "GER",
         "name": "Germany",
-        "iso2": "de"
+        "iso2": "de",
+        "code": "DEU"
       },
       "away": {
         "tla": "CIV",
         "name": "Ivory Coast",
-        "iso2": "ci"
+        "iso2": "ci",
+        "code": "CIV"
       },
       "score": {
         "home": 2,
@@ -759,12 +827,14 @@
       "home": {
         "tla": "ECU",
         "name": "Ecuador",
-        "iso2": "ec"
+        "iso2": "ec",
+        "code": "ECU"
       },
       "away": {
         "tla": "CUW",
         "name": "Curaçao",
-        "iso2": "cw"
+        "iso2": "cw",
+        "code": "CUW"
       },
       "score": {
         "home": 0,
@@ -781,12 +851,14 @@
       "home": {
         "tla": "TUN",
         "name": "Tunisia",
-        "iso2": "tn"
+        "iso2": "tn",
+        "code": "TUN"
       },
       "away": {
         "tla": "JPN",
         "name": "Japan",
-        "iso2": "jp"
+        "iso2": "jp",
+        "code": "JPN"
       },
       "score": {
         "home": 0,
@@ -803,12 +875,14 @@
       "home": {
         "tla": "ESP",
         "name": "Spain",
-        "iso2": "es"
+        "iso2": "es",
+        "code": "ESP"
       },
       "away": {
         "tla": "KSA",
         "name": "Saudi Arabia",
-        "iso2": "sa"
+        "iso2": "sa",
+        "code": "SAU"
       },
       "score": {
         "home": 4,
@@ -825,12 +899,14 @@
       "home": {
         "tla": "BEL",
         "name": "Belgium",
-        "iso2": "be"
+        "iso2": "be",
+        "code": "BEL"
       },
       "away": {
         "tla": "IRN",
         "name": "Iran",
-        "iso2": "ir"
+        "iso2": "ir",
+        "code": "IRN"
       },
       "score": {
         "home": 0,
@@ -845,14 +921,16 @@
       "utcDate": "2026-06-21T22:00:00Z",
       "status": "FINISHED",
       "home": {
-        "tla": "URY",
+        "tla": "URU",
         "name": "Uruguay",
-        "iso2": "uy"
+        "iso2": "uy",
+        "code": "URY"
       },
       "away": {
         "tla": "CPV",
         "name": "Cape Verde",
-        "iso2": "cv"
+        "iso2": "cv",
+        "code": "CPV"
       },
       "score": {
         "home": 2,
@@ -869,12 +947,14 @@
       "home": {
         "tla": "NZL",
         "name": "New Zealand",
-        "iso2": "nz"
+        "iso2": "nz",
+        "code": "NZL"
       },
       "away": {
         "tla": "EGY",
         "name": "Egypt",
-        "iso2": "eg"
+        "iso2": "eg",
+        "code": "EGY"
       },
       "score": {
         "home": 1,
@@ -891,12 +971,14 @@
       "home": {
         "tla": "ARG",
         "name": "Argentina",
-        "iso2": "ar"
+        "iso2": "ar",
+        "code": "ARG"
       },
       "away": {
         "tla": "AUT",
         "name": "Austria",
-        "iso2": "at"
+        "iso2": "at",
+        "code": "AUT"
       },
       "score": {
         "home": 2,
@@ -913,12 +995,14 @@
       "home": {
         "tla": "FRA",
         "name": "France",
-        "iso2": "fr"
+        "iso2": "fr",
+        "code": "FRA"
       },
       "away": {
         "tla": "IRQ",
         "name": "Iraq",
-        "iso2": "iq"
+        "iso2": "iq",
+        "code": "IRQ"
       },
       "score": {
         "home": 3,
@@ -935,12 +1019,14 @@
       "home": {
         "tla": "NOR",
         "name": "Norway",
-        "iso2": "no"
+        "iso2": "no",
+        "code": "NOR"
       },
       "away": {
         "tla": "SEN",
         "name": "Senegal",
-        "iso2": "sn"
+        "iso2": "sn",
+        "code": "SEN"
       },
       "score": {
         "home": 3,
@@ -957,12 +1043,14 @@
       "home": {
         "tla": "JOR",
         "name": "Jordan",
-        "iso2": "jo"
+        "iso2": "jo",
+        "code": "JOR"
       },
       "away": {
         "tla": "ALG",
         "name": "Algeria",
-        "iso2": "dz"
+        "iso2": "dz",
+        "code": "DZA"
       },
       "score": {
         "home": 1,
@@ -979,12 +1067,14 @@
       "home": {
         "tla": "POR",
         "name": "Portugal",
-        "iso2": "pt"
+        "iso2": "pt",
+        "code": "PRT"
       },
       "away": {
         "tla": "UZB",
         "name": "Uzbekistan",
-        "iso2": "uz"
+        "iso2": "uz",
+        "code": "UZB"
       },
       "score": {
         "home": 5,
@@ -1001,12 +1091,14 @@
       "home": {
         "tla": "ENG",
         "name": "England",
-        "iso2": "gb-eng"
+        "iso2": "gb-eng",
+        "code": "ENG"
       },
       "away": {
         "tla": "GHA",
         "name": "Ghana",
-        "iso2": "gh"
+        "iso2": "gh",
+        "code": "GHA"
       },
       "score": {
         "home": 0,
@@ -1023,12 +1115,14 @@
       "home": {
         "tla": "PAN",
         "name": "Panama",
-        "iso2": "pa"
+        "iso2": "pa",
+        "code": "PAN"
       },
       "away": {
         "tla": "CRO",
         "name": "Croatia",
-        "iso2": "hr"
+        "iso2": "hr",
+        "code": "HRV"
       },
       "score": {
         "home": 0,
@@ -1045,12 +1139,14 @@
       "home": {
         "tla": "COL",
         "name": "Colombia",
-        "iso2": "co"
+        "iso2": "co",
+        "code": "COL"
       },
       "away": {
         "tla": "COD",
         "name": "Congo DR",
-        "iso2": "cd"
+        "iso2": "cd",
+        "code": "COD"
       },
       "score": {
         "home": 1,
@@ -1067,12 +1163,14 @@
       "home": {
         "tla": "SUI",
         "name": "Switzerland",
-        "iso2": "ch"
+        "iso2": "ch",
+        "code": "CHE"
       },
       "away": {
         "tla": "CAN",
         "name": "Canada",
-        "iso2": "ca"
+        "iso2": "ca",
+        "code": "CAN"
       },
       "score": {
         "home": 2,
@@ -1089,12 +1187,14 @@
       "home": {
         "tla": "BIH",
         "name": "Bosnia-H.",
-        "iso2": "ba"
+        "iso2": "ba",
+        "code": "BIH"
       },
       "away": {
         "tla": "QAT",
         "name": "Qatar",
-        "iso2": "qa"
+        "iso2": "qa",
+        "code": "QAT"
       },
       "score": {
         "home": 3,
@@ -1111,12 +1211,14 @@
       "home": {
         "tla": "MAR",
         "name": "Morocco",
-        "iso2": "ma"
+        "iso2": "ma",
+        "code": "MAR"
       },
       "away": {
         "tla": "HAI",
         "name": "Haiti",
-        "iso2": "ht"
+        "iso2": "ht",
+        "code": "HTI"
       },
       "score": {
         "home": 4,
@@ -1133,12 +1235,14 @@
       "home": {
         "tla": "SCO",
         "name": "Scotland",
-        "iso2": "gb-sct"
+        "iso2": "gb-sct",
+        "code": "SCO"
       },
       "away": {
         "tla": "BRA",
         "name": "Brazil",
-        "iso2": "br"
+        "iso2": "br",
+        "code": "BRA"
       },
       "score": {
         "home": 0,
@@ -1155,12 +1259,14 @@
       "home": {
         "tla": "CZE",
         "name": "Czechia",
-        "iso2": "cz"
+        "iso2": "cz",
+        "code": "CZE"
       },
       "away": {
         "tla": "MEX",
         "name": "Mexico",
-        "iso2": "mx"
+        "iso2": "mx",
+        "code": "MEX"
       },
       "score": {
         "home": 0,
@@ -1177,12 +1283,14 @@
       "home": {
         "tla": "RSA",
         "name": "South Africa",
-        "iso2": "za"
+        "iso2": "za",
+        "code": "ZAF"
       },
       "away": {
         "tla": "KOR",
         "name": "Korea Republic",
-        "iso2": "kr"
+        "iso2": "kr",
+        "code": "KOR"
       },
       "score": {
         "home": 1,
@@ -1195,21 +1303,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "utcDate": "2026-06-25T20:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "ECU",
         "name": "Ecuador",
-        "iso2": "ec"
+        "iso2": "ec",
+        "code": "ECU"
       },
       "away": {
         "tla": "GER",
         "name": "Germany",
-        "iso2": "de"
+        "iso2": "de",
+        "code": "DEU"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 2,
+        "away": 1,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -1217,21 +1327,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "utcDate": "2026-06-25T20:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "CUW",
         "name": "Curaçao",
-        "iso2": "cw"
+        "iso2": "cw",
+        "code": "CUW"
       },
       "away": {
         "tla": "CIV",
         "name": "Ivory Coast",
-        "iso2": "ci"
+        "iso2": "ci",
+        "code": "CIV"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 0,
+        "away": 2,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -1239,21 +1351,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
       "utcDate": "2026-06-25T23:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "TUN",
         "name": "Tunisia",
-        "iso2": "tn"
+        "iso2": "tn",
+        "code": "TUN"
       },
       "away": {
         "tla": "NED",
         "name": "Netherlands",
-        "iso2": "nl"
+        "iso2": "nl",
+        "code": "NLD"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 3,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -1261,21 +1375,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
       "utcDate": "2026-06-25T23:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "JPN",
         "name": "Japan",
-        "iso2": "jp"
+        "iso2": "jp",
+        "code": "JPN"
       },
       "away": {
         "tla": "SWE",
         "name": "Sweden",
-        "iso2": "se"
+        "iso2": "se",
+        "code": "SWE"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 1,
+        "winner": "DRAW"
       }
     },
     {
@@ -1283,21 +1399,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
       "utcDate": "2026-06-26T02:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "TUR",
         "name": "Turkey",
-        "iso2": "tr"
+        "iso2": "tr",
+        "code": "TUR"
       },
       "away": {
         "tla": "USA",
         "name": "USA",
-        "iso2": "us"
+        "iso2": "us",
+        "code": "USA"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 3,
+        "away": 2,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -1305,21 +1423,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
       "utcDate": "2026-06-26T02:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "PAR",
         "name": "Paraguay",
-        "iso2": "py"
+        "iso2": "py",
+        "code": "PRY"
       },
       "away": {
         "tla": "AUS",
         "name": "Australia",
-        "iso2": "au"
+        "iso2": "au",
+        "code": "AUS"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 0,
+        "away": 0,
+        "winner": "DRAW"
       }
     },
     {
@@ -1327,21 +1447,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
       "utcDate": "2026-06-26T19:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "NOR",
         "name": "Norway",
-        "iso2": "no"
+        "iso2": "no",
+        "code": "NOR"
       },
       "away": {
         "tla": "FRA",
         "name": "France",
-        "iso2": "fr"
+        "iso2": "fr",
+        "code": "FRA"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 4,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -1349,21 +1471,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
       "utcDate": "2026-06-26T19:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "SEN",
         "name": "Senegal",
-        "iso2": "sn"
+        "iso2": "sn",
+        "code": "SEN"
       },
       "away": {
         "tla": "IRQ",
         "name": "Iraq",
-        "iso2": "iq"
+        "iso2": "iq",
+        "code": "IRQ"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 5,
+        "away": 0,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -1371,21 +1495,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
       "utcDate": "2026-06-27T00:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
-        "tla": "URY",
+        "tla": "URU",
         "name": "Uruguay",
-        "iso2": "uy"
+        "iso2": "uy",
+        "code": "URY"
       },
       "away": {
         "tla": "ESP",
         "name": "Spain",
-        "iso2": "es"
+        "iso2": "es",
+        "code": "ESP"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 0,
+        "away": 1,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -1393,21 +1519,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
       "utcDate": "2026-06-27T00:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "CPV",
         "name": "Cape Verde",
-        "iso2": "cv"
+        "iso2": "cv",
+        "code": "CPV"
       },
       "away": {
         "tla": "KSA",
         "name": "Saudi Arabia",
-        "iso2": "sa"
+        "iso2": "sa",
+        "code": "SAU"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 0,
+        "away": 0,
+        "winner": "DRAW"
       }
     },
     {
@@ -1415,21 +1543,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
       "utcDate": "2026-06-27T03:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "NZL",
         "name": "New Zealand",
-        "iso2": "nz"
+        "iso2": "nz",
+        "code": "NZL"
       },
       "away": {
         "tla": "BEL",
         "name": "Belgium",
-        "iso2": "be"
+        "iso2": "be",
+        "code": "BEL"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 5,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -1437,21 +1567,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
       "utcDate": "2026-06-27T03:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "EGY",
         "name": "Egypt",
-        "iso2": "eg"
+        "iso2": "eg",
+        "code": "EGY"
       },
       "away": {
         "tla": "IRN",
         "name": "Iran",
-        "iso2": "ir"
+        "iso2": "ir",
+        "code": "IRN"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 1,
+        "winner": "DRAW"
       }
     },
     {
@@ -1459,21 +1591,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
       "utcDate": "2026-06-27T21:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "PAN",
         "name": "Panama",
-        "iso2": "pa"
+        "iso2": "pa",
+        "code": "PAN"
       },
       "away": {
         "tla": "ENG",
         "name": "England",
-        "iso2": "gb-eng"
+        "iso2": "gb-eng",
+        "code": "ENG"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 0,
+        "away": 2,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -1481,21 +1615,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
       "utcDate": "2026-06-27T21:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "CRO",
         "name": "Croatia",
-        "iso2": "hr"
+        "iso2": "hr",
+        "code": "HRV"
       },
       "away": {
         "tla": "GHA",
         "name": "Ghana",
-        "iso2": "gh"
+        "iso2": "gh",
+        "code": "GHA"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 2,
+        "away": 1,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -1503,21 +1639,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
       "utcDate": "2026-06-27T23:30:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "COL",
         "name": "Colombia",
-        "iso2": "co"
+        "iso2": "co",
+        "code": "COL"
       },
       "away": {
         "tla": "POR",
         "name": "Portugal",
-        "iso2": "pt"
+        "iso2": "pt",
+        "code": "PRT"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 0,
+        "away": 0,
+        "winner": "DRAW"
       }
     },
     {
@@ -1525,21 +1663,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
       "utcDate": "2026-06-27T23:30:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "COD",
         "name": "Congo DR",
-        "iso2": "cd"
+        "iso2": "cd",
+        "code": "COD"
       },
       "away": {
         "tla": "UZB",
         "name": "Uzbekistan",
-        "iso2": "uz"
+        "iso2": "uz",
+        "code": "UZB"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 3,
+        "away": 1,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -1547,21 +1687,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
       "utcDate": "2026-06-28T02:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "JOR",
         "name": "Jordan",
-        "iso2": "jo"
+        "iso2": "jo",
+        "code": "JOR"
       },
       "away": {
         "tla": "ARG",
         "name": "Argentina",
-        "iso2": "ar"
+        "iso2": "ar",
+        "code": "ARG"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 1,
+        "away": 3,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -1569,21 +1711,23 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
       "utcDate": "2026-06-28T02:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": {
         "tla": "ALG",
         "name": "Algeria",
-        "iso2": "dz"
+        "iso2": "dz",
+        "code": "DZA"
       },
       "away": {
         "tla": "AUT",
         "name": "Austria",
-        "iso2": "at"
+        "iso2": "at",
+        "code": "AUT"
       },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 3,
+        "away": 3,
+        "winner": "DRAW"
       }
     },
     {
@@ -1591,13 +1735,23 @@
       "stage": "LAST_32",
       "group": null,
       "utcDate": "2026-06-28T19:00:00Z",
-      "status": "TIMED",
-      "home": null,
-      "away": null,
+      "status": "FINISHED",
+      "home": {
+        "tla": "RSA",
+        "name": "South Africa",
+        "iso2": "za",
+        "code": "ZAF"
+      },
+      "away": {
+        "tla": "CAN",
+        "name": "Canada",
+        "iso2": "ca",
+        "code": "CAN"
+      },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 0,
+        "away": 1,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -1605,13 +1759,23 @@
       "stage": "LAST_32",
       "group": null,
       "utcDate": "2026-06-29T17:00:00Z",
-      "status": "TIMED",
-      "home": null,
-      "away": null,
+      "status": "FINISHED",
+      "home": {
+        "tla": "BRA",
+        "name": "Brazil",
+        "iso2": "br",
+        "code": "BRA"
+      },
+      "away": {
+        "tla": "JPN",
+        "name": "Japan",
+        "iso2": "jp",
+        "code": "JPN"
+      },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 2,
+        "away": 1,
+        "winner": "HOME_TEAM"
       }
     },
     {
@@ -1619,13 +1783,23 @@
       "stage": "LAST_32",
       "group": null,
       "utcDate": "2026-06-29T20:30:00Z",
-      "status": "TIMED",
-      "home": null,
-      "away": null,
+      "status": "FINISHED",
+      "home": {
+        "tla": "GER",
+        "name": "Germany",
+        "iso2": "de",
+        "code": "DEU"
+      },
+      "away": {
+        "tla": "PAR",
+        "name": "Paraguay",
+        "iso2": "py",
+        "code": "PRY"
+      },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 4,
+        "away": 5,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -1633,13 +1807,23 @@
       "stage": "LAST_32",
       "group": null,
       "utcDate": "2026-06-30T01:00:00Z",
-      "status": "TIMED",
-      "home": null,
-      "away": null,
+      "status": "FINISHED",
+      "home": {
+        "tla": "NED",
+        "name": "Netherlands",
+        "iso2": "nl",
+        "code": "NLD"
+      },
+      "away": {
+        "tla": "MAR",
+        "name": "Morocco",
+        "iso2": "ma",
+        "code": "MAR"
+      },
       "score": {
-        "home": null,
-        "away": null,
-        "winner": null
+        "home": 3,
+        "away": 4,
+        "winner": "AWAY_TEAM"
       }
     },
     {
@@ -1648,8 +1832,18 @@
       "group": null,
       "utcDate": "2026-06-30T17:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "CIV",
+        "name": "Ivory Coast",
+        "iso2": "ci",
+        "code": "CIV"
+      },
+      "away": {
+        "tla": "NOR",
+        "name": "Norway",
+        "iso2": "no",
+        "code": "NOR"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1662,8 +1856,18 @@
       "group": null,
       "utcDate": "2026-06-30T21:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "FRA",
+        "name": "France",
+        "iso2": "fr",
+        "code": "FRA"
+      },
+      "away": {
+        "tla": "SWE",
+        "name": "Sweden",
+        "iso2": "se",
+        "code": "SWE"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1676,8 +1880,18 @@
       "group": null,
       "utcDate": "2026-07-01T01:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "MEX",
+        "name": "Mexico",
+        "iso2": "mx",
+        "code": "MEX"
+      },
+      "away": {
+        "tla": "ECU",
+        "name": "Ecuador",
+        "iso2": "ec",
+        "code": "ECU"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1690,8 +1904,18 @@
       "group": null,
       "utcDate": "2026-07-01T16:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "ENG",
+        "name": "England",
+        "iso2": "gb-eng",
+        "code": "ENG"
+      },
+      "away": {
+        "tla": "COD",
+        "name": "Congo DR",
+        "iso2": "cd",
+        "code": "COD"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1704,8 +1928,18 @@
       "group": null,
       "utcDate": "2026-07-01T20:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "BEL",
+        "name": "Belgium",
+        "iso2": "be",
+        "code": "BEL"
+      },
+      "away": {
+        "tla": "SEN",
+        "name": "Senegal",
+        "iso2": "sn",
+        "code": "SEN"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1718,8 +1952,18 @@
       "group": null,
       "utcDate": "2026-07-02T00:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "USA",
+        "name": "USA",
+        "iso2": "us",
+        "code": "USA"
+      },
+      "away": {
+        "tla": "BIH",
+        "name": "Bosnia-H.",
+        "iso2": "ba",
+        "code": "BIH"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1732,8 +1976,18 @@
       "group": null,
       "utcDate": "2026-07-02T19:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "ESP",
+        "name": "Spain",
+        "iso2": "es",
+        "code": "ESP"
+      },
+      "away": {
+        "tla": "AUT",
+        "name": "Austria",
+        "iso2": "at",
+        "code": "AUT"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1746,8 +2000,18 @@
       "group": null,
       "utcDate": "2026-07-02T23:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "POR",
+        "name": "Portugal",
+        "iso2": "pt",
+        "code": "PRT"
+      },
+      "away": {
+        "tla": "CRO",
+        "name": "Croatia",
+        "iso2": "hr",
+        "code": "HRV"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1760,8 +2024,18 @@
       "group": null,
       "utcDate": "2026-07-03T03:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "SUI",
+        "name": "Switzerland",
+        "iso2": "ch",
+        "code": "CHE"
+      },
+      "away": {
+        "tla": "ALG",
+        "name": "Algeria",
+        "iso2": "dz",
+        "code": "DZA"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1774,8 +2048,18 @@
       "group": null,
       "utcDate": "2026-07-03T18:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "AUS",
+        "name": "Australia",
+        "iso2": "au",
+        "code": "AUS"
+      },
+      "away": {
+        "tla": "EGY",
+        "name": "Egypt",
+        "iso2": "eg",
+        "code": "EGY"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1788,8 +2072,18 @@
       "group": null,
       "utcDate": "2026-07-03T22:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "ARG",
+        "name": "Argentina",
+        "iso2": "ar",
+        "code": "ARG"
+      },
+      "away": {
+        "tla": "CPV",
+        "name": "Cape Verde",
+        "iso2": "cv",
+        "code": "CPV"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1802,8 +2096,18 @@
       "group": null,
       "utcDate": "2026-07-04T01:30:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "COL",
+        "name": "Colombia",
+        "iso2": "co",
+        "code": "COL"
+      },
+      "away": {
+        "tla": "GHA",
+        "name": "Ghana",
+        "iso2": "gh",
+        "code": "GHA"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1816,8 +2120,18 @@
       "group": null,
       "utcDate": "2026-07-04T17:00:00Z",
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": {
+        "tla": "CAN",
+        "name": "Canada",
+        "iso2": "ca",
+        "code": "CAN"
+      },
+      "away": {
+        "tla": "MAR",
+        "name": "Morocco",
+        "iso2": "ma",
+        "code": "MAR"
+      },
       "score": {
         "home": null,
         "away": null,
@@ -1830,7 +2144,12 @@
       "group": null,
       "utcDate": "2026-07-04T21:00:00Z",
       "status": "TIMED",
-      "home": null,
+      "home": {
+        "tla": "PAR",
+        "name": "Paraguay",
+        "iso2": "py",
+        "code": "PRY"
+      },
       "away": null,
       "score": {
         "home": null,
@@ -1844,7 +2163,12 @@
       "group": null,
       "utcDate": "2026-07-05T20:00:00Z",
       "status": "TIMED",
-      "home": null,
+      "home": {
+        "tla": "BRA",
+        "name": "Brazil",
+        "iso2": "br",
+        "code": "BRA"
+      },
       "away": null,
       "score": {
         "home": null,

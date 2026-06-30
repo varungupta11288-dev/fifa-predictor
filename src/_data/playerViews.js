@@ -56,13 +56,17 @@ module.exports = () => {
     JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'results', f)))
   );
   const matches = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'fixtures', 'matches.json')));
+  const schedulePath = path.join(ROOT, 'data', 'fixtures', 'schedule.json');
+  const scheduleMatches = fs.existsSync(schedulePath)
+    ? JSON.parse(fs.readFileSync(schedulePath)).matches
+    : null;
 
   // Index results by matchId for quick lookup
   const resultById = new Map(results.map(r => [r.matchId, r]));
-  // Pre-compute teams reaching each KO stage
+  // Pre-compute teams reaching each KO stage (includes drawn-but-unplayed fixtures)
   const reachedByStage = {};
   for (const { stage } of KO_STAGES) {
-    reachedByStage[stage] = teamsReachingStage(results, stage);
+    reachedByStage[stage] = teamsReachingStage(results, stage, scheduleMatches);
   }
   const champion = actualWinner(results);
   const teamByCode = buildTeamLookup();

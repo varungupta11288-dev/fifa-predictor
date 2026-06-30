@@ -17,13 +17,18 @@ module.exports = () => {
         .flatMap(f => JSON.parse(fs.readFileSync(path.join(resultsDir, f))))
     : [];
 
+  const schedulePath = path.join(fixturesDir, 'schedule.json');
+  const scheduleMatches = fs.existsSync(schedulePath)
+    ? JSON.parse(fs.readFileSync(schedulePath)).matches
+    : null;
+
   const fixtures = {
     teams: JSON.parse(fs.readFileSync(path.join(fixturesDir, 'teams.json'))),
     groups: JSON.parse(fs.readFileSync(path.join(fixturesDir, 'groups.json'))),
     matches: JSON.parse(fs.readFileSync(path.join(fixturesDir, 'matches.json'))),
   };
 
-  const ranked = score(predictions, results, fixtures);
+  const ranked = score(predictions, results, fixtures, { scheduleMatches });
   // Assign 1-based ranks with ties → equal rank (competition ranking, 1224)
   let lastPoints = null, lastRank = 0;
   ranked.forEach((row, i) => {

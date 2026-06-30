@@ -152,8 +152,12 @@ function main() {
     o[k] = JSON.parse(fs.readFileSync(path.join(fixturesDir, `${k}.json`)));
     return o;
   }, {});
+  const schedulePath = path.join(fixturesDir, 'schedule.json');
+  const scheduleMatches = fs.existsSync(schedulePath)
+    ? JSON.parse(fs.readFileSync(schedulePath)).matches
+    : null;
 
-  const leaderboard = score(predictions, allResults, fixtures);
+  const leaderboard = score(predictions, allResults, fixtures, { scheduleMatches });
   const top10 = leaderboard.slice(0, 10);
 
   // "Yesterday's" results = most recent results file. (For MVP / one-shot demo, this is just the
