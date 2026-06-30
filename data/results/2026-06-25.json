@@ -1,0 +1,62 @@
+[
+  {
+    "matchId": "G-A-5",
+    "stage": "group",
+    "home": "CZE",
+    "away": "MEX",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "MEX",
+    "actualDate": "2026-06-25"
+  },
+  {
+    "matchId": "G-A-6",
+    "stage": "group",
+    "home": "ZAF",
+    "away": "KOR",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "ZAF",
+    "actualDate": "2026-06-25"
+  },
+  {
+    "matchId": "G-E-5",
+    "stage": "group",
+    "home": "ECU",
+    "away": "DEU",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "ECU",
+    "actualDate": "2026-06-25"
+  },
+  {
+    "matchId": "G-E-6",
+    "stage": "group",
+    "home": "CUW",
+    "away": "CIV",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "CIV",
+    "actualDate": "2026-06-25"
+  },
+  {
+    "matchId": "G-F-5",
+    "stage": "group",
+    "home": "TUN",
+    "away": "NLD",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "NLD",
+    "actualDate": "2026-06-25"
+  },
+  {
+    "matchId": "G-F-6",
+    "stage": "group",
+    "home": "JPN",
+    "away": "SWE",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": null,
+    "actualDate": "2026-06-25"
+  }
+]

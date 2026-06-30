@@ -1,0 +1,22 @@
+[
+  {
+    "matchId": "KO-537423",
+    "stage": "r32",
+    "home": "BRA",
+    "away": "JPN",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "BRA",
+    "actualDate": "2026-06-29"
+  },
+  {
+    "matchId": "KO-537415",
+    "stage": "r32",
+    "home": "DEU",
+    "away": "PRY",
+    "homeScore": 4,
+    "awayScore": 5,
+    "winner": "PRY",
+    "actualDate": "2026-06-29"
+  }
+]

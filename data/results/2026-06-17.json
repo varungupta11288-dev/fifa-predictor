@@ -1,0 +1,52 @@
+[
+  {
+    "matchId": "G-J-1",
+    "stage": "group",
+    "home": "ARG",
+    "away": "DZA",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "ARG",
+    "actualDate": "2026-06-17"
+  },
+  {
+    "matchId": "G-J-2",
+    "stage": "group",
+    "home": "AUT",
+    "away": "JOR",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "AUT",
+    "actualDate": "2026-06-17"
+  },
+  {
+    "matchId": "G-K-1",
+    "stage": "group",
+    "home": "PRT",
+    "away": "COD",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": null,
+    "actualDate": "2026-06-17"
+  },
+  {
+    "matchId": "G-L-1",
+    "stage": "group",
+    "home": "ENG",
+    "away": "HRV",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "ENG",
+    "actualDate": "2026-06-17"
+  },
+  {
+    "matchId": "G-L-2",
+    "stage": "group",
+    "home": "GHA",
+    "away": "PAN",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "GHA",
+    "actualDate": "2026-06-17"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "matchId": "G-A-2",
+    "stage": "group",
+    "home": "KOR",
+    "away": "CZE",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "KOR",
+    "actualDate": "2026-06-12"
+  },
+  {
+    "matchId": "G-B-1",
+    "stage": "group",
+    "home": "CAN",
+    "away": "BIH",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": null,
+    "actualDate": "2026-06-12"
+  }
+]

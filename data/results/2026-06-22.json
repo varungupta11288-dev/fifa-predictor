@@ -1,0 +1,32 @@
+[
+  {
+    "matchId": "G-G-4",
+    "stage": "group",
+    "home": "NZL",
+    "away": "EGY",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "EGY",
+    "actualDate": "2026-06-22"
+  },
+  {
+    "matchId": "G-J-3",
+    "stage": "group",
+    "home": "ARG",
+    "away": "AUT",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "ARG",
+    "actualDate": "2026-06-22"
+  },
+  {
+    "matchId": "G-I-3",
+    "stage": "group",
+    "home": "FRA",
+    "away": "IRQ",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "FRA",
+    "actualDate": "2026-06-22"
+  }
+]

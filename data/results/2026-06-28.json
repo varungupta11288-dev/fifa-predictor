@@ -1,0 +1,32 @@
+[
+  {
+    "matchId": "G-J-5",
+    "stage": "group",
+    "home": "JOR",
+    "away": "ARG",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "ARG",
+    "actualDate": "2026-06-28"
+  },
+  {
+    "matchId": "G-J-6",
+    "stage": "group",
+    "home": "DZA",
+    "away": "AUT",
+    "homeScore": 3,
+    "awayScore": 3,
+    "winner": null,
+    "actualDate": "2026-06-28"
+  },
+  {
+    "matchId": "KO-537417",
+    "stage": "r32",
+    "home": "ZAF",
+    "away": "CAN",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "CAN",
+    "actualDate": "2026-06-28"
+  }
+]

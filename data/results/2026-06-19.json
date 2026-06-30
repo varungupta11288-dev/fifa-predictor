@@ -1,0 +1,32 @@
+[
+  {
+    "matchId": "G-A-3",
+    "stage": "group",
+    "home": "MEX",
+    "away": "KOR",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "MEX",
+    "actualDate": "2026-06-19"
+  },
+  {
+    "matchId": "G-D-3",
+    "stage": "group",
+    "home": "USA",
+    "away": "AUS",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "USA",
+    "actualDate": "2026-06-19"
+  },
+  {
+    "matchId": "G-C-3",
+    "stage": "group",
+    "home": "SCO",
+    "away": "MAR",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "MAR",
+    "actualDate": "2026-06-19"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "matchId": "G-D-1",
+    "stage": "group",
+    "home": "USA",
+    "away": "PRY",
+    "homeScore": 4,
+    "awayScore": 1,
+    "winner": "USA",
+    "actualDate": "2026-06-13"
+  },
+  {
+    "matchId": "G-B-2",
+    "stage": "group",
+    "home": "QAT",
+    "away": "CHE",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": null,
+    "actualDate": "2026-06-13"
+  },
+  {
+    "matchId": "G-C-1",
+    "stage": "group",
+    "home": "BRA",
+    "away": "MAR",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": null,
+    "actualDate": "2026-06-13"
+  }
+]

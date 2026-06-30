@@ -1,0 +1,82 @@
+[
+  {
+    "matchId": "G-H-5",
+    "stage": "group",
+    "home": "URY",
+    "away": "ESP",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "ESP",
+    "actualDate": "2026-06-27"
+  },
+  {
+    "matchId": "G-H-6",
+    "stage": "group",
+    "home": "CPV",
+    "away": "SAU",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": null,
+    "actualDate": "2026-06-27"
+  },
+  {
+    "matchId": "G-G-5",
+    "stage": "group",
+    "home": "NZL",
+    "away": "BEL",
+    "homeScore": 1,
+    "awayScore": 5,
+    "winner": "BEL",
+    "actualDate": "2026-06-27"
+  },
+  {
+    "matchId": "G-G-6",
+    "stage": "group",
+    "home": "EGY",
+    "away": "IRN",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": null,
+    "actualDate": "2026-06-27"
+  },
+  {
+    "matchId": "G-L-5",
+    "stage": "group",
+    "home": "PAN",
+    "away": "ENG",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "ENG",
+    "actualDate": "2026-06-27"
+  },
+  {
+    "matchId": "G-L-6",
+    "stage": "group",
+    "home": "HRV",
+    "away": "GHA",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "HRV",
+    "actualDate": "2026-06-27"
+  },
+  {
+    "matchId": "G-K-5",
+    "stage": "group",
+    "home": "COL",
+    "away": "PRT",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": null,
+    "actualDate": "2026-06-27"
+  },
+  {
+    "matchId": "G-K-6",
+    "stage": "group",
+    "home": "COD",
+    "away": "UZB",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "COD",
+    "actualDate": "2026-06-27"
+  }
+]
